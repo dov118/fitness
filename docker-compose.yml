@@ -55,4 +55,4 @@ services:
     environment:
       PMA_HOST: $DB_HOST
     ports:
-      - '4433:443'
+      - '4433:80'

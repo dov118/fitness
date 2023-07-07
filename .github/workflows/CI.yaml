@@ -22,8 +22,10 @@ jobs:
 
       - name: Install php requirements
         run: |
+          cd src
           composer install
 
       - name: Run test
         run: |
+          cd src
           php artisan test --coverage --min=90

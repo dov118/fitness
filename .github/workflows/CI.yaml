@@ -15,10 +15,16 @@ jobs:
       - name: Récupération du code
         uses: actions/checkout@v3.1.0
 
-      - uses: shivammathur/setup-php@v2
+      - name: Install php
+        uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2.7'
           tools: none
+
+      - name: Install npm
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: 18.12.1
 
       - name: Install php requirements
         run: |
@@ -35,3 +41,12 @@ jobs:
         run: |
           cd src
           php artisan test --coverage --min=90
+
+      - name: Install npm dependencies
+        run: |
+          cd src
+          npm ci
+
+      - name: Build assets
+        run: |
+          npm run build

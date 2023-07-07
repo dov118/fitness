@@ -24,7 +24,7 @@ jobs:
       - name: Install npm
         uses: actions/setup-node@v3.5.1
         with:
-          node-version: 18.12.1
+          node-version: 18.16.1
 
       - name: Install php requirements
         run: |

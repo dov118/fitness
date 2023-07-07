@@ -27,6 +27,7 @@ jobs:
 
       - name: Generate .env file
         run: |
+          cd src
           cp .env.example .env
           php artisan key:generate
 

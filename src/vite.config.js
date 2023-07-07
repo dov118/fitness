@@ -13,7 +13,7 @@ export default defineConfig({
             },
         }),
         laravel({
-            input: ['resources/scss/**/*.scss', 'resources/ts/**/*.ts'],
+            input: ['resources/scss/admin.scss', 'resources/ts/admin.ts'],
             refresh: true,
         }),
     ],

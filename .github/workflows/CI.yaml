@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "*"
+
+jobs:
+  ci:
+    name: CI
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    if: github.event.base_ref != 'refs/heads/main'
+    steps:
+      - name: Récupération du code
+        uses: actions/checkout@v3.1.0
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2.7'
+          tools: none
+
+      - name: Install php requirements
+        run: |
+          composer install
+
+      - name: Run test
+        run: |
+          php artisan test --coverage --min=90

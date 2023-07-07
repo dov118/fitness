@@ -9,6 +9,8 @@ class BroadcastServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
+     *
+     * @codeCoverageIgnore
      */
     public function boot(): void
     {

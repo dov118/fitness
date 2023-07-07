@@ -15,6 +15,11 @@ jobs:
       - name: Récupération du code
         uses: actions/checkout@v3.1.0
 
+      - name: Generate .env file
+        run: |
+          cp .env.example .env
+          php artisan key:generate
+
       - uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2.7'

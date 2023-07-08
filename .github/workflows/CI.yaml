@@ -31,6 +31,11 @@ jobs:
           cd src
           composer install
 
+      - name: Install npm dependencies
+        run: |
+          cd src
+          npm ci
+
       - name: Generate .env file
         run: |
           cd src
@@ -46,8 +51,3 @@ jobs:
         run: |
           cd src
           php artisan test --coverage --min=90
-
-      - name: Install npm dependencies
-        run: |
-          cd src
-          npm ci

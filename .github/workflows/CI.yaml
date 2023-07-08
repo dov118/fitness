@@ -37,6 +37,11 @@ jobs:
           cp .env.example .env
           php artisan key:generate
 
+      - name: Build assets
+        run: |
+          cd src
+          npm run build
+
       - name: Run test
         run: |
           cd src
@@ -46,8 +51,3 @@ jobs:
         run: |
           cd src
           npm ci
-
-      - name: Build assets
-        run: |
-          cd src
-          npm run build

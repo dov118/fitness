@@ -12,12 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('exercise_file', function (Blueprint $table) {
-            $table->id();
-
             $table->foreignId('exercise_id')->constrained('exercises');
             $table->foreignId('file_id')->constrained('files');
-
-            $table->timestamps();
         });
     }
 

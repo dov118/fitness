@@ -5,6 +5,8 @@ namespace Tests\Feature;
 use App\Models\Exercise;
 use App\Models\Group;
 use App\Models\Muscle;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -12,24 +14,51 @@ class MuscleTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_relations_works()
+    protected float $intensity;
+
+    protected Model $group;
+    protected Collection $exercises;
+    protected Model $muscle;
+    protected Model $result;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         // Create fake group
-        $group = Group::factory()->create();
+        $this->group = Group::factory()->create();
 
         // Create fake exercises
-        $exercises = Exercise::factory(10)->create();
+        $this->exercises = Exercise::factory(10)->create();
 
         // Create fake muscle
-        $muscle = Muscle::factory()->for($group)->hasAttached($exercises)->create();
+        $this->muscle = Muscle::factory()->for($this->group)->hasAttached($this->exercises)->create();
 
-        // Update models
-        $result = Muscle::with('exercises')->with('group')->find($muscle->id);
+        $this->intensity = fake()->randomFloat(2, 0, 1);
+        foreach ($this->exercises as $exercise) {
+            $this->muscle->setIntensity($exercise->id, $this->intensity);
+        }
 
-        $this->assertTrue($result->group->id === $group->id);
+        // Update model
+        $this->result = Muscle::with('exercises')->with('group')->find($this->muscle->id);
+    }
 
-        foreach ($result->exercises as $item) {
-            $this->assertTrue(in_array($item->id, $exercises->pluck('id')->toArray()));
+    public function test_the_group_relation_works()
+    {
+        $this->assertTrue($this->result->group->id === $this->group->id);
+    }
+
+    public function test_the_exercises_relation_works()
+    {
+        foreach ($this->result->exercises as $item) {
+            $this->assertTrue(in_array($item->id, $this->exercises->pluck('id')->toArray()));
+        }
+    }
+
+    public function test_the_intensity_return_correct_value()
+    {
+        foreach ($this->exercises as $exercise) {
+            $this->assertTrue($this->result->intensities[$exercise->id] === $this->intensity);
         }
     }
 }

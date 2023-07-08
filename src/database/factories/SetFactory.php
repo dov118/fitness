@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Equipment;
 use App\Models\Exercise;
+use App\Models\Session;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +20,14 @@ class SetFactory extends Factory
      */
     public function definition(): array
     {
+        $session = Session::with('sets')->find(fake()->randomElement(Session::all('id')))->first();
+        $start = Carbon::make($session->date)->add('minutes', fake()->numberBetween(0, 75));
+        $duration = fake()->randomFloat(2, 0, 300);
+
+        $warm_session = fake()->boolean(50);
+        $warm_set = fake()->boolean($warm_session ? 0 : 50);
+        $rest = fake()->boolean($warm_set || $warm_session ? 0 : 50);
+
         return [
             'index' => fake()->numberBetween(1, 20),
             'target' => fake()->numberBetween(6, 25),
@@ -32,6 +42,14 @@ class SetFactory extends Factory
             'comment' => fake()->realText(),
             'equipment_id' => fake()->randomElement(Equipment::all('id')),
             'exercise_id' => fake()->randomElement(Exercise::all('id')),
+            'session_id' => $session->id,
+            'order' => $session->sets->max('order') + 1,
+            'start' => $start,
+            'stop' => $start->add('seconds', $duration),
+            'duration' => $duration,
+            'warm_session' => $warm_session,
+            'warm_set' => $warm_set,
+            'rest' => $rest
         ];
     }
 }

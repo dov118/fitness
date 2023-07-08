@@ -30,8 +30,19 @@ return new class extends Migration
 
             $table->longText('comment')->nullable(false)->comment('Commentaire sur la série');
 
+            $table->integer('order')->nullable(false)->default(1)->comment('Ordre d\'execution');
+
+            $table->dateTime('start')->nullable(false)->default(now())->comment('Début de l\'étape');
+            $table->dateTime('stop')->nullable(false)->default(now()->add('minutes', 2))->comment('Fin de l\'étape');
+            $table->float('duration')->nullable(false)->default(27)->comment('Durée de l\'étape');
+
+            $table->boolean('warm_session')->nullable(false)->default(false)->comment('Si c\'est l\'echauffement de la séance');
+            $table->boolean('warm_set')->nullable(false)->default(false)->comment('Si c\'est l\'echauffement d\'un groupe musculaire');
+            $table->boolean('rest')->nullable(false)->default(true)->comment('Si c\'est une pause');
+
             $table->foreignId('equipment_id')->constrained('equipment');
             $table->foreignId('exercise_id')->constrained('exercises');
+            $table->foreignId('session_id')->constrained('sessions');
 
             $table->timestamps();
 

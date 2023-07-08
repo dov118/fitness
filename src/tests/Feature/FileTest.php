@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Exercise;
 use App\Models\File;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -11,19 +12,28 @@ class FileTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_relations_works()
+    protected Model $exercise;
+    protected Model $file;
+    protected Model $result;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         // Create fake exercise
-        $exercise = Exercise::factory()->create();
+        $this->exercise = Exercise::factory()->create();
 
         // Create fake file
-        $file = File::factory()->hasAttached($exercise)->create();
+        $this->file = File::factory()->hasAttached($this->exercise)->create();
 
         // Update models
-        $result = File::with('exercises')->find($file->id);
+        $this->result = File::with('exercises')->find($this->file->id);
+    }
 
-        foreach ($result->exercises as $item) {
-            $this->assertTrue($item->id === $exercise->id);
+    public function test_the_exercises_relation_works()
+    {
+        foreach ($this->result->exercises as $item) {
+            $this->assertTrue($item->id === $this->exercise->id);
         }
     }
 }

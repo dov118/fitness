@@ -10,6 +10,7 @@ use App\Models\Period;
 use App\Models\Session;
 use App\Models\Set;
 use App\Models\Type;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -17,39 +18,60 @@ class SetTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_relations_works()
+    protected Model $group;
+    protected Model $muscle;
+    protected Model $exercise;
+    protected Model $equipment;
+    protected Model $set;
+    protected Model $period;
+    protected Model $type;
+    protected Model $session;
+    protected Model $result;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         // Create fake group
-        $group = Group::factory()->create();
+        $this->group = Group::factory()->create();
 
-        // Create fake muscles
-        $muscles = Muscle::factory()->for($group)->create();
-
-        // Create fake exercise
-        $exercise = Exercise::factory()->hasAttached($muscles)->create();
+        // Create fake muscle
+        $this->muscle = Muscle::factory()->for($this->group)->create();
 
         // Create fake exercise
-        $equipment = Equipment::factory()->create();
+        $this->exercise = Exercise::factory()->hasAttached($this->muscle)->create();
 
-        // Create fake sets
-        $set = Set::factory()->for($exercise)->for($equipment)->create();
+        // Create fake exercise
+        $this->equipment = Equipment::factory()->create();
 
         // Create fake period
-        $period = Period::factory()->create();
+        $this->period = Period::factory()->create();
 
         // Create fake type
-        $type = Type::factory()->create();
+        $this->type = Type::factory()->create();
 
         // Create fake session
-        $session = Session::factory()->for($period)->for($type)->hasAttached($set)->create();
+        $this->session = Session::factory()->for($this->period)->for($this->type)->create();
 
-        // Update models
-        $result = Set::with('exercise')->with('equipment')->with('session')->find($set->id);
+        // Create fake set
+        $this->set = Set::factory()->for($this->exercise)->for($this->equipment)->for($this->session)->create();
 
-        $this->assertTrue($result->exercise->id === $exercise->id);
-        $this->assertTrue($result->equipment->id === $equipment->id);
-        foreach ($result->session as $item) {
-            $this->assertTrue($item->id === $session->id);
-        }
+        // Update model
+        $this->result = Set::with('exercise')->with('equipment')->with('session')->find($this->set->id);
+    }
+
+    public function test_the_exercise_relation_works()
+    {
+        $this->assertTrue($this->result->exercise->id === $this->exercise->id);
+    }
+
+    public function test_the_equipment_relation_works()
+    {
+        $this->assertTrue($this->result->equipment->id === $this->equipment->id);
+    }
+
+    public function test_the_session_relation_works()
+    {
+        $this->assertTrue($this->result->session->id === $this->session->id);
     }
 }

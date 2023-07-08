@@ -12,14 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('exercise_muscle', function (Blueprint $table) {
-            $table->id();
-
             $table->foreignId('muscle_id')->constrained('muscles');
             $table->foreignId('exercise_id')->constrained('exercises');
 
             $table->float('intensity')->nullable(false)->default(1)->comment('Intensité du travail par l\'exercice');
-
-            $table->timestamps();
 
             $table->comment('Liaison entre les muscles et les exercices');
         });

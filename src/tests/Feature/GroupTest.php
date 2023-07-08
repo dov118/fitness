@@ -4,6 +4,8 @@ namespace Tests\Feature;
 
 use App\Models\Group;
 use App\Models\Muscle;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -11,19 +13,28 @@ class GroupTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_relations_works()
+    protected Model $group;
+    protected Collection $muscles;
+    protected Model $result;
+
+    public function setUp(): void
     {
+        parent::setUp();
+
         // Create fake group
-        $group = Group::factory()->create();
+        $this->group = Group::factory()->create();
 
         // Create fake muscles
-        $muscles = Muscle::factory(10)->for($group)->create();
+        $this->muscles = Muscle::factory(10)->for($this->group)->create();
 
-        // Update models
-        $result = Group::with('muscles')->find($group->id);
+        // Update model
+        $this->result = Group::with('muscles')->find($this->group->id);
+    }
 
-        foreach ($result->muscles as $item) {
-            $this->assertTrue(in_array($item->id, $muscles->pluck('id')->toArray()));
+    public function test_the_muscles_relation_works()
+    {
+        foreach ($this->result->muscles as $item) {
+            $this->assertTrue(in_array($item->id, $this->muscles->pluck('id')->toArray()));
         }
     }
 }

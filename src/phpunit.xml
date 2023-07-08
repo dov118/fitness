@@ -15,7 +15,6 @@
     <source>
         <include>
             <directory suffix=".php">./app</directory>
-            <directory suffix=".php">./database</directory>
         </include>
     </source>
     <php>

@@ -11,6 +11,15 @@ class Group extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+    ];
+
+    /**
      * @return HasMany
      */
     public function muscles(): HasMany

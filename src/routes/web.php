@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\GroupController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::prefix('admin')->name('admin.')->group(callback: function () {
+    Route::get('/', [AdminDashboardController::class, 'index'])->name('index');
+
+    Route::resource('group', GroupController::class);
 });

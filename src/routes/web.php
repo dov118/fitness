@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\MuscleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,4 +30,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(callback: func
     Route::get('/', [AdminDashboardController::class, 'index'])->name('index');
 
     Route::resource('group', GroupController::class);
+    Route::resource('muscle', MuscleController::class);
 });

@@ -15,10 +15,10 @@
     <source>
         <include>
             <directory suffix=".php">./app</directory>
-<!--            <directory suffix=".php">./bootstrap</directory>-->
-<!--            <directory suffix=".php">./config</directory>-->
-<!--            <directory suffix=".php">./database</directory>-->
-<!--            <directory suffix=".php">./routes</directory>-->
+            <directory suffix=".php">./bootstrap</directory>
+            <directory suffix=".php">./config</directory>
+            <directory suffix=".php">./database</directory>
+            <directory suffix=".php">./routes</directory>
         </include>
     </source>
     <php>

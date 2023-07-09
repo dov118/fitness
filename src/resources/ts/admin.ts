@@ -1,4 +1,3 @@
-import * as $ from 'jquery';
 import ClickEvent = JQuery.ClickEvent;
 
 $(window).on('load', (): void => {

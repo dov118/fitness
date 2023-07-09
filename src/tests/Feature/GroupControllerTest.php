@@ -4,12 +4,22 @@ namespace Tests\Feature;
 
 use App\Models\Group;
 use App\Models\Muscle;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
 class GroupControllerTest extends TestCase
 {
     use RefreshDatabase;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $user = User::factory()->create();
+        Auth::login($user);
+    }
 
     public function test_the_admin_group_index_returns_a_successful_response(): void
     {

@@ -14,9 +14,11 @@
     @include('admin.partials.notification')
 
     <div class="d-flex p-4">
-        <div class="pr-4" style="max-width: 360px; flex-basis: 20%">
-            @include('admin.partials.sidenave')
-        </div>
+        @auth
+            <div class="pr-4" style="max-width: 360px; flex-basis: 20%">
+                @include('admin.partials.sidenave')
+            </div>
+        @endauth
 
         <div class="flex-auto">
             @yield('content')

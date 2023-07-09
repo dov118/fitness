@@ -41,6 +41,8 @@ jobs:
           cd src
           cp .env.example .env
           php artisan key:generate
+          cp .env .env.testing
+          sed -i -e "s/DISCORD_APPLICATION_ID=/DISCORD_APPLICATION_ID=DISCORD_APPLICATION_ID/g" .env.testing
 
       - name: Build assets
         run: |

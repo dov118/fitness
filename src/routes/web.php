@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminDashboardController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,7 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->name('admin.')->group(callback: function () {
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/login/discord', [LoginController::class, 'loginDiscord'])->name('login.discord');
+Route::get('/login/discord/oauth', [LoginController::class, 'loginDiscordOAuth'])->name('login.discord.oauth');
+Route::delete('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(callback: function () {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('index');
 
     Route::resource('group', GroupController::class);

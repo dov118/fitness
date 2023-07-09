@@ -1,4 +1,4 @@
-FROM dov118/laravel_image:1.0.1
+FROM dov118/laravel_image:1.0.3
 
 # Define workdir
 WORKDIR /var/www/html

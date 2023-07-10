@@ -28,8 +28,10 @@ Ne pas bouger les coudes, remonté à fond, 90°',
             'light_max' => 12,
             'duration' => 4,
         ]);
-        Muscle::find(13)->setIntensity($exercise->id, 1);
-        Muscle::find(14)->setIntensity($exercise->id, 0.25);
+        $exercise->muscles()->updateExistingPivot(13, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(14, ['intensity' => 0.25]);
+//        $exercise->muscles()->updateExistingPivot(13, ['intensity' => 1]);
+//        $exercise->muscles()->updateExistingPivot(14, ['intensity' => 0.25]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-decline-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-decline-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
             'name' => 'Développé décliné aux haltères',
@@ -41,8 +43,8 @@ Coude à 70° plus proche de 90°',
             'light_max' => 12,
             'duration' => 3.68,
         ]);
-        Muscle::find(13)->setIntensity($exercise->id, 0.5);
-        Muscle::find(14)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(13, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(14, ['intensity' => 1]);
 
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-militaire.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-militaire.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7])->get())->create([
@@ -54,8 +56,8 @@ Coude à 70° plus proche de 90°',
             'light_max' => 20,
             'duration' => 2.24,
         ]);
-        Muscle::find(6)->setIntensity($exercise->id, 1);
-        Muscle::find(7)->setIntensity($exercise->id, 0.5);
+        $exercise->muscles()->updateExistingPivot(6, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(7, ['intensity' => 0.5]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/elevations-laterales.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/elevations-laterales.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7, 8])->get())->create([
             'name' => 'Élévations latérales unilateral',
@@ -66,9 +68,9 @@ Coude à 70° plus proche de 90°',
             'light_max' => 20,
             'duration' => 4.04,
         ]);
-        Muscle::find(6)->setIntensity($exercise->id, 0.5);
-        Muscle::find(7)->setIntensity($exercise->id, 1);
-        Muscle::find(8)->setIntensity($exercise->id, 0.5);
+        $exercise->muscles()->updateExistingPivot(6, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(7, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(8, ['intensity' => 0.5]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/dips-sur-une-chaise.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/dips-sur-une-chaise.gif'))]))->hasAttached(Muscle::whereIn('id', [20, 21, 22])->get())->create([
             'name' => 'Dips',
@@ -81,9 +83,9 @@ Poignet neutre (au lieu de pronation pour la douleur)',
             'light_max' => 12,
             'duration' => 1.91,
         ]);
-        Muscle::find(20)->setIntensity($exercise->id, 1);
-        Muscle::find(21)->setIntensity($exercise->id, 0.5);
-        Muscle::find(22)->setIntensity($exercise->id, 0.5);
+        $exercise->muscles()->updateExistingPivot(20, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(21, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(22, ['intensity' => 0.5]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/extension-triceps-verticale-elastique.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/extension-triceps-verticale-elastique.gif'))]))->hasAttached(Muscle::whereIn('id', [20, 21, 22])->get())->create([
             'name' => 'Poulis',
@@ -95,9 +97,9 @@ Coudes sérré + bras vers l\'avant',
             'light_max' => 12,
             'duration' => 2.8,
         ]);
-        Muscle::find(20)->setIntensity($exercise->id, 1);
-        Muscle::find(21)->setIntensity($exercise->id, 0.25);
-        Muscle::find(22)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(20, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(21, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(22, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/tirage-vertical-prise-serree.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/tirage-vertical-prise-serree.gif'))]))->hasAttached(Muscle::whereIn('id', [15, 16])->get())->create([
             'name' => 'Tirrage vertical à l\'elastique',
@@ -110,8 +112,8 @@ prise supination',
             'light_max' => 15,
             'duration' => 2.6,
         ]);
-        Muscle::find(15)->setIntensity($exercise->id, 1);
-        Muscle::find(16)->setIntensity($exercise->id, 0.25);
+        $exercise->muscles()->updateExistingPivot(15, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(16, ['intensity' => 0.25]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/rowing-barre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/rowing-barre.gif'))]))->hasAttached(Muscle::whereIn('id', [15, 16])->get())->create([
             'name' => 'Rowing barre',
@@ -122,8 +124,8 @@ prise supination',
             'light_max' => 15,
             'duration' => 3.31,
         ]);
-        Muscle::find(15)->setIntensity($exercise->id, 0.5);
-        Muscle::find(16)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(15, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(16, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/face-pull.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/face-pull.gif'))]))->hasAttached(Muscle::whereIn('id', [7, 8])->get())->create([
             'name' => 'Face-pulls à l\'élastique',
@@ -135,8 +137,8 @@ prise supination',
             'light_max' => 20,
             'duration' => 3.09,
         ]);
-        Muscle::find(7)->setIntensity($exercise->id, 0.5);
-        Muscle::find(8)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(7, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(8, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/test.jpg', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/test.jpg'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
             'name' => 'Curl marteau croisé',
@@ -148,9 +150,9 @@ Monter poignet bien parallel au torce + monter jusqu\'en haut',
             'light_max' => 12,
             'duration' => 6.1,
         ]);
-        Muscle::find(18)->setIntensity($exercise->id, 1);
-        Muscle::find(19)->setIntensity($exercise->id, 0.25);
-        Muscle::find(20)->setIntensity($exercise->id, 0.25);
+        $exercise->muscles()->updateExistingPivot(18, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(19, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(20, ['intensity' => 0.25]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/curl-barre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/curl-barre.gif'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
             'name' => 'Curl à la barre avec une prise large',
@@ -161,9 +163,9 @@ Monter poignet bien parallel au torce + monter jusqu\'en haut',
             'light_max' => 12,
             'duration' => 3.74,
         ]);
-        Muscle::find(18)->setIntensity($exercise->id, 0.25);
-        Muscle::find(19)->setIntensity($exercise->id, 1);
-        Muscle::find(20)->setIntensity($exercise->id, 0.25);
+        $exercise->muscles()->updateExistingPivot(18, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(19, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(20, ['intensity' => 0.25]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/drag-curl-halteres-assis.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/drag-curl-halteres-assis.gif'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
             'name' => 'Drag curl',
@@ -174,9 +176,9 @@ Monter poignet bien parallel au torce + monter jusqu\'en haut',
             'light_max' => 12,
             'duration' => 5.19,
         ]);
-        Muscle::find(18)->setIntensity($exercise->id, 0.25);
-        Muscle::find(19)->setIntensity($exercise->id, 0.25);
-        Muscle::find(20)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(18, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(19, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(20, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/squat-bulgare-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/squat-bulgare-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [1, 3])->get())->create([
             'name' => 'Fentes bulgares',
@@ -189,8 +191,8 @@ Genoux pas de gauche droite',
             'light_max' => 12,
             'duration' => 4.61,
         ]);
-        Muscle::find(1)->setIntensity($exercise->id, 1);
-        Muscle::find(3)->setIntensity($exercise->id, 0.5);
+        $exercise->muscles()->updateExistingPivot(1, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(3, ['intensity' => 0.5]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/souleve-de-terre-jambes-tendues.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/souleve-de-terre-jambes-tendues.gif'))]))->hasAttached(Muscle::whereIn('id', [1, 2, 3])->get())->create([
             'name' => 'Soulevé de terre jambe tendue',
@@ -201,9 +203,9 @@ Genoux pas de gauche droite',
             'light_max' => 15,
             'duration' => 3.12,
         ]);
-        Muscle::find(1)->setIntensity($exercise->id, 0.5);
-        Muscle::find(2)->setIntensity($exercise->id, 1);
-        Muscle::find(3)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(1, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(2, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(3, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/extension-mollets-assis-machine.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/extension-mollets-assis-machine.gif'))]))->hasAttached(Muscle::whereIn('id', [4, 5])->get())->create([
             'name' => 'Extension Mollets Barre Assis',
@@ -214,8 +216,8 @@ Genoux pas de gauche droite',
             'light_max' => 25,
             'duration' => 2.77,
         ]);
-        Muscle::find(4)->setIntensity($exercise->id, 0.25);
-        Muscle::find(5)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(4, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(5, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/extension-mollets-sur-marche.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/extension-mollets-sur-marche.gif'))]))->hasAttached(Muscle::whereIn('id', [4, 5])->get())->create([
             'name' => 'Debout au bord d’un step unilaterale',
@@ -227,8 +229,8 @@ Ne plus changer le poid de coté',
             'light_max' => 15,
             'duration' => 6.08,
         ]);
-        Muscle::find(4)->setIntensity($exercise->id, 1);
-        Muscle::find(5)->setIntensity($exercise->id, 0.5);
+        $exercise->muscles()->updateExistingPivot(4, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(5, ['intensity' => 0.5]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/exercice-abdos-bicyclette.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/exercice-abdos-bicyclette.gif'))]))->hasAttached(Muscle::whereIn('id', [9, 10, 11, 12])->get())->create([
             'name' => 'Crunch bicyclette',
@@ -240,10 +242,10 @@ Contracter volontairement les muscles',
             'light_max' => 15,
             'duration' => 3.44,
         ]);
-        Muscle::find(9)->setIntensity($exercise->id, 1);
-        Muscle::find(10)->setIntensity($exercise->id, 1);
-        Muscle::find(11)->setIntensity($exercise->id, 0.25);
-        Muscle::find(12)->setIntensity($exercise->id, 0.25);
+        $exercise->muscles()->updateExistingPivot(9, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(10, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(11, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(12, ['intensity' => 0.25]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/planche-abdos.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/planche-abdos.gif'))]))->hasAttached(Muscle::whereIn('id', [9, 10, 11, 12])->get())->create([
             'name' => 'Gainage',
@@ -254,10 +256,10 @@ Contracter volontairement les muscles',
             'light_max' => 100,
             'duration' => 1,
         ]);
-        Muscle::find(9)->setIntensity($exercise->id, 0.5);
-        Muscle::find(10)->setIntensity($exercise->id, 0.5);
-        Muscle::find(11)->setIntensity($exercise->id, 0.5);
-        Muscle::find(12)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(9, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(10, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(11, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(12, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-incline-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-incline-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
             'name' => 'Développé incliné aux haltères',
@@ -272,8 +274,8 @@ Bien reculler les omoplate et bomber le torse',
             'light_max' => 0,
             'duration' => 3.16,
         ]);
-        Muscle::find(13)->setIntensity($exercise->id, 1);
-        Muscle::find(14)->setIntensity($exercise->id, 0.25);
+        $exercise->muscles()->updateExistingPivot(13, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(14, ['intensity' => 0.25]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/ecartes-decline-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/ecartes-decline-avec-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
             'name' => 'Écartés décliné aux haltères',
@@ -285,8 +287,8 @@ Coude niveau nombrile / milieu du torse',
             'light_max' => 0,
             'duration' => 4.73,
         ]);
-        Muscle::find(13)->setIntensity($exercise->id, 0.5);
-        Muscle::find(14)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(13, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(14, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-epaule-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-epaule-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7])->get())->create([
             'name' => 'Développé épaules haltères',
@@ -297,8 +299,8 @@ Coude niveau nombrile / milieu du torse',
             'light_max' => 0,
             'duration' => 3.12,
         ]);
-        Muscle::find(6)->setIntensity($exercise->id, 1);
-        Muscle::find(7)->setIntensity($exercise->id, 0.5);
+        $exercise->muscles()->updateExistingPivot(6, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(7, ['intensity' => 0.5]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/tirage-menton-machine-guidee.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/tirage-menton-machine-guidee.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7, 8])->get())->create([
             'name' => 'Rowing menton prise large',
@@ -310,9 +312,9 @@ Ne pas hausser les épaules (main just ext epaule)',
             'light_max' => 0,
             'duration' => 2.37,
         ]);
-        Muscle::find(6)->setIntensity($exercise->id, 0.5);
-        Muscle::find(7)->setIntensity($exercise->id, 1);
-        Muscle::find(8)->setIntensity($exercise->id, 0.5);
+        $exercise->muscles()->updateExistingPivot(6, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(7, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(8, ['intensity' => 0.5]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/kickback.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/kickback.gif'))]))->hasAttached(Muscle::whereIn('id', [20, 21, 22])->get())->create([
             'name' => 'Kickback',
@@ -324,9 +326,9 @@ Coudes sérré',
             'light_max' => 0,
             'duration' => 3.92,
         ]);
-        Muscle::find(20)->setIntensity($exercise->id, 0.25);
-        Muscle::find(21)->setIntensity($exercise->id, 1);
-        Muscle::find(22)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(20, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(21, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(22, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/rowing-halteres-banc-incline-prise-neutre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/rowing-halteres-banc-incline-prise-neutre.gif'))]))->hasAttached(Muscle::whereIn('id', [15, 16])->get())->create([
             'name' => 'Rowing haltères incliné',
@@ -341,8 +343,8 @@ prendre le plus loint possible',
             'light_max' => 0,
             'duration' => 2.93,
         ]);
-        Muscle::find(15)->setIntensity($exercise->id, 1);
-        Muscle::find(16)->setIntensity($exercise->id, 0.5);
+        $exercise->muscles()->updateExistingPivot(15, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(16, ['intensity' => 0.5]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/shrugs-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/shrugs-avec-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [16])->get())->create([
             'name' => 'Shrugs aux haltères',
@@ -353,7 +355,7 @@ prendre le plus loint possible',
             'light_max' => 0,
             'duration' => 3.94,
         ]);
-        Muscle::find(16)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(16, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/oiseau-assis-sur-banc.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/oiseau-assis-sur-banc.gif'))]))->hasAttached(Muscle::whereIn('id', [7, 8])->get())->create([
             'name' => 'Elevation arrière buste penché',
@@ -367,8 +369,8 @@ Ne pas bouger les omoplates (pousser en avant)',
             'light_max' => 0,
             'duration' => 1.69,
         ]);
-        Muscle::find(7)->setIntensity($exercise->id, 0.5);
-        Muscle::find(8)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(7, ['intensity' => 0.5]);
+        $exercise->muscles()->updateExistingPivot(8, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/curl-inverse-barre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/curl-inverse-barre.gif'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
             'name' => 'Curl barre Inversé',
@@ -382,9 +384,9 @@ poinget niveau epaule',
             'light_max' => 0,
             'duration' => 3.5,
         ]);
-        Muscle::find(18)->setIntensity($exercise->id, 1);
-        Muscle::find(19)->setIntensity($exercise->id, 0.25);
-        Muscle::find(20)->setIntensity($exercise->id, 0.25);
+        $exercise->muscles()->updateExistingPivot(18, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(19, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(20, ['intensity' => 0.25]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/curl-concentre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/curl-concentre.gif'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
             'name' => 'Curl Concentré',
@@ -395,9 +397,9 @@ poinget niveau epaule',
             'light_max' => 0,
             'duration' => 5.65,
         ]);
-        Muscle::find(18)->setIntensity($exercise->id, 0.25);
-        Muscle::find(19)->setIntensity($exercise->id, 1);
-        Muscle::find(20)->setIntensity($exercise->id, 0.25);
+        $exercise->muscles()->updateExistingPivot(18, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(19, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(20, ['intensity' => 0.25]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/test.jpg', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/test.jpg'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
             'name' => 'Curl barre',
@@ -408,9 +410,9 @@ poinget niveau epaule',
             'light_max' => 0,
             'duration' => 3.54,
         ]);
-        Muscle::find(18)->setIntensity($exercise->id, 0.25);
-        Muscle::find(19)->setIntensity($exercise->id, 0.25);
-        Muscle::find(20)->setIntensity($exercise->id, 1);
+        $exercise->muscles()->updateExistingPivot(18, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(19, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(20, ['intensity' => 1]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/fentes-avant.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/fentes-avant.gif'))]))->hasAttached(Muscle::whereIn('id', [1, 3])->get())->create([
             'name' => 'Fentes',
@@ -421,8 +423,8 @@ poinget niveau epaule',
             'light_max' => 0,
             'duration' => 5.83,
         ]);
-        Muscle::find(1)->setIntensity($exercise->id, 1);
-        Muscle::find(3)->setIntensity($exercise->id, 0.5);
+        $exercise->muscles()->updateExistingPivot(1, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(3, ['intensity' => 0.5]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/crunch-poulie-haute.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/crunch-poulie-haute.gif'))]))->hasAttached(Muscle::whereIn('id', [9, 10, 11, 12])->get())->create([
             'name' => 'Crunch poulie',
@@ -436,10 +438,10 @@ bien déscendre le torce',
             'light_max' => 0,
             'duration' => 1.96,
         ]);
-        Muscle::find(9)->setIntensity($exercise->id, 1);
-        Muscle::find(10)->setIntensity($exercise->id, 1);
-        Muscle::find(11)->setIntensity($exercise->id, 0.25);
-        Muscle::find(12)->setIntensity($exercise->id, 0.25);
+        $exercise->muscles()->updateExistingPivot(9, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(10, ['intensity' => 1]);
+        $exercise->muscles()->updateExistingPivot(11, ['intensity' => 0.25]);
+        $exercise->muscles()->updateExistingPivot(12, ['intensity' => 0.25]);
         Schema::enableForeignKeyConstraints();
     }
 }

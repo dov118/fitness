@@ -30,9 +30,9 @@
                     <div class="text-small color-fg-subtle">
                         @foreach($exercise->muscles as $muscle)
                             <a href="{{ route('admin.muscle.show', $muscle) }}">
-                                @if ($muscle->intensities[$exercise->id] == 1)
+                                @if ($muscle->pivot->intensity == 1)
                                     <span class="Label mr-1 mt-2 Label--success">{{ $muscle->name }}</span>
-                                @elseif($muscle->intensities[$exercise->id] === 0.5)
+                                @elseif($muscle->pivot->intensity === 0.5)
                                     <span class="Label mr-1 mt-2 Label--accent">{{ $muscle->name }}</span>
                                 @else
                                     <span class="Label mr-1 mt-2 Label--danger">{{ $muscle->name }}</span>

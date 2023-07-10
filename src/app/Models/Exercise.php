@@ -38,6 +38,6 @@ class Exercise extends Model
 
     public function muscles(): BelongsToMany
     {
-        return $this->belongsToMany(Muscle::class);
+        return $this->belongsToMany(Muscle::class)->withPivot('intensity');
     }
 }

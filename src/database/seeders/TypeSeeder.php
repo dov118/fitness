@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Type;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
 
 class TypeSeeder extends Seeder
 {
@@ -13,7 +12,6 @@ class TypeSeeder extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
         Type::factory()->create([
             'id' => 1,
             'name' => 'Push light',
@@ -55,6 +53,5 @@ class TypeSeeder extends Seeder
             'light' => false,
             'heavy' => true,
         ]);
-        Schema::enableForeignKeyConstraints();
     }
 }

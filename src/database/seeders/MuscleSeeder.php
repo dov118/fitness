@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Group;
 use App\Models\Muscle;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
 
 class MuscleSeeder extends Seeder
 {
@@ -14,8 +13,6 @@ class MuscleSeeder extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
-
         Muscle::factory()->for(Group::find(6))->create([
             'id' => 1,
             'name' => 'Quadriceps',
@@ -257,7 +254,5 @@ class MuscleSeeder extends Seeder
             'fiber_type' => 1,
             'max' => 1,
         ]);
-
-        Schema::enableForeignKeyConstraints();
     }
 }

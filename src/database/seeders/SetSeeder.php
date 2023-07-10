@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Set;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
 
 class SetSeeder extends Seeder
 {
@@ -13,8 +12,6 @@ class SetSeeder extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
         Set::factory(10)->create();
-        Schema::enableForeignKeyConstraints();
     }
 }

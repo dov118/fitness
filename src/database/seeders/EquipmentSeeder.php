@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Equipment;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
 
 class EquipmentSeeder extends Seeder
 {
@@ -146,10 +145,8 @@ class EquipmentSeeder extends Seeder
             }
         }
 
-        Schema::disableForeignKeyConstraints();
         foreach ($equipments as $equipment) {
             Equipment::factory()->create($equipment);
         }
-        Schema::enableForeignKeyConstraints();
     }
 }

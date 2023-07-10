@@ -6,7 +6,6 @@ use App\Models\Exercise;
 use App\Models\File;
 use App\Models\Muscle;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Schema;
 
 class ExerciseSeeder extends Seeder
 {
@@ -15,7 +14,6 @@ class ExerciseSeeder extends Seeder
      */
     public function run(): void
     {
-        Schema::disableForeignKeyConstraints();
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/ecartes-incline-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/ecartes-incline-avec-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
             'name' => 'Écartés incliné aux haltères',
             'guideline' => 'Prise sérrée / préférer haltère / incliné
@@ -440,6 +438,5 @@ bien déscendre le torce',
         $exercise->muscles()->updateExistingPivot(10, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(11, ['intensity' => 0.25]);
         $exercise->muscles()->updateExistingPivot(12, ['intensity' => 0.25]);
-        Schema::enableForeignKeyConstraints();
     }
 }

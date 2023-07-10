@@ -19,7 +19,8 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2.8'
-          tools: none
+          tools: phpunit
+          extensions: xdebug-beta
 
       - name: Install npm
         uses: actions/setup-node@v3.5.1

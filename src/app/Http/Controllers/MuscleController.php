@@ -44,7 +44,9 @@ class MuscleController extends Controller
         $validated = $request->validated();
         Muscle::create($validated);
 
-        return to_route('admin.muscle.index')->with('notification_type', 'success')->with('notification_message', 'Muscle successfully created');
+        return to_route('admin.muscle.index')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Muscle successfully created');
     }
 
     /**
@@ -77,7 +79,9 @@ class MuscleController extends Controller
         $validated = $request->validated();
         $muscle->update($validated);
 
-        return to_route('admin.muscle.index')->with('notification_type', 'success')->with('notification_message', 'Muscle successfully updated');
+        return to_route('admin.muscle.index')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Muscle successfully updated');
     }
 
     /**
@@ -86,11 +90,15 @@ class MuscleController extends Controller
     public function destroy(Muscle $muscle): RedirectResponse
     {
         if ($muscle->exercises()->exists()) {
-            return to_route('admin.muscle.index')->with('notification_type', 'error')->with('notification_message', 'Muscle have attached exercise. It can\'t be deleted');
+            return to_route('admin.muscle.index')
+                ->with('notification_type', 'error')
+                ->with('notification_message', 'Muscle have attached exercise. It can\'t be deleted');
         }
 
         $muscle->delete();
 
-        return to_route('admin.muscle.index')->with('notification_type', 'success')->with('notification_message', 'Muscle successfully deleted');
+        return to_route('admin.muscle.index')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Muscle successfully deleted');
     }
 }

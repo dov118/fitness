@@ -20,7 +20,10 @@ class ExerciseController extends Controller
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.exercise.index', [
-            'exercises' => Exercise::with('files')->with('muscles', fn ($query) => $query->orderBy('intensity', 'desc'))->get()->all(),
+            'exercises' => Exercise::with('files')
+                ->with('muscles', fn ($query) => $query->orderBy('intensity', 'desc'))
+                ->get()
+                ->all(),
             'muscles' => Muscle::all(),
             'groups' => Group::all(),
         ]);
@@ -44,7 +47,9 @@ class ExerciseController extends Controller
         $validated = $request->validated();
         Exercise::create($validated);
 
-        return to_route('admin.exercise.index')->with('notification_type', 'success')->with('notification_message', 'Exercise successfully created');
+        return to_route('admin.exercise.index')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Exercise successfully created');
     }
 
     /**
@@ -75,7 +80,9 @@ class ExerciseController extends Controller
         $validated = $request->validated();
         $exercise->update($validated);
 
-        return to_route('admin.exercise.index')->with('notification_type', 'success')->with('notification_message', 'Exercise successfully updated');
+        return to_route('admin.exercise.index')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Exercise successfully updated');
     }
 
     /**
@@ -85,6 +92,8 @@ class ExerciseController extends Controller
     {
         $exercise->delete();
 
-        return to_route('admin.exercise.index')->with('notification_type', 'success')->with('notification_message', 'Exercise successfully deleted');
+        return to_route('admin.exercise.index')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Exercise successfully deleted');
     }
 }

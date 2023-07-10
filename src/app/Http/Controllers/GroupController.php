@@ -42,7 +42,9 @@ class GroupController extends Controller
         $validated = $request->validated();
         Group::create($validated);
 
-        return to_route('admin.group.index')->with('notification_type', 'success')->with('notification_message', 'Muscle group successfully created');
+        return to_route('admin.group.index')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Muscle group successfully created');
     }
 
     /**
@@ -73,7 +75,9 @@ class GroupController extends Controller
         $validated = $request->validated();
         $group->update($validated);
 
-        return to_route('admin.group.index')->with('notification_type', 'success')->with('notification_message', 'Muscle group successfully updated');
+        return to_route('admin.group.index')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Muscle group successfully updated');
     }
 
     /**
@@ -82,11 +86,15 @@ class GroupController extends Controller
     public function destroy(Group $group): RedirectResponse
     {
         if ($group->muscles()->exists()) {
-            return to_route('admin.group.index')->with('notification_type', 'error')->with('notification_message', 'Muscle group have attached muscle. It can\'t be deleted');
+            return to_route('admin.group.index')
+                ->with('notification_type', 'error')
+                ->with('notification_message', 'Muscle group have attached muscle. It can\'t be deleted');
         }
 
         $group->delete();
 
-        return to_route('admin.group.index')->with('notification_type', 'success')->with('notification_message', 'Muscle group successfully deleted');
+        return to_route('admin.group.index')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Muscle group successfully deleted');
     }
 }

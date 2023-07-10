@@ -102,6 +102,8 @@ class LoginController extends Controller
     {
         Auth::logout();
 
-        return to_route('login')->with('notification_type', 'success')->with('notification_message', 'Logout succeeded');
+        return to_route('login')
+            ->with('notification_type', 'success')
+            ->with('notification_message', 'Logout succeeded');
     }
 }

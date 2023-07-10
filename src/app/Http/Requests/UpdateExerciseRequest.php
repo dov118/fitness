@@ -26,7 +26,11 @@ class UpdateExerciseRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:64', Rule::unique(app(Exercise::class)->getTable(), 'name')->ignore($this->exercise)],
+            'name' => [
+                'required',
+                'max:64',
+                Rule::unique(app(Exercise::class)->getTable(), 'name')->ignore($this->exercise)
+            ],
             'guideline' => ['max:4294967295', 'string'],
             'heavy_min' => ['integer'],
             'heavy_max' => ['integer'],

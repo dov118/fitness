@@ -14,10 +14,22 @@ return new class extends Migration
         Schema::create('periods', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name')->unique('period_name')->nullable(false)->default('')->comment('Nom du cycle');
+            $table->string('name')
+                ->unique('period_name')
+                ->nullable(false)
+                ->default('')
+                ->comment('Nom du cycle');
 
-            $table->dateTime('start')->unique('start')->nullable(false)->default(now())->comment('Date de début du cycle');
-            $table->dateTime('stop')->unique('stop')->nullable(false)->default(now()->add('days', 5))->comment('Date de fin du cycle');
+            $table->dateTime('start')
+                ->unique('start')
+                ->nullable(false)
+                ->default(now())
+                ->comment('Date de début du cycle');
+            $table->dateTime('stop')
+                ->unique('stop')
+                ->nullable(false)
+                ->default(now()->add('days', 5))
+                ->comment('Date de fin du cycle');
 
             $table->timestamps();
 

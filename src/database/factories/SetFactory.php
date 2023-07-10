@@ -24,9 +24,9 @@ class SetFactory extends Factory
         $start = Carbon::make($session->date)->add('minutes', fake()->numberBetween(0, 75));
         $duration = fake()->randomFloat(2, 0, 300);
 
-        $warm_session = fake()->boolean(50);
-        $warm_set = fake()->boolean($warm_session ? 0 : 50);
-        $rest = fake()->boolean($warm_set || $warm_session ? 0 : 50);
+        $warmSession = fake()->boolean(50);
+        $warmSet = fake()->boolean($warmSession ? 0 : 50);
+        $rest = fake()->boolean($warmSet || $warmSession ? 0 : 50);
 
         return [
             'index' => fake()->numberBetween(1, 20),
@@ -47,8 +47,8 @@ class SetFactory extends Factory
             'start' => $start,
             'stop' => $start->add('seconds', $duration),
             'duration' => $duration,
-            'warm_session' => $warm_session,
-            'warm_set' => $warm_set,
+            'warm_session' => $warmSession,
+            'warm_set' => $warmSet,
             'rest' => $rest
         ];
     }

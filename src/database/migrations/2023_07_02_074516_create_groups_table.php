@@ -14,7 +14,11 @@ return new class extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', 64)->unique('name')->nullable(false)->default('')->comment('Nom du groupe musculaire');
+            $table->string('name', 64)
+                ->unique('name')
+                ->nullable(false)
+                ->default('')
+                ->comment('Nom du groupe musculaire');
 
             $table->timestamps();
 

@@ -93,7 +93,8 @@ class EquipmentSeeder extends Seeder
                     ];
 
                     for ($i2_5 = 0; $i2_5 < (int)(constant('App\Models\Equipment::_2_5_COUNT')) + 1; $i2_5++) {
-                        $total2_5 = (float)(constant('App\Models\Equipment::_2_5_WEIGHT')) * ($i2_5*2) + $total0_5 + $total1_25;
+                        $total2_5 = (float)(constant('App\Models\Equipment::_2_5_WEIGHT'))
+                            * ($i2_5*2) + $total0_5 + $total1_25;
                         $total = (float)constant('App\Models\Equipment::'.$empty.'_WEIGHT') + ($total2_5);
 
                         $name = $total . 'kg';
@@ -117,7 +118,8 @@ class EquipmentSeeder extends Seeder
                         ];
 
                         for ($i5 = 0; $i5 < (int)(constant('App\Models\Equipment::_5_COUNT')) + 1; $i5++) {
-                            $total5 = (float)(constant('App\Models\Equipment::_5_WEIGHT')) * ($i5*2) + $total0_5 + $total1_25 + $total2_5;
+                            $total5 = (float)(constant('App\Models\Equipment::_5_WEIGHT'))
+                                * ($i5*2) + $total0_5 + $total1_25 + $total2_5;
                             $total = (float)constant('App\Models\Equipment::'.$empty.'_WEIGHT') + ($total5);
 
                             $name = $total . 'kg';

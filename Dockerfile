@@ -5,7 +5,6 @@ WORKDIR /var/www/html
 
 # Define exposed port
 EXPOSE 443
-## TODO rendre le port dynamique
 
 # Copy source files
 COPY src/ .

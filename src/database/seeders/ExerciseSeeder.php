@@ -30,8 +30,6 @@ Ne pas bouger les coudes, remonté à fond, 90°',
         ]);
         $exercise->muscles()->updateExistingPivot(13, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(14, ['intensity' => 0.25]);
-//        $exercise->muscles()->updateExistingPivot(13, ['intensity' => 1]);
-//        $exercise->muscles()->updateExistingPivot(14, ['intensity' => 0.25]);
 
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-decline-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-decline-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
             'name' => 'Développé décliné aux haltères',

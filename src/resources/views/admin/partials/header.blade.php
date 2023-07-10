@@ -9,7 +9,12 @@
             <details class="details-reset details-overlay">
                 <summary aria-haspopup="true">
                     <div class="Header-item mr-0">
-                        <img class="avatar" height="20" alt="@octocat" src="https://cdn.discordapp.com/avatars/{{ Auth::user()->id }}/{{ Auth::user()->avatar }}.webp" width="20">
+                        <img
+                            class="avatar"
+                            height="20"
+                            alt="@octocat"
+                            src="https://cdn.discordapp.com/avatars/{{Auth::user()->id}}/{{Auth::user()->avatar}}.webp"
+                            width="20">
                     </div>
                 </summary>
                 <div class="SelectMenu right-0">

@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('equipment', function (Blueprint $table) { // TODO à changer en equipments
             $table->id();
 
-            $table->string('name', 64)->nullable(false)->default('')
-                ->unique('equipment_name')
-                ->comment('Nom du materiel');
+            $table->string('name', 64)->nullable(false)->default('')->unique('equipment_name')->comment('Nom du materiel');
             $table->float('weight')->nullable(false)->default(1.5)->comment('Poid');
 
             $table->integer('full2_5')->nullable(false)->default(0)->comment('Nombre d\'haltère de 2.5kg nécéssaire');

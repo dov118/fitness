@@ -160,10 +160,7 @@ class LoginControllerTest extends TestCase
         $this->assertTrue(!Auth::hasUser());
 
         foreach (Route::getRoutes()->getRoutes() as $route) {
-            if (str_contains($route->getControllerClass(), 'App\Http\Controllers') &&
-                str_contains($route->getName(), 'admin.') &&
-                str_contains($route->getName(), '.index')
-            ) {
+            if (str_contains($route->getControllerClass(), 'App\Http\Controllers') && str_contains($route->getName(), 'admin.') && str_contains($route->getName(), '.index')) {
                 $response = $this->get(route($route->getName()));
                 $response->assertRedirect(route('login'));
             }

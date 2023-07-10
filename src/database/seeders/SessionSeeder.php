@@ -7,6 +7,7 @@ use App\Models\Session;
 use App\Models\Type;
 use Carbon\CarbonInterface;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class SessionSeeder extends Seeder
 {
@@ -15,6 +16,7 @@ class SessionSeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
         foreach ([25, 26] as $week) {
             for ($order = 1; $order < 7; $order++) {
                 Session::factory()->for(Type::find($order))->for(Period::find($week))->create([
@@ -23,5 +25,6 @@ class SessionSeeder extends Seeder
                 ]);
             }
         }
+        Schema::enableForeignKeyConstraints();
     }
 }

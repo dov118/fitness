@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Group;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class GroupSeeder extends Seeder
 {
@@ -12,6 +13,7 @@ class GroupSeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
         foreach ([
             1 => 'Pectoraux',
             2 => 'Epaules',
@@ -27,5 +29,6 @@ class GroupSeeder extends Seeder
                 'name' => $name
             ]);
         }
+        Schema::enableForeignKeyConstraints();
     }
 }

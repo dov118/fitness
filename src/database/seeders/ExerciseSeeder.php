@@ -6,6 +6,7 @@ use App\Models\Exercise;
 use App\Models\File;
 use App\Models\Muscle;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class ExerciseSeeder extends Seeder
 {
@@ -14,14 +15,17 @@ class ExerciseSeeder extends Seeder
      */
     public function run(): void
     {
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => $this->getFile('ecartes-incline-avec-halteres.gif')]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
+        Schema::disableForeignKeyConstraints();
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/ecartes-incline-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/ecartes-incline-avec-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
             'name' => 'Écartés incliné aux haltères',
             'guideline' => 'Prise sérrée / préférer haltère / incliné
 Coudes assez proches du torse
 Poignet a hauteur de pec
 Ne pas bouger les coudes, remonté à fond, 90°',
-            'heavy_min' => 0, 'heavy_max' => 0,
-            'light_min' => 10, 'light_max' => 12,
+            'heavy_min' => 0,
+            'heavy_max' => 0,
+            'light_min' => 10,
+            'light_max' => 12,
             'duration' => 4,
         ]);
         $exercise->muscles()->updateExistingPivot(13, ['intensity' => 1]);
@@ -31,8 +35,10 @@ Ne pas bouger les coudes, remonté à fond, 90°',
             'name' => 'Développé décliné aux haltères',
             'guideline' => 'Limiter les mouement au niveau des coude
 Coude à 70° plus proche de 90°',
-            'heavy_min' => 0, 'heavy_max' => 0,
-            'light_min' => 10, 'light_max' => 12,
+            'heavy_min' => 0,
+            'heavy_max' => 0,
+            'light_min' => 10,
+            'light_max' => 12,
             'duration' => 3.68,
         ]);
         $exercise->muscles()->updateExistingPivot(13, ['intensity' => 0.5]);
@@ -42,8 +48,10 @@ Coude à 70° plus proche de 90°',
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-militaire.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-militaire.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7])->get())->create([
             'name' => 'Développé militaire',
             'guideline' => '',
-            'heavy_min' => 0, 'heavy_max' => 0,
-            'light_min' => 15, 'light_max' => 20,
+            'heavy_min' => 0,
+            'heavy_max' => 0,
+            'light_min' => 15,
+            'light_max' => 20,
             'duration' => 2.24,
         ]);
         $exercise->muscles()->updateExistingPivot(6, ['intensity' => 1]);
@@ -52,8 +60,10 @@ Coude à 70° plus proche de 90°',
         $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/elevations-laterales.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/elevations-laterales.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7, 8])->get())->create([
             'name' => 'Élévations latérales unilateral',
             'guideline' => 'tirer omoplate et clavicule en arriere',
-            'heavy_min' => 0, 'heavy_max' => 0,
-            'light_min' => 15, 'light_max' => 20,
+            'heavy_min' => 0,
+            'heavy_max' => 0,
+            'light_min' => 15,
+            'light_max' => 20,
             'duration' => 4.04,
         ]);
         $exercise->muscles()->updateExistingPivot(6, ['intensity' => 0.5]);
@@ -65,8 +75,10 @@ Coude à 70° plus proche de 90°',
             'guideline' => 'Coude décollé
 Genoux pas plié
 Poignet neutre (au lieu de pronation pour la douleur)',
-            'heavy_min' => 6, 'heavy_max' => 8,
-            'light_min' => 10, 'light_max' => 12,
+            'heavy_min' => 6,
+            'heavy_max' => 8,
+            'light_min' => 10,
+            'light_max' => 12,
             'duration' => 1.91,
         ]);
         $exercise->muscles()->updateExistingPivot(20, ['intensity' => 1]);
@@ -428,10 +440,6 @@ bien déscendre le torce',
         $exercise->muscles()->updateExistingPivot(10, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(11, ['intensity' => 0.25]);
         $exercise->muscles()->updateExistingPivot(12, ['intensity' => 0.25]);
-    }
-
-    public function getFile(string $name): string
-    {
-        return 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/' . $name, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/' . $name));
+        Schema::enableForeignKeyConstraints();
     }
 }

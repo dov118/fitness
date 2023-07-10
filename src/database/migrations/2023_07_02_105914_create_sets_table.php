@@ -36,10 +36,8 @@ return new class extends Migration
             $table->dateTime('stop')->nullable(false)->default(now()->add('minutes', 2))->comment('Fin de l\'étape');
             $table->float('duration')->nullable(false)->default(27)->comment('Durée de l\'étape');
 
-            $table->boolean('warm_session')->nullable(false)->default(false)
-                ->comment('Si c\'est l\'echauffement de la séance');
-            $table->boolean('warm_set')->nullable(false)->default(false)
-                ->comment('Si c\'est l\'echauffement d\'un groupe musculaire');
+            $table->boolean('warm_session')->nullable(false)->default(false)->comment('Si c\'est l\'echauffement de la séance');
+            $table->boolean('warm_set')->nullable(false)->default(false)->comment('Si c\'est l\'echauffement d\'un groupe musculaire');
             $table->boolean('rest')->nullable(false)->default(true)->comment('Si c\'est une pause');
 
             $table->foreignId('equipment_id')->constrained('equipment');

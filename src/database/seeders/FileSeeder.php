@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\File;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Schema;
 
 class FileSeeder extends Seeder
 {
@@ -12,6 +13,8 @@ class FileSeeder extends Seeder
      */
     public function run(): void
     {
+        Schema::disableForeignKeyConstraints();
         File::factory(1)->create();
+        Schema::enableForeignKeyConstraints();
     }
 }

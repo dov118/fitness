@@ -15,7 +15,8 @@ return new class extends Migration
             $table->foreignId('muscle_id')->constrained('muscles');
             $table->foreignId('exercise_id')->constrained('exercises');
 
-            $table->float('intensity')->nullable(false)->default(1)->comment('Intensité du travail par l\'exercice');
+            $table->float('intensity')->nullable(false)->default(1)
+                ->comment('Intensité du travail par l\'exercice');
 
             $table->comment('Liaison entre les muscles et les exercices');
         });

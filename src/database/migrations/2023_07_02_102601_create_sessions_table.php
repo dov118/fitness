@@ -16,15 +16,11 @@ return new class extends Migration
 
             $table->foreignId('type_id')->constrained();
 
-            $table->dateTime('date')
+            $table->dateTime('date')->nullable(false)->default(now())
                 ->unique('session_date')
-                ->nullable(false)
-                ->default(now())
                 ->comment('Date de la séance');
 
-            $table->integer('order')
-                ->nullable(false)
-                ->default(1)
+            $table->integer('order')->nullable(false)->default(1)
                 ->comment('Ordre de la séance dans la période');
 
             $table->foreignId('period_id')->constrained();

@@ -14,19 +14,13 @@ return new class extends Migration
         Schema::create('types', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', 64)
+            $table->string('name', 64)->nullable(false)->default('')
                 ->unique('type_name')
-                ->nullable(false)
-                ->default('')
                 ->comment('Nom du type de scéance');
 
-            $table->boolean('light')
-                ->nullable(false)
-                ->default(true)
+            $table->boolean('light')->nullable(false)->default(true)
                 ->comment('Scéance légère');
-            $table->boolean('heavy')
-                ->nullable(false)
-                ->default(false)
+            $table->boolean('heavy')->nullable(false)->default(false)
                 ->comment('Scéance lourde');
 
             $table->timestamps();

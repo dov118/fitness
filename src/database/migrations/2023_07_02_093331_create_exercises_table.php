@@ -14,36 +14,23 @@ return new class extends Migration
         Schema::create('exercises', function (Blueprint $table) {
             $table->id();
 
-            $table->string('name', 64)
+            $table->string('name', 64)->nullable(false)->default('')
                 ->unique('exercise_name')
-                ->nullable(false)
-                ->default('')
                 ->comment('Nom de l\'exercice');
 
-            $table->longText('guideline')
-                ->nullable(false)
+            $table->longText('guideline')->nullable(false)
                 ->comment('Mouvements, instructions, ...');
 
-            $table->integer('heavy_min')
-                ->nullable(false)
-                ->default(1)
+            $table->integer('heavy_min')->nullable(false)->default(1)
                 ->comment('Nombre de répétitions minimum en lourd');
-            $table->integer('heavy_max')
-                ->nullable(false)
-                ->default(1)
+            $table->integer('heavy_max')->nullable(false)->default(1)
                 ->comment('Nombre de répétitions maximum en lourd');
-            $table->integer('light_min')
-                ->nullable(false)
-                ->default(1)
+            $table->integer('light_min')->nullable(false)->default(1)
                 ->comment('Nombre de répétitions minimum en léger');
-            $table->integer('light_max')
-                ->nullable(false)
-                ->default(1)
+            $table->integer('light_max')->nullable(false)->default(1)
                 ->comment('Nombre de répétitions maximum en léger');
 
-            $table->float('duration')
-                ->nullable(false)
-                ->default(1)
+            $table->float('duration')->nullable(false)->default(1)
                 ->comment('Durée d\'une répétition (ou couple pour bilatéral)');
 
             $table->timestamps();

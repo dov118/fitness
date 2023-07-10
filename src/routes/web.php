@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminDashboardController;
+use App\Http\Controllers\ExerciseController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MuscleController;
@@ -31,4 +32,5 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(callback: func
 
     Route::resource('group', GroupController::class);
     Route::resource('muscle', MuscleController::class);
+    Route::resource('exercise', ExerciseController::class);
 });

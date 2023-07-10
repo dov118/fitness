@@ -11,6 +11,21 @@ class Exercise extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'name',
+        'guideline',
+        'heavy_min',
+        'heavy_max',
+        'light_min',
+        'light_max',
+        'duration',
+    ];
+
     public function sets(): HasMany
     {
         return $this->hasMany(Set::class);

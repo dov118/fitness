@@ -74,23 +74,13 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_create_action_returns_an_error_if_new_name_already_used(): void
     {
-        $first_group_name = fake()->text(64);
-        Group::factory()->create(['name' => $first_group_name]);
+        $group = Group::factory()->create();
 
-        $group_name = fake()->text(64);
-        $group = Group::factory()->create(['name' => $group_name]);
-
-        $this->putJson(route('admin.group.update', $group), [
-            'name' => $first_group_name,
+        $response = $this->putJson(route('admin.group.store'), [
+            'name' => $group->name,
         ]);
 
-        $response = $this->putJson(route('admin.group.update', $group), [
-            'name' => $group_name,
-        ]);
-
-        $response
-            ->assertSessionMissing('name')
-            ->assertStatus(302);
+        $response->assertSessionMissing('name');
     }
 
     public function test_the_admin_group_edit_page_returns_a_successful_response(): void

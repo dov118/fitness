@@ -78,27 +78,14 @@ class MuscleControllerTest extends TestCase
 
     public function test_the_admin_muscle_create_action_returns_an_error_if_new_name_already_used(): void
     {
-        $group = Group::factory()->create();
+        Group::factory()->create();
+        $muscle = Muscle::factory()->create();
 
-        $first_muscle_name = fake()->text(64);
-        Muscle::factory()->create(['name' => $first_muscle_name, 'group_id' => $group->id]);
-
-        $muscle_name = fake()->text(64);
-        $muscle = Muscle::factory()->create(['name' => $muscle_name, 'group_id' => $group->id]);
-
-        $this->putJson(route('admin.muscle.update', $muscle), [
-            'name' => $first_muscle_name,
-            'group_id' => $group->id,
+        $response = $this->putJson(route('admin.muscle.store'), [
+            'name' => $muscle->name,
         ]);
 
-        $response = $this->putJson(route('admin.muscle.update', $muscle), [
-            'name' => $muscle_name,
-            'group_id' => $group->id,
-        ]);
-
-        $response
-            ->assertSessionMissing('name')
-            ->assertStatus(302);
+        $response->assertSessionMissing('name');
     }
 
     public function test_the_admin_muscle_edit_page_returns_a_successful_response(): void

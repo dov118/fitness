@@ -26,7 +26,7 @@ class StoreGroupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'max:64', Rule::unique('muscles', 'name')],
+            'name' => ['required', 'max:64', Rule::unique('groups', 'name')],
         ];
     }
 }

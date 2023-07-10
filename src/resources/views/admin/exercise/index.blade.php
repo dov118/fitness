@@ -29,7 +29,9 @@
                     @endforeach
                 </a>
                 <div class="flex-auto">
-                    <a href="{{ route('admin.exercise.show', $exercise) }}" class="Link Link--primary"><strong>{{ $exercise->name }}</strong></a>
+                    <a href="{{ route('admin.exercise.show', $exercise) }}" class="Link Link--primary">
+                        <strong>{{ $exercise->name }}</strong>
+                    </a>
                     <div class="text-small color-fg-subtle">
                         @foreach($exercise->muscles as $muscle)
                             <a href="{{ route('admin.muscle.show', $muscle) }}">

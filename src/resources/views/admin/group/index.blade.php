@@ -18,7 +18,9 @@
         @foreach($groups as $group)
             <div class="Box-row d-flex flex-items-center">
                 <div class="flex-auto">
-                    <a href="{{ route('admin.group.show', $group) }}" class="Link Link--primary"><strong>{{ $group->name }}</strong></a>
+                    <a href="{{ route('admin.group.show', $group) }}" class="Link Link--primary">
+                        <strong>{{ $group->name }}</strong>
+                    </a>
                     <div class="text-small color-fg-subtle">
                         @foreach($group->muscles as $muscle)
                             <a href="{{ route('admin.muscle.show', $muscle) }}">

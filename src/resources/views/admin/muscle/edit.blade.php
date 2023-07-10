@@ -38,7 +38,10 @@
                         <select class="form-select" aria-label="Muscle group" name="group_id">
                             <option>Muscle group</option>
                             @foreach ($groups as $group)
-                                <option value="{{ $group->id }}" @selected(old('group_id', $muscle->group_id) == $group->id)>
+                                <option
+                                    value="{{ $group->id }}"
+                                    @selected(old('group_id', $muscle->group_id) == $group->id)
+                                >
                                     {{ $group->name }}
                                 </option>
                             @endforeach

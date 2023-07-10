@@ -20,7 +20,6 @@ jobs:
         with:
           php-version: '8.2.8'
           tools: phpunit
-          extensions: xdebug-beta
           coverage: xdebug
 
       - name: Install npm

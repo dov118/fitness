@@ -196,7 +196,7 @@ class MuscleControllerTest extends TestCase
 
         $muscle = Muscle::factory()->for($group)->create();
 
-        $exercises = Exercise::factory(10)->hasAttached($muscle)->create();
+        Exercise::factory(10)->hasAttached($muscle)->create();
 
         $response = $this->deleteJson(route('admin.muscle.destroy', $muscle));
 

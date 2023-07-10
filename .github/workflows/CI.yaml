@@ -19,7 +19,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2.8'
-          tools: phpunit
           coverage: xdebug
 
       - name: Install npm

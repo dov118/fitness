@@ -21,6 +21,7 @@ jobs:
           php-version: '8.2.8'
           tools: phpunit
           extensions: xdebug-beta
+          coverage: xdebug
 
       - name: Install npm
         uses: actions/setup-node@v3.5.1

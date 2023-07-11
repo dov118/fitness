@@ -1,5 +1,10 @@
 import ClickEvent = JQuery.ClickEvent;
 
+// @ts-ignore
+import.meta.glob([
+  '../imgs/**',
+]);
+
 $(window).on('load', (): void => {
   if ($('.Toast')) {
     let timeout: number = 0;

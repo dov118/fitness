@@ -19,17 +19,17 @@ class Equipment extends Model
     public const BARRE_COUNT = 1;
     public const BARRE_WEIGHT = 5.5;
 
-    public const _0_5_COUNT = 4;
-    public const _0_5_WEIGHT = 0.5;
+    public const EQUIPMENT_0_5_COUNT = 4;
+    public const EQUIPMENT_0_5_WEIGHT = 0.5;
 
-    public const _1_25_COUNT = 4;
-    public const _1_25_WEIGHT = 1.25;
+    public const EQUIPMENT_1_25_COUNT = 4;
+    public const EQUIPMENT_1_25_WEIGHT = 1.25;
 
-    public const _2_5_COUNT = 4;
-    public const _2_5_WEIGHT = 2.5;
+    public const EQUIPMENT_2_5_COUNT = 4;
+    public const EQUIPMENT_2_5_WEIGHT = 2.5;
 
-    public const _5_COUNT = 2;
-    public const _5_WEIGHT = 5;
+    public const EQUIPMENT_5_COUNT = 2;
+    public const EQUIPMENT_5_WEIGHT = 5;
 
     public function sets(): HasMany
     {

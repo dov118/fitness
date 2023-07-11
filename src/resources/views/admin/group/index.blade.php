@@ -49,7 +49,7 @@
                         @csrf
                         @method('delete')
                         <button class="btn btn-danger ml-2" href="{{ route('admin.group.destroy', $group) }}">
-                            <img class="octicon" src="{{ Vite::asset('resources/imgs/delete.svg') }}" alt="">
+                            <img class="octicon octicon-pencil" src="{{ Vite::asset('resources/imgs/delete.svg') }}" alt="">
                         </button>
                     </form>
                     @endcan

@@ -54,11 +54,6 @@ jobs:
           cd src
           php artisan test --coverage --min=90
 
-      - name: Fix code coverage paths
-        run: |
-          cd src
-          sed -i 's@'$GITHUB_WORKSPACE'@/github/workspace/@g' coverage.xml
-
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:

@@ -14,7 +14,7 @@ RUN if [ "$APP_ENV" == "development" ] ; then rm -rf /var/www/html ; fi
 COPY start.sh /tmp/
 
 # Change file right
-RUN if [ "$APP_ENV" != "development" ] ; then chmod 777 -R /var/www/html/ ; fi
+RUN if [ "$APP_ENV" != "development" ] ; then chmod 755 -R /var/www/html/ ; fi
 
 # Execute start script
 ENTRYPOINT ["/bin/sh", "/tmp/start.sh"]

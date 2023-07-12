@@ -7,18 +7,18 @@
     "require": {
         "php": "^8.2",
         "guzzlehttp/guzzle": "7.7.0",
-        "laravel/framework": "v10.14.1",
+        "laravel/framework": "v10.15.0",
         "laravel/sanctum": "v3.2.5",
         "laravel/tinker": "v2.8.1"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "v3.8.1",
         "fakerphp/faker": "v1.23.0",
-        "laravel/pint": "v1.10.3",
-        "laravel/sail": "v1.23.0",
+        "laravel/pint": "v1.10.4",
+        "laravel/sail": "v1.23.1",
         "mockery/mockery": "1.6.2",
         "nunomaduro/collision": "v7.7.0",
-        "phpunit/phpunit": "10.2.3",
+        "phpunit/phpunit": "10.2.4",
         "spatie/laravel-ignition": "2.2.0"
     },
     "autoload": {

@@ -21,7 +21,13 @@ class MuscleController extends Controller
     {
         return view('admin.muscle.index', [
             'muscles' => Muscle::all(),
-            'groups' => Group::with(['muscles' => fn ($q) => $q->with(['exercises' => fn($q) => $q->withPivot('intensity')->orderBy('pivot_intensity', 'desc')->whereNot('intensity', 0.0)])->get()->all()])->get()->all(),
+            'groups' => Group::with([
+                'muscles' => fn ($q) => $q->with([
+                    'exercises' => fn($q) => $q->withPivot('intensity')
+                        ->orderBy('pivot_intensity', 'desc')
+                        ->whereNot('intensity', 0.0)
+                ])->get()->all()
+            ])->get()->all(),
             'exercises' => Exercise::all(),
         ]);
     }
@@ -58,7 +64,12 @@ class MuscleController extends Controller
         return view('admin.muscle.show', [
             'muscle' => $muscle,
             'groups' => Group::all(),
-            'active_exercises' => $muscle->exercises()->orderBy('name', 'desc')->withPivot('intensity')->whereNot('intensity', 0.0)->get()->reverse(),
+            'active_exercises' => $muscle->exercises()
+                ->orderBy('name', 'desc')
+                ->withPivot('intensity')
+                ->whereNot('intensity', 0.0)
+                ->get()
+                ->reverse(),
         ]);
     }
 

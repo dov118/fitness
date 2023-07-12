@@ -25,7 +25,7 @@ class UpdateMuscleRequest extends FormRequest
     {
         return [
             'name' => ['required', 'max:64', Rule::unique('muscles', 'name')->ignore($this->muscle)],
-            'group_id' => ['required', 'Integer'],
+            'group_id' => ['required', 'Integer', 'exists:App\Models\Group,id'],
         ];
     }
 }

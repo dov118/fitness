@@ -78,14 +78,39 @@ class MuscleControllerTest extends TestCase
 
     public function test_the_admin_muscle_create_action_returns_an_error_if_new_name_already_used(): void
     {
-        Group::factory()->create();
+        $group = Group::factory()->create();
         $muscle = Muscle::factory()->create();
 
         $response = $this->putJson(route('admin.muscle.store'), [
             'name' => $muscle->name,
+            'group_id' => $group->id,
         ]);
 
         $response->assertSessionMissing('name');
+    }
+
+    public function test_the_admin_group_create_action_returns_a_successful_response_when_group_doesnt_exist(): void
+    {
+        $group_id = 4;
+        $name = fake()->text(64);
+
+        $this->assertDatabaseMissing(app(Group::class)->getTable(), [
+            'id' => $group_id,
+        ]);
+
+        $response = $this->postJson(route('admin.muscle.store'), [
+            'name' => $name,
+            'group_id' => $group_id,
+        ]);
+
+        $this->assertDatabaseMissing(app(Muscle::class)->getTable(), [
+            'name' => $name,
+            'group_id' => $group_id,
+        ]);
+
+        $response
+            ->assertSessionMissing('group_id')
+            ->assertStatus(422);
     }
 
     public function test_the_admin_muscle_edit_page_returns_a_successful_response(): void
@@ -144,6 +169,69 @@ class MuscleControllerTest extends TestCase
 
         $response
             ->assertSessionMissing('name')
+            ->assertStatus(422);
+    }
+
+    public function test_the_admin_muscle_update_action_returns_a_successful_response_when_group_exist(): void
+    {
+        $group = Group::factory()->create();
+        $new_group = Group::factory()->create();
+        $muscle = Muscle::factory()->for($group)->create();
+
+        $muscle_name = fake()->text(64);
+
+        $group = $group->refresh();
+        $new_group = $new_group->refresh();
+        $muscle = $muscle->refresh();
+
+        $this->assertTrue($muscle->name !== $muscle_name);
+        $this->assertTrue($muscle->group->is($group));
+
+        $response = $this->putJson(route('admin.muscle.update', $muscle), [
+            'name' => $muscle_name,
+            'group_id' => $new_group->id,
+        ]);
+
+        $new_group = $new_group->refresh();
+        $muscle = $muscle->refresh();
+
+        $this->assertTrue($muscle->name === $muscle_name);
+        $this->assertTrue($muscle->group->is($new_group));
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.muscle.index'))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_muscle_update_action_returns_a_successful_response_when_group_doesnt_exist(): void
+    {
+        $new_group_id = 4;
+        $group = Group::factory()->create();
+        $muscle = Muscle::factory()->for($group)->create();
+
+        $group = $group->refresh();
+        $muscle = $muscle->refresh();
+
+        $this->assertTrue($muscle->group->is($group));
+        $this->assertDatabaseMissing(app(Group::class)->getTable(), [
+            'id' => $new_group_id,
+        ]);
+
+        $response = $this->putJson(route('admin.muscle.update', $muscle), [
+            'name' => $group->name,
+            'group_id' => $new_group_id,
+        ]);
+
+        $group = $group->refresh();
+        $muscle = $muscle->refresh();
+
+        $this->assertTrue($muscle->group->is($group));
+
+        $response
+            ->assertSessionMissing('group_id')
             ->assertStatus(422);
     }
 

@@ -13,6 +13,8 @@ class EquipmentSeeder extends Seeder
      */
     public function run(): void
     {
+        $barreName = ' Barre';
+
         $equipments = [];
 
         // Haltère 2.5kg
@@ -52,7 +54,7 @@ class EquipmentSeeder extends Seeder
 
                 $name = $total . 'kg';
                 if ($empty !== 1) {
-                    $name .= $ez === 1 ? ' Ez' : ' Barre';
+                    $name .= $ez === 1 ? ' Ez' : $barreName;
                 }
 
                 $equipments[$name] = [
@@ -77,7 +79,7 @@ class EquipmentSeeder extends Seeder
 
                     $name = $total . 'kg';
                     if ($empty !== 1) {
-                        $name .= $ez === 1 ? ' Ez' : ' Barre';
+                        $name .= $ez === 1 ? ' Ez' : $barreName;
                     }
 
                     $equipments[$name] = [
@@ -102,7 +104,7 @@ class EquipmentSeeder extends Seeder
 
                         $name = $total . 'kg';
                         if ($empty !== 1) {
-                            $name .= $ez === 1 ? ' Ez' : ' Barre';
+                            $name .= $ez === 1 ? ' Ez' : $barreName;
                         }
 
                         $equipments[$name] = [
@@ -127,7 +129,7 @@ class EquipmentSeeder extends Seeder
 
                             $name = $total . 'kg';
                             if ($empty !== 1) {
-                                $name .= $ez === 1 ? ' Ez' : ' Barre';
+                                $name .= $ez === 1 ? ' Ez' : $barreName;
                             }
 
                             $equipments[$name] = [

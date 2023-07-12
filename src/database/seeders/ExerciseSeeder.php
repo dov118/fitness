@@ -428,7 +428,8 @@ prendre le plus loint possible',
             ->hasAttached($this->createImage('/files/shrugs-avec-halteres.gif'))
             ->hasAttached(Muscle::all())->create([
                 'name' => 'Shrugs aux haltères',
-                'guideline' => 'Bien remonter le bras - Aller de l\'arrière vers l\'avant lors de la monté - lever tete ',
+                'guideline' => 'Bien remonter le bras -
+Aller de l\'arrière vers l\'avant lors de la monté - lever tete ',
                 'heavy_min' => 8,
                 'heavy_max' => 10,
                 'light_min' => 0,
@@ -509,7 +510,8 @@ poinget niveau epaule',
             ->hasAttached($this->createImage('/files/fentes-avant.gif'))
             ->hasAttached(Muscle::all())->create([
                 'name' => 'Fentes',
-                'guideline' => 'Tirer omoplate en arrière - Regarder devant - légèrement ingliner bassin avant  -dos droit',
+                'guideline' => 'Tirer omoplate en arrière - Regarder devant -
+légèrement ingliner bassin avant  -dos droit',
                 'heavy_min' => 6,
                 'heavy_max' => 8,
                 'light_min' => 0,

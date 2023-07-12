@@ -56,13 +56,13 @@ class ExerciseControllerTest extends TestCase
     {
         Muscle::factory()->create();
 
-        $exercise_raw = Exercise::factory()->definition();
+        $exerciseRaw = Exercise::factory()->definition();
 
-        $response = $this->postJson(route('admin.exercise.store'), $exercise_raw);
+        $response = $this->postJson(route('admin.exercise.store'), $exerciseRaw);
 
-        $exercise = Exercise::where('name', $exercise_raw['name'])->with('muscles')->get()->first();
+        $exercise = Exercise::where('name', $exerciseRaw['name'])->with('muscles')->get()->first();
 
-        $this->assertDatabaseHas(app(Exercise::class)->getTable(), $exercise_raw);
+        $this->assertDatabaseHas(app(Exercise::class)->getTable(), $exerciseRaw);
 
         $this->assertTrue(!Muscle::all()->isEmpty());
         foreach (Muscle::all() as $muscle) {
@@ -81,11 +81,11 @@ class ExerciseControllerTest extends TestCase
     {
         $exercise_name = fake()->text(64);
 
-        $exercise_raw = Exercise::factory()->definition();
-        Exercise::factory()->create($exercise_raw);
-        $exercise_raw['name'] = $exercise_name;
+        $exerciseRaw = Exercise::factory()->definition();
+        Exercise::factory()->create($exerciseRaw);
+        $exerciseRaw['name'] = $exercise_name;
 
-        $response = $this->postJson(route('admin.exercise.store'), $exercise_raw);
+        $response = $this->postJson(route('admin.exercise.store'), $exerciseRaw);
 
         $response->assertSessionMissing('name');
     }
@@ -101,15 +101,15 @@ class ExerciseControllerTest extends TestCase
 
     public function test_the_admin_exercise_update_action_returns_a_successful_response(): void
     {
-        $old_exercise_raw = Exercise::factory()->definition();
+        $oldExerciseRaw = Exercise::factory()->definition();
 
-        $exercise = Exercise::factory()->create($old_exercise_raw);
+        $exercise = Exercise::factory()->create($oldExerciseRaw);
 
-        $new_exercise_raw = Exercise::factory()->definition();
+        $newExerciseRaw = Exercise::factory()->definition();
 
-        $response = $this->putJson(route('admin.exercise.update', $exercise), $new_exercise_raw);
+        $response = $this->putJson(route('admin.exercise.update', $exercise), $newExerciseRaw);
 
-        $this->assertDatabaseHas(app(Exercise::class)->getTable(), $new_exercise_raw);
+        $this->assertDatabaseHas(app(Exercise::class)->getTable(), $newExerciseRaw);
 
         $response
             ->assertSessionDoesntHaveErrors()
@@ -123,15 +123,15 @@ class ExerciseControllerTest extends TestCase
     {
         $exercise_name = fake()->text(64);
 
-        $old_exercise_raw = Exercise::factory()->definition();
-        $old_exercise_raw['name'] = $exercise_name;
+        $oldExerciseRaw = Exercise::factory()->definition();
+        $oldExerciseRaw['name'] = $exercise_name;
 
-        $exercise = Exercise::factory()->create($old_exercise_raw);
+        $exercise = Exercise::factory()->create($oldExerciseRaw);
 
-        $new_exercise_raw = Exercise::factory()->definition();
-        $new_exercise_raw['name'] = $exercise_name;
+        $newExerciseRaw = Exercise::factory()->definition();
+        $newExerciseRaw['name'] = $exercise_name;
 
-        $response = $this->putJson(route('admin.exercise.update', $exercise), $new_exercise_raw);
+        $response = $this->putJson(route('admin.exercise.update', $exercise), $newExerciseRaw);
 
         $response->assertSessionMissing('name');
     }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('session_set', function (Blueprint $table) { // TODO revoir system de relation https://laravel.com/docs/10.x/eloquent-relationships#many-to-many
+        Schema::create('session_set', function (Blueprint $table) {
             $table->foreignId('session_id')->constrained('sessions');
 
             $table->foreignId('set_id')->constrained('sets');

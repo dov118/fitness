@@ -30,9 +30,9 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_index_displayed_groups_and_muscles_name(): void
     {
-        $group_name = fake()->text(64);
+        $groupName = fake()->text(64);
 
-        $group = Group::factory()->create(['name' => $group_name]);
+        $group = Group::factory()->create(['name' => $groupName]);
 
         $muscles = Muscle::factory(4)->for($group)->create();
 
@@ -42,7 +42,7 @@ class GroupControllerTest extends TestCase
             $response->assertSee($name);
         }
 
-        $response->assertSee($group_name);
+        $response->assertSee($groupName);
     }
 
     public function test_the_admin_group_create_page_returns_a_successful_response(): void
@@ -54,14 +54,14 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_create_action_returns_a_successful_response(): void
     {
-        $group_name = fake()->text(64);
+        $groupName = fake()->text(64);
 
         $response = $this->postJson(route('admin.group.store'), [
-            'name' => $group_name,
+            'name' => $groupName,
         ]);
 
         $this->assertDatabaseHas(app(Group::class)->getTable(), [
-            'name' => $group_name,
+            'name' => $groupName,
         ]);
 
         $response
@@ -94,18 +94,18 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_update_action_returns_a_successful_response(): void
     {
-        $group_name = fake()->text(64);
-        $group = Group::factory()->create(['name' => $group_name]);
+        $groupName = fake()->text(64);
+        $group = Group::factory()->create(['name' => $groupName]);
 
-        $this->assertTrue(Group::find($group->id)->name === $group_name);
+        $this->assertTrue(Group::find($group->id)->name === $groupName);
 
-        $group_name = fake()->text(64);
+        $groupName = fake()->text(64);
 
         $response = $this->putJson(route('admin.group.update', $group), [
-            'name' => $group_name,
+            'name' => $groupName,
         ]);
 
-        $this->assertTrue(Group::find($group->id)->name === $group_name);
+        $this->assertTrue(Group::find($group->id)->name === $groupName);
 
         $response
             ->assertSessionDoesntHaveErrors()
@@ -117,16 +117,16 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_update_action_returns_an_error_if_new_name_already_used(): void
     {
-        $other_group_name = fake()->text(64);
-        Group::factory()->create(['name' => $other_group_name]);
+        $otherGroupName = fake()->text(64);
+        Group::factory()->create(['name' => $otherGroupName]);
 
-        $group_name = fake()->text(64);
-        $group = Group::factory()->create(['name' => $group_name]);
+        $groupName = fake()->text(64);
+        $group = Group::factory()->create(['name' => $groupName]);
 
-        $this->assertTrue(Group::find($group->id)->name === $group_name);
+        $this->assertTrue(Group::find($group->id)->name === $groupName);
 
         $response = $this->putJson(route('admin.group.update', $group), [
-            'name' => $other_group_name,
+            'name' => $otherGroupName,
         ]);
 
         $response
@@ -136,8 +136,8 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_update_action_returns_a_successful_response_with_full_muscle_changes(): void
     {
-        $group_name = fake()->text(64);
-        $group = Group::factory()->create(['name' => $group_name]);
+        $groupName = fake()->text(64);
+        $group = Group::factory()->create(['name' => $groupName]);
 
         Muscle::factory()->for($group)->create(['id' => 1]);
         Muscle::factory()->for($group)->create(['id' => 2]);
@@ -147,21 +147,21 @@ class GroupControllerTest extends TestCase
         Muscle::factory()->create(['id' => 5, 'group_id' => null]);
         Muscle::factory()->create(['id' => 6, 'group_id' => null]);
 
-        $old_muscles = Muscle::whereIn('id', [1, 2, 3])->get();
-        $new_muscles = Muscle::whereIn('id', [4, 5, 6])->get();
+        $oldMuscles = Muscle::whereIn('id', [1, 2, 3])->get();
+        $newMuscles = Muscle::whereIn('id', [4, 5, 6])->get();
 
         $params = [];
-        $params['name'] = $group_name;
+        $params['name'] = $groupName;
 
         $group = $group->refresh();
-        $old_muscles = $old_muscles->map(fn ($muscle) => $muscle->refresh());
-        $new_muscles = $new_muscles->map(fn ($muscle) => $muscle->refresh());
+        $oldMuscles = $oldMuscles->map(fn ($muscle) => $muscle->refresh());
+        $newMuscles = $newMuscles->map(fn ($muscle) => $muscle->refresh());
 
-        foreach ($old_muscles as $muscle) {
+        foreach ($oldMuscles as $muscle) {
             $this->assertTrue($group->muscles->contains($muscle));
         }
 
-        foreach ($new_muscles as $muscle) {
+        foreach ($newMuscles as $muscle) {
             $this->assertTrue($group->muscles->doesntContain($muscle));
             $params['muscle_' . $muscle->id] = 'on';
         }
@@ -169,14 +169,14 @@ class GroupControllerTest extends TestCase
         $response = $this->putJson(route('admin.group.update', $group), $params);
 
         $group = $group->refresh();
-        $old_muscles = $old_muscles->map(fn ($muscle) => $muscle->refresh());
-        $new_muscles = $new_muscles->map(fn ($muscle) => $muscle->refresh());
+        $oldMuscles = $oldMuscles->map(fn ($muscle) => $muscle->refresh());
+        $newMuscles = $newMuscles->map(fn ($muscle) => $muscle->refresh());
 
-        foreach ($old_muscles as $muscle) {
+        foreach ($oldMuscles as $muscle) {
             $this->assertTrue($group->muscles->doesntContain($muscle));
         }
 
-        foreach ($new_muscles as $muscle) {
+        foreach ($newMuscles as $muscle) {
             $this->assertTrue($group->muscles->contains($muscle));
         }
 
@@ -190,8 +190,8 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_update_action_returns_a_successful_response_with_adding_muscle(): void
     {
-        $group_name = fake()->text(64);
-        $group = Group::factory()->create(['name' => $group_name]);
+        $groupName = fake()->text(64);
+        $group = Group::factory()->create(['name' => $groupName]);
 
         Muscle::factory()->for($group)->create(['id' => 1]);
         Muscle::factory()->for($group)->create(['id' => 2]);
@@ -199,22 +199,22 @@ class GroupControllerTest extends TestCase
 
         Muscle::factory()->create(['id' => 4, 'group_id' => null]);
 
-        $old_muscles = Muscle::whereIn('id', [1, 2, 3])->get();
-        $new_muscles = Muscle::whereIn('id', [4])->get();
+        $oldMuscles = Muscle::whereIn('id', [1, 2, 3])->get();
+        $newMuscles = Muscle::whereIn('id', [4])->get();
 
         $params = [];
-        $params['name'] = $group_name;
+        $params['name'] = $groupName;
 
         $group = $group->refresh();
-        $old_muscles = $old_muscles->map(fn ($muscle) => $muscle->refresh());
-        $new_muscles = $new_muscles->map(fn ($muscle) => $muscle->refresh());
+        $oldMuscles = $oldMuscles->map(fn ($muscle) => $muscle->refresh());
+        $newMuscles = $newMuscles->map(fn ($muscle) => $muscle->refresh());
 
-        foreach ($old_muscles as $muscle) {
+        foreach ($oldMuscles as $muscle) {
             $this->assertTrue($group->muscles->contains($muscle));
             $params['muscle_' . $muscle->id] = 'on';
         }
 
-        foreach ($new_muscles as $muscle) {
+        foreach ($newMuscles as $muscle) {
             $this->assertTrue($group->muscles->doesntContain($muscle));
             $params['muscle_' . $muscle->id] = 'on';
         }
@@ -222,14 +222,14 @@ class GroupControllerTest extends TestCase
         $response = $this->putJson(route('admin.group.update', $group), $params);
 
         $group = $group->refresh();
-        $old_muscles = $old_muscles->map(fn ($muscle) => $muscle->refresh());
-        $new_muscles = $new_muscles->map(fn ($muscle) => $muscle->refresh());
+        $oldMuscles = $oldMuscles->map(fn ($muscle) => $muscle->refresh());
+        $newMuscles = $newMuscles->map(fn ($muscle) => $muscle->refresh());
 
-        foreach ($old_muscles as $muscle) {
+        foreach ($oldMuscles as $muscle) {
             $this->assertTrue($group->muscles->contains($muscle));
         }
 
-        foreach ($new_muscles as $muscle) {
+        foreach ($newMuscles as $muscle) {
             $this->assertTrue($group->muscles->contains($muscle));
         }
 
@@ -243,38 +243,38 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_update_action_returns_a_successful_response_with_removing_muscle(): void
     {
-        $group_name = fake()->text(64);
-        $group = Group::factory()->create(['name' => $group_name]);
+        $groupName = fake()->text(64);
+        $group = Group::factory()->create(['name' => $groupName]);
 
         Muscle::factory()->for($group)->create(['id' => 1]);
         Muscle::factory()->for($group)->create(['id' => 2]);
-        $removing_muscle = Muscle::factory()->for($group)->create(['id' => 3]);
+        $removingMuscle = Muscle::factory()->for($group)->create(['id' => 3]);
 
-        $remaining_muscles = Muscle::whereIn('id', [1, 2])->get();
+        $remainingMuscles = Muscle::whereIn('id', [1, 2])->get();
 
         $params = [];
-        $params['name'] = $group_name;
+        $params['name'] = $groupName;
 
         $group = $group->refresh();
-        $removing_muscle = $removing_muscle->refresh();
-        $remaining_muscles = $remaining_muscles->map(fn ($muscle) => $muscle->refresh());
+        $removingMuscle = $removingMuscle->refresh();
+        $remainingMuscles = $remainingMuscles->map(fn ($muscle) => $muscle->refresh());
 
-        foreach ($remaining_muscles as $muscle) {
+        foreach ($remainingMuscles as $muscle) {
             $this->assertTrue($group->muscles->contains($muscle));
             $params['muscle_' . $muscle->id] = 'on';
         }
-        $this->assertTrue($group->muscles->contains($removing_muscle));
+        $this->assertTrue($group->muscles->contains($removingMuscle));
 
         $response = $this->putJson(route('admin.group.update', $group), $params);
 
         $group = $group->refresh();
-        $removing_muscle = $removing_muscle->refresh();
-        $remaining_muscles = $remaining_muscles->map(fn ($muscle) => $muscle->refresh());
+        $removingMuscle = $removingMuscle->refresh();
+        $remainingMuscles = $remainingMuscles->map(fn ($muscle) => $muscle->refresh());
 
-        foreach ($remaining_muscles as $muscle) {
+        foreach ($remainingMuscles as $muscle) {
             $this->assertTrue($group->muscles->contains($muscle));
         }
-        $this->assertTrue($group->muscles->doesntContain($removing_muscle));
+        $this->assertTrue($group->muscles->doesntContain($removingMuscle));
 
         $response
             ->assertSessionDoesntHaveErrors()
@@ -286,8 +286,8 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_update_action_returns_a_successful_response_with_full_adding_muscles(): void
     {
-        $group_name = fake()->text(64);
-        $group = Group::factory()->create(['name' => $group_name]);
+        $groupName = fake()->text(64);
+        $group = Group::factory()->create(['name' => $groupName]);
 
         Muscle::factory()->create(['id' => 1, 'group_id' => null]);
         Muscle::factory()->create(['id' => 2, 'group_id' => null]);
@@ -295,7 +295,7 @@ class GroupControllerTest extends TestCase
         $muscles = Muscle::whereIn('id', [1, 2, 3])->get();
 
         $params = [];
-        $params['name'] = $group_name;
+        $params['name'] = $groupName;
 
         $group = $group->refresh();
         $muscles = $muscles->map(fn ($muscle) => $muscle->refresh());
@@ -328,8 +328,8 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_update_action_returns_a_successful_response_with_full_removing_muscles(): void
     {
-        $group_name = fake()->text(64);
-        $group = Group::factory()->create(['name' => $group_name]);
+        $groupName = fake()->text(64);
+        $group = Group::factory()->create(['name' => $groupName]);
 
         Muscle::factory()->for($group)->create(['id' => 1]);
         Muscle::factory()->for($group)->create(['id' => 2]);
@@ -346,7 +346,7 @@ class GroupControllerTest extends TestCase
         $this->assertTrue(!$group->muscles->isEmpty());
 
         $response = $this->putJson(route('admin.group.update', $group), [
-            'name' => $group_name,
+            'name' => $groupName,
         ]);
 
         $group = $group->refresh();
@@ -377,9 +377,9 @@ class GroupControllerTest extends TestCase
 
     public function test_the_admin_group_show_displayed_groups_and_muscles_name(): void
     {
-        $group_name = fake()->text(64);
+        $groupName = fake()->text(64);
 
-        $group = Group::factory()->create(['name' => $group_name]);
+        $group = Group::factory()->create(['name' => $groupName]);
 
         $muscles = Muscle::factory(4)->for($group)->create();
 
@@ -389,7 +389,7 @@ class GroupControllerTest extends TestCase
             $response->assertSee($name);
         }
 
-        $response->assertSee($group_name);
+        $response->assertSee($groupName);
     }
 
     public function test_the_admin_group_delete_action_with_no_muscle_attached_returns_a_successful_response(): void

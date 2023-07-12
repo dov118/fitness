@@ -78,21 +78,21 @@ class MuscleControllerTest extends TestCase
 
     public function test_the_admin_group_create_action_returns_a_successful_response(): void
     {
-        $muscle_name = fake()->text(64);
+        $muscleName = fake()->text(64);
 
         $group = Group::factory()->create();
 
         $response = $this->postJson(route('admin.muscle.store'), [
-            'name' => $muscle_name,
+            'name' => $muscleName,
             'group_id' => $group->id,
         ]);
 
         $this->assertDatabaseHas(app(Muscle::class)->getTable(), [
-            'name' => $muscle_name,
+            'name' => $muscleName,
             'group_id' => $group->id,
         ]);
 
-        $muscle = Muscle::where('name', $muscle_name)->with('group')->get()->first();
+        $muscle = Muscle::where('name', $muscleName)->with('group')->get()->first();
 
         $this->assertTrue($muscle->group->id === $group->id);
         foreach (Exercise::all() as $exercise) {
@@ -174,19 +174,19 @@ class MuscleControllerTest extends TestCase
     {
         $group = Group::factory()->create();
 
-        $muscle_name = fake()->text(64);
-        $muscle = Muscle::factory()->create(['name' => $muscle_name, 'group_id' => $group->id]);
+        $muscleName = fake()->text(64);
+        $muscle = Muscle::factory()->create(['name' => $muscleName, 'group_id' => $group->id]);
 
-        $this->assertTrue(Muscle::find($muscle->id)->name === $muscle_name);
+        $this->assertTrue(Muscle::find($muscle->id)->name === $muscleName);
 
-        $muscle_name = fake()->text(64);
+        $muscleName = fake()->text(64);
 
         $response = $this->putJson(route('admin.muscle.update', $muscle), [
-            'name' => $muscle_name,
+            'name' => $muscleName,
             'group_id' => $group->id,
         ]);
 
-        $this->assertTrue(Muscle::find($muscle->id)->name === $muscle_name);
+        $this->assertTrue(Muscle::find($muscle->id)->name === $muscleName);
 
         $response
             ->assertSessionDoesntHaveErrors()
@@ -200,16 +200,16 @@ class MuscleControllerTest extends TestCase
     {
         $group = Group::factory()->create();
 
-        $other_muscle_name = fake()->text(64);
-        Muscle::factory()->create(['name' => $other_muscle_name, 'group_id' => $group->id]);
+        $otherMuscleName = fake()->text(64);
+        Muscle::factory()->create(['name' => $otherMuscleName, 'group_id' => $group->id]);
 
-        $muscle_name = fake()->text(64);
-        $muscle = Muscle::factory()->create(['name' => $muscle_name, 'group_id' => $group->id]);
+        $muscleName = fake()->text(64);
+        $muscle = Muscle::factory()->create(['name' => $muscleName, 'group_id' => $group->id]);
 
-        $this->assertTrue(Muscle::find($muscle->id)->name === $muscle_name);
+        $this->assertTrue(Muscle::find($muscle->id)->name === $muscleName);
 
         $response = $this->putJson(route('admin.muscle.update', $muscle), [
-            'name' => $other_muscle_name,
+            'name' => $otherMuscleName,
             'group_id' => $group->id,
         ]);
 
@@ -221,28 +221,28 @@ class MuscleControllerTest extends TestCase
     public function test_the_admin_muscle_update_action_returns_a_successful_response_when_group_exist(): void
     {
         $group = Group::factory()->create();
-        $new_group = Group::factory()->create();
+        $newGroup = Group::factory()->create();
         $muscle = Muscle::factory()->for($group)->create();
 
-        $muscle_name = fake()->text(64);
+        $muscleName = fake()->text(64);
 
         $group = $group->refresh();
-        $new_group = $new_group->refresh();
+        $newGroup = $newGroup->refresh();
         $muscle = $muscle->refresh();
 
-        $this->assertTrue($muscle->name !== $muscle_name);
+        $this->assertTrue($muscle->name !== $muscleName);
         $this->assertTrue($muscle->group->is($group));
 
         $response = $this->putJson(route('admin.muscle.update', $muscle), [
-            'name' => $muscle_name,
-            'group_id' => $new_group->id,
+            'name' => $muscleName,
+            'group_id' => $newGroup->id,
         ]);
 
-        $new_group = $new_group->refresh();
+        $newGroup = $newGroup->refresh();
         $muscle = $muscle->refresh();
 
-        $this->assertTrue($muscle->name === $muscle_name);
-        $this->assertTrue($muscle->group->is($new_group));
+        $this->assertTrue($muscle->name === $muscleName);
+        $this->assertTrue($muscle->group->is($newGroup));
 
         $response
             ->assertSessionDoesntHaveErrors()
@@ -254,7 +254,7 @@ class MuscleControllerTest extends TestCase
 
     public function test_the_admin_muscle_update_action_returns_a_successful_response_when_group_doesnt_exist(): void
     {
-        $new_group_id = 4;
+        $newGroup_id = 4;
         $group = Group::factory()->create();
         $muscle = Muscle::factory()->for($group)->create();
 
@@ -263,12 +263,12 @@ class MuscleControllerTest extends TestCase
 
         $this->assertTrue($muscle->group->is($group));
         $this->assertDatabaseMissing(app(Group::class)->getTable(), [
-            'id' => $new_group_id,
+            'id' => $newGroup_id,
         ]);
 
         $response = $this->putJson(route('admin.muscle.update', $muscle), [
             'name' => $group->name,
-            'group_id' => $new_group_id,
+            'group_id' => $newGroup_id,
         ]);
 
         $group = $group->refresh();

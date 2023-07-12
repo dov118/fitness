@@ -38,7 +38,12 @@
                 @foreach ($muscles as $muscle)
                     <div class="form-checkbox">
                         <label>
-                            <input type="checkbox" @checked($group->muscles->contains($muscle)) name="muscle_{{ $muscle->id }}" />{{ $muscle->name }}
+                            <input
+                                type="checkbox"
+                                @checked($group->muscles->contains($muscle))
+                                name="muscle_{{ $muscle->id }}"
+                            />
+                            {{ $muscle->name }}
                         </label>
                     </div>
                 @endforeach

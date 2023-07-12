@@ -11,6 +11,9 @@
             @csrf
             @method('put')
             <div class="Box-body">
+                <div class="Subhead">
+                    <h2 class="Subhead-heading">Group</h2>
+                </div>
                 <div class="form-group @error('name') errored @enderror">
                     <div class="form-group-header">
                         <label for="name-input">Name</label>
@@ -29,6 +32,16 @@
                     <p class="note error" id="name-input-validation">{{ $message }}</p>
                     @enderror
                 </div>
+                <div class="Subhead">
+                    <h2 class="Subhead-heading">Muscles</h2>
+                </div>
+                @foreach ($muscles as $muscle)
+                    <div class="form-checkbox">
+                        <label>
+                            <input type="checkbox" @checked($group->muscles->contains($muscle)) name="muscle_{{ $muscle->id }}" />{{ $muscle->name }}
+                        </label>
+                    </div>
+                @endforeach
             </div>
             <div class="Box-footer text-right">
                 <a href="{{ route('admin.group.index') }}" class="btn btn-secondary mr-1">

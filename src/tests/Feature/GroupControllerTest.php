@@ -134,6 +134,238 @@ class GroupControllerTest extends TestCase
             ->assertStatus(422);
     }
 
+    public function test_the_admin_group_update_action_returns_a_successful_response_with_full_muscle_changes(): void
+    {
+        $group_name = fake()->text(64);
+        $group = Group::factory()->create(['name' => $group_name]);
+
+        Muscle::factory()->for($group)->create(['id' => 1]);
+        Muscle::factory()->for($group)->create(['id' => 2]);
+        Muscle::factory()->for($group)->create(['id' => 3]);
+
+        Muscle::factory()->create(['id' => 4, 'group_id' => null]);
+        Muscle::factory()->create(['id' => 5, 'group_id' => null]);
+        Muscle::factory()->create(['id' => 6, 'group_id' => null]);
+
+        $old_muscles = Muscle::whereIn('id', [1, 2, 3])->get();
+        $new_muscles = Muscle::whereIn('id', [4, 5, 6])->get();
+
+        $params = [];
+        $params['name'] = $group_name;
+
+        $group = $group->refresh();
+        $old_muscles = $old_muscles->map(fn ($muscle) => $muscle->refresh());
+        $new_muscles = $new_muscles->map(fn ($muscle) => $muscle->refresh());
+
+        foreach ($old_muscles as $muscle) {
+            $this->assertTrue($group->muscles->contains($muscle));
+        }
+
+        foreach ($new_muscles as $muscle) {
+            $this->assertTrue($group->muscles->doesntContain($muscle));
+            $params['muscle_' . $muscle->id] = 'on';
+        }
+
+        $response = $this->putJson(route('admin.group.update', $group), $params);
+
+        $group = $group->refresh();
+        $old_muscles = $old_muscles->map(fn ($muscle) => $muscle->refresh());
+        $new_muscles = $new_muscles->map(fn ($muscle) => $muscle->refresh());
+
+        foreach ($old_muscles as $muscle) {
+            $this->assertTrue($group->muscles->doesntContain($muscle));
+        }
+
+        foreach ($new_muscles as $muscle) {
+            $this->assertTrue($group->muscles->contains($muscle));
+        }
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.group.index'))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_group_update_action_returns_a_successful_response_with_adding_muscle(): void
+    {
+        $group_name = fake()->text(64);
+        $group = Group::factory()->create(['name' => $group_name]);
+
+        Muscle::factory()->for($group)->create(['id' => 1]);
+        Muscle::factory()->for($group)->create(['id' => 2]);
+        Muscle::factory()->for($group)->create(['id' => 3]);
+
+        Muscle::factory()->create(['id' => 4, 'group_id' => null]);
+
+        $old_muscles = Muscle::whereIn('id', [1, 2, 3])->get();
+        $new_muscles = Muscle::whereIn('id', [4])->get();
+
+        $params = [];
+        $params['name'] = $group_name;
+
+        $group = $group->refresh();
+        $old_muscles = $old_muscles->map(fn ($muscle) => $muscle->refresh());
+        $new_muscles = $new_muscles->map(fn ($muscle) => $muscle->refresh());
+
+        foreach ($old_muscles as $muscle) {
+            $this->assertTrue($group->muscles->contains($muscle));
+            $params['muscle_' . $muscle->id] = 'on';
+        }
+
+        foreach ($new_muscles as $muscle) {
+            $this->assertTrue($group->muscles->doesntContain($muscle));
+            $params['muscle_' . $muscle->id] = 'on';
+        }
+
+        $response = $this->putJson(route('admin.group.update', $group), $params);
+
+        $group = $group->refresh();
+        $old_muscles = $old_muscles->map(fn ($muscle) => $muscle->refresh());
+        $new_muscles = $new_muscles->map(fn ($muscle) => $muscle->refresh());
+
+        foreach ($old_muscles as $muscle) {
+            $this->assertTrue($group->muscles->contains($muscle));
+        }
+
+        foreach ($new_muscles as $muscle) {
+            $this->assertTrue($group->muscles->contains($muscle));
+        }
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.group.index'))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_group_update_action_returns_a_successful_response_with_removing_muscle(): void
+    {
+        $group_name = fake()->text(64);
+        $group = Group::factory()->create(['name' => $group_name]);
+
+        Muscle::factory()->for($group)->create(['id' => 1]);
+        Muscle::factory()->for($group)->create(['id' => 2]);
+        $removing_muscle = Muscle::factory()->for($group)->create(['id' => 3]);
+
+        $remaining_muscles = Muscle::whereIn('id', [1, 2])->get();
+
+        $params = [];
+        $params['name'] = $group_name;
+
+        $group = $group->refresh();
+        $removing_muscle = $removing_muscle->refresh();
+        $remaining_muscles = $remaining_muscles->map(fn ($muscle) => $muscle->refresh());
+
+        foreach ($remaining_muscles as $muscle) {
+            $this->assertTrue($group->muscles->contains($muscle));
+            $params['muscle_' . $muscle->id] = 'on';
+        }
+        $this->assertTrue($group->muscles->contains($removing_muscle));
+
+        $response = $this->putJson(route('admin.group.update', $group), $params);
+
+        $group = $group->refresh();
+        $removing_muscle = $removing_muscle->refresh();
+        $remaining_muscles = $remaining_muscles->map(fn ($muscle) => $muscle->refresh());
+
+        foreach ($remaining_muscles as $muscle) {
+            $this->assertTrue($group->muscles->contains($muscle));
+        }
+        $this->assertTrue($group->muscles->doesntContain($removing_muscle));
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.group.index'))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_group_update_action_returns_a_successful_response_with_full_adding_muscles(): void
+    {
+        $group_name = fake()->text(64);
+        $group = Group::factory()->create(['name' => $group_name]);
+
+        Muscle::factory()->create(['id' => 1, 'group_id' => null]);
+        Muscle::factory()->create(['id' => 2, 'group_id' => null]);
+        Muscle::factory()->create(['id' => 3, 'group_id' => null]);
+        $muscles = Muscle::whereIn('id', [1, 2, 3])->get();
+
+        $params = [];
+        $params['name'] = $group_name;
+
+        $group = $group->refresh();
+        $muscles = $muscles->map(fn ($muscle) => $muscle->refresh());
+
+        foreach ($muscles as $muscle) {
+            $this->assertTrue($group->muscles->doesntContain($muscle));
+            $params['muscle_' . $muscle->id] = 'on';
+        }
+
+        $this->assertTrue($group->muscles->isEmpty());
+
+        $response = $this->putJson(route('admin.group.update', $group), $params);
+
+        $group = $group->refresh();
+        $muscles = $muscles->map(fn ($muscle) => $muscle->refresh());
+
+        $this->assertTrue(!$group->muscles->isEmpty());
+
+        foreach ($muscles as $muscle) {
+            $this->assertTrue($group->muscles->contains($muscle));
+        }
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.group.index'))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_group_update_action_returns_a_successful_response_with_full_removing_muscles(): void
+    {
+        $group_name = fake()->text(64);
+        $group = Group::factory()->create(['name' => $group_name]);
+
+        Muscle::factory()->for($group)->create(['id' => 1]);
+        Muscle::factory()->for($group)->create(['id' => 2]);
+        Muscle::factory()->for($group)->create(['id' => 3]);
+        $muscles = Muscle::whereIn('id', [1, 2, 3])->get();
+
+        $group = $group->refresh();
+        $muscles = $muscles->map(fn ($muscle) => $muscle->refresh());
+
+        foreach ($muscles as $muscle) {
+            $this->assertTrue($group->muscles->contains($muscle));
+        }
+
+        $this->assertTrue(!$group->muscles->isEmpty());
+
+        $response = $this->putJson(route('admin.group.update', $group), [
+            'name' => $group_name,
+        ]);
+
+        $group = $group->refresh();
+        $muscles = $muscles->map(fn ($muscle) => $muscle->refresh());
+
+        $this->assertTrue($group->muscles->isEmpty());
+
+        foreach ($muscles as $muscle) {
+            $this->assertTrue($group->muscles->doesntContain($muscle));
+        }
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.group.index'))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
     public function test_the_admin_group_show_returns_a_successful_response(): void
     {
         $group = Group::factory()->create();

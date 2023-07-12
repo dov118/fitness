@@ -64,6 +64,7 @@ class GroupController extends Controller
     {
         return view('admin.group.edit', [
             'group' => $group,
+            'muscles' => Muscle::all(),
         ]);
     }
 
@@ -73,6 +74,26 @@ class GroupController extends Controller
     public function update(UpdateGroupRequest $request, Group $group): RedirectResponse
     {
         $validated = $request->validated();
+
+        // Dissociate existing muscles
+        $group->muscles->each(fn ($muscle) => $muscle->group()->dissociate()->save());
+
+        // Get params staring by 'muscle_'
+        $keys = array_filter(array_keys($request->all()), fn ($key) => str_starts_with($key, 'muscle_'));
+
+        // Check filtered keys as 'on'
+        $checkedKeys = array_filter($keys, fn ($key)=> $request->all()[$key] === 'on' );
+
+        // Get id for each param key
+        $ids = array_map(fn ($key) => (int)str_replace('muscle_', '', $key), $checkedKeys);
+
+        // Get muscles from id list
+        $muscles = Muscle::whereIn('id', $ids)->get();
+
+        // Associate selected muscles
+        $muscles->each(fn ($muscle) => $muscle->group()->associate($group)->save());
+
+        // Update group
         $group->update($validated);
 
         return to_route('admin.group.index')

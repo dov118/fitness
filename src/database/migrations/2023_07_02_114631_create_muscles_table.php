@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('muscles', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('group_id')->constrained('groups');
+            $table->foreignId('group_id')->nullable(true)->default(0)->constrained('groups');
 
             $table->string('name', 64)->unique('muscle_name')->nullable(false)->default('')->comment('Nom du muscle');
             $table->integer('heavy_min')->nullable(false)->default(1)->comment('Nom de répétition mimimum en lourd');

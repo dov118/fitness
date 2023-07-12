@@ -70,8 +70,18 @@ class MuscleController extends Controller
         return view('admin.muscle.edit', [
             'muscle' => $muscle,
             'groups' => Group::all(),
-            'active_exercises' => $muscle->exercises()->orderBy('name', 'desc')->withPivot('intensity')->whereNot('intensity', 0.0)->get()->reverse(),
-            'inactive_exercises' => $muscle->exercises()->orderBy('name', 'desc')->withPivot('intensity')->where('intensity', 0.0)->get()->reverse(),
+            'active_exercises' => $muscle->exercises()
+                ->withPivot('intensity')
+                ->whereNot('intensity', 0.0)
+                ->orderBy('pivot_intensity')
+                ->get()
+                ->reverse(),
+            'inactive_exercises' => $muscle->exercises()
+                ->orderBy('name', 'desc')
+                ->withPivot('intensity')
+                ->where('intensity', 0.0)
+                ->get()
+                ->reverse(),
         ]);
     }
 

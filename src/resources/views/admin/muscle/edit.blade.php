@@ -66,13 +66,41 @@
                         </div>
                         <div class="form-group-body">
                             <div class="radio-group">
-                                <input @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.0) class="radio-input" id="option-a-{{ $exercise->id }}" type="radio" name="option-{{ $exercise->id }}" value="0.0">
+                                <input
+                                    @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.0)
+                                    class="radio-input"
+                                    id="option-a-{{ $exercise->id }}"
+                                    type="radio"
+                                    name="option-{{ $exercise->id }}"
+                                    value="0.0"
+                                >
                                 <label class="radio-label Label--muted" for="option-a-{{ $exercise->id }}">0%</label>
-                                <input @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.25) class="radio-input" id="option-b-{{ $exercise->id }}" type="radio" name="option-{{ $exercise->id }}" value="0.25">
+                                <input
+                                    @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.25)
+                                    class="radio-input"
+                                    id="option-b-{{ $exercise->id }}"
+                                    type="radio"
+                                    name="option-{{ $exercise->id }}"
+                                    value="0.25"
+                                >
                                 <label class="radio-label Label--danger" for="option-b-{{ $exercise->id }}">25%</label>
-                                <input @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.5) class="radio-input" id="option-c-{{ $exercise->id }}" type="radio" name="option-{{ $exercise->id }}" value="0.5">
+                                <input
+                                    @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.5)
+                                    class="radio-input"
+                                    id="option-c-{{ $exercise->id }}"
+                                    type="radio"
+                                    name="option-{{ $exercise->id }}"
+                                    value="0.5"
+                                >
                                 <label class="radio-label Label--accent" for="option-c-{{ $exercise->id }}">50%</label>
-                                <input @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 1.0) class="radio-input" id="option-d-{{ $exercise->id }}" type="radio" name="option-{{ $exercise->id }}" value="1.0">
+                                <input
+                                    @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 1.0)
+                                    class="radio-input"
+                                    id="option-d-{{ $exercise->id }}"
+                                    type="radio"
+                                    name="option-{{ $exercise->id }}"
+                                    value="1.0"
+                                >
                                 <label class="radio-label Label--success" for="option-d-{{ $exercise->id }}">100%</label>
                             </div>
                         </div>
@@ -91,13 +119,41 @@
                         </div>
                         <div class="form-group-body">
                             <div class="radio-group">
-                                <input @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.0) class="radio-input" id="option-a-{{ $exercise->id }}" type="radio" name="option-{{ $exercise->id }}" value="0.0">
+                                <input
+                                    @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.0)
+                                    class="radio-input"
+                                    id="option-a-{{ $exercise->id }}"
+                                    type="radio"
+                                    name="option-{{ $exercise->id }}"
+                                    value="0.0"
+                                >
                                 <label class="radio-label Label--muted" for="option-a-{{ $exercise->id }}">0%</label>
-                                <input @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.25) class="radio-input" id="option-b-{{ $exercise->id }}" type="radio" name="option-{{ $exercise->id }}" value="0.25">
+                                <input
+                                    @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.25)
+                                    class="radio-input"
+                                    id="option-b-{{ $exercise->id }}"
+                                    type="radio"
+                                    name="option-{{ $exercise->id }}"
+                                    value="0.25"
+                                >
                                 <label class="radio-label Label--danger" for="option-b-{{ $exercise->id }}">25%</label>
-                                <input @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.5) class="radio-input" id="option-c-{{ $exercise->id }}" type="radio" name="option-{{ $exercise->id }}" value="0.5">
+                                <input
+                                    @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 0.5)
+                                    class="radio-input"
+                                    id="option-c-{{ $exercise->id }}"
+                                    type="radio"
+                                    name="option-{{ $exercise->id }}"
+                                    value="0.5"
+                                >
                                 <label class="radio-label Label--accent" for="option-c-{{ $exercise->id }}">50%</label>
-                                <input @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 1.0) class="radio-input" id="option-d-{{ $exercise->id }}" type="radio" name="option-{{ $exercise->id }}" value="1.0">
+                                <input
+                                    @checked($exercise->muscles()->find($muscle->id)->pivot->intensity === 1.0)
+                                    class="radio-input"
+                                    id="option-d-{{ $exercise->id }}"
+                                    type="radio"
+                                    name="option-{{ $exercise->id }}"
+                                    value="1.0"
+                                >
                                 <label class="radio-label Label--success" for="option-d-{{ $exercise->id }}">100%</label>
                             </div>
                         </div>

@@ -14,6 +14,7 @@ class EquipmentSeeder extends Seeder
     public function run(): void
     {
         $barreName = ' Barre';
+        $equipmentClass = 'App\Models\Equipment::';
 
         $equipments = [];
 
@@ -47,10 +48,10 @@ class EquipmentSeeder extends Seeder
             $i25 = 0;
             $i5 = 0;
 
-            for ($i05 = 0; $i05 < (int)(constant('App\Models\Equipment::EQUIPMENT_0_5_COUNT')) + 1; $i05++) {
-                $total05 = (float)(constant('App\Models\Equipment::EQUIPMENT_0_5_WEIGHT'))
+            for ($i05 = 0; $i05 < (int)(constant($equipmentClass.'EQUIPMENT_0_5_COUNT')) + 1; $i05++) {
+                $total05 = (float)(constant($equipmentClass.'EQUIPMENT_0_5_WEIGHT'))
                     * ($i05*2);
-                $total = (float)constant('App\Models\Equipment::'.$item.'_WEIGHT') + ($total05);
+                $total = (float)constant($equipmentClass.$item.'_WEIGHT') + ($total05);
 
                 $name = $total . 'kg';
                 if ($empty !== 1) {
@@ -72,10 +73,10 @@ class EquipmentSeeder extends Seeder
                     '5_0' => $i5,
                 ];
 
-                for ($i125 = 0; $i125 < (int)(constant('App\Models\Equipment::EQUIPMENT_1_25_COUNT')) + 1; $i125++) {
-                    $total125 = (float)(constant('App\Models\Equipment::EQUIPMENT_1_25_WEIGHT'))
+                for ($i125 = 0; $i125 < (int)(constant($equipmentClass.'EQUIPMENT_1_25_COUNT')) + 1; $i125++) {
+                    $total125 = (float)(constant($equipmentClass.'EQUIPMENT_1_25_WEIGHT'))
                         * ($i125*2) + $total05;
-                    $total = (float)constant('App\Models\Equipment::'.$item.'_WEIGHT') + ($total125);
+                    $total = (float)constant($equipmentClass.$item.'_WEIGHT') + ($total125);
 
                     $name = $total . 'kg';
                     if ($empty !== 1) {
@@ -97,10 +98,10 @@ class EquipmentSeeder extends Seeder
                         '5_0' => $i5,
                     ];
 
-                    for ($i25 = 0; $i25 < (int)(constant('App\Models\Equipment::EQUIPMENT_2_5_COUNT')) + 1; $i25++) {
-                        $total25 = (float)(constant('App\Models\Equipment::EQUIPMENT_2_5_WEIGHT'))
+                    for ($i25 = 0; $i25 < (int)(constant($equipmentClass.'EQUIPMENT_2_5_COUNT')) + 1; $i25++) {
+                        $total25 = (float)(constant($equipmentClass.'EQUIPMENT_2_5_WEIGHT'))
                             * ($i25*2) + $total05 + $total125;
-                        $total = (float)constant('App\Models\Equipment::'.$item.'_WEIGHT') + ($total25);
+                        $total = (float)constant($equipmentClass.$item.'_WEIGHT') + ($total25);
 
                         $name = $total . 'kg';
                         if ($empty !== 1) {
@@ -122,10 +123,10 @@ class EquipmentSeeder extends Seeder
                             '5_0' => $i5,
                         ];
 
-                        for ($i5 = 0; $i5 < (int)(constant('App\Models\Equipment::EQUIPMENT_5_COUNT')) + 1; $i5++) {
-                            $total5 = (float)(constant('App\Models\Equipment::EQUIPMENT_5_WEIGHT'))
+                        for ($i5 = 0; $i5 < (int)(constant($equipmentClass.'EQUIPMENT_5_COUNT')) + 1; $i5++) {
+                            $total5 = (float)(constant($equipmentClass.'EQUIPMENT_5_WEIGHT'))
                                 * ($i5*2) + $total05 + $total125 + $total25;
-                            $total = (float)constant('App\Models\Equipment::'.$item.'_WEIGHT') + ($total5);
+                            $total = (float)constant($equipmentClass.$item.'_WEIGHT') + ($total5);
 
                             $name = $total . 'kg';
                             if ($empty !== 1) {

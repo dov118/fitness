@@ -78,6 +78,8 @@ class MuscleControllerTest extends TestCase
 
     public function test_the_admin_group_create_action_returns_a_successful_response(): void
     {
+        Exercise::factory()->create();
+
         $muscleName = fake()->text(64);
 
         $group = Group::factory()->create();

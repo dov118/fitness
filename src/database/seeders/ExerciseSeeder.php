@@ -132,7 +132,8 @@ prise supination',
             ->hasAttached($this->createImage('/files/rowing-barre.gif'))
             ->hasAttached(Muscle::all())->create([
             'name' => 'Rowing barre',
-            'guideline' => 'main milieu + tendre bras vers bas droit niveau genoux + juste remonter le tout sur le même axe',
+            'guideline' => 'main milieu + tendre bras vers bas droit niveau genoux +
+juste remonter le tout sur le même axe',
             'heavy_min' => 0,
             'heavy_max' => 0,
             'light_min' => 12,
@@ -508,6 +509,10 @@ bien déscendre le torce',
 
     public function createImage(string $path): Model
     {
-        return File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . $path, PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . $path))]);
+        return File::factory()->create(['data' => 'data:image/' .
+            pathinfo( dirname(__FILE__, 2) . $path, PATHINFO_EXTENSION) .
+            ';base64,' .
+            base64_encode(file_get_contents(dirname(__FILE__, 2) . $path))
+        ]);
     }
 }

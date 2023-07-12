@@ -8,7 +8,6 @@
         @if('admin.index' === Route::current()->getName()) aria-current="page" @endif
         href="{{ route('admin.index') }}">Dashboard</a>
     <hr class="SelectMenu-divider">
-    <span class="menu-heading" id="menu-heading">Muscles</span>
     @can('viewAny', Muscle::class)
         <a
             class="menu-item"
@@ -16,7 +15,7 @@
             href="{{ route('admin.muscle.index') }}"
         >
             <span class="Counter">{{ count($muscles ?? []) ?: '??' }}</span>
-            All
+            Muscles
         </a>
     @endcan
     @can('viewAny', Group::class)
@@ -29,7 +28,6 @@
             Groups</a>
     @endcan
     <hr class="SelectMenu-divider">
-    <span class="menu-heading" id="menu-heading">Exercises</span>
     @can('viewAny', Exercise::class)
         <a
             class="menu-item"
@@ -37,7 +35,7 @@
             href="{{ route('admin.exercise.index') }}"
         >
             <span class="Counter">{{ count($exercises ?? []) ?: '??' }}</span>
-            All
+            Exercise
         </a>
     @endcan
 </nav>

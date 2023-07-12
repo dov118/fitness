@@ -29,16 +29,44 @@ class MuscleControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_the_admin_muscle_index_displayed_groups_and_muscles_name(): void
+    public function test_the_admin_muscle_index_displayed_all_information(): void
     {
+        $exercise = Exercise::factory()->create();
+
         $group = Group::factory()->create();
 
-        $muscle = Muscle::factory()->for($group)->create();
+        $muscle = Muscle::factory()->for($group)->hasAttached($exercise, [
+            'intensity' => 1.0,
+        ])->create();
+
+        $muscle = $muscle->refresh();
+        $exercise = $exercise->refresh();
 
         $response = $this->get(route('admin.muscle.index'));
 
         $response->assertSee($muscle->name);
         $response->assertSee($group->name);
+        $response->assertSee($exercise->name);
+    }
+
+    public function test_the_admin_muscle_index_not_displaying_zero_intensity_exercise_name(): void
+    {
+        $exercise = Exercise::factory()->create();
+
+        $group = Group::factory()->create();
+
+        $muscle = Muscle::factory()->for($group)->hasAttached($exercise, [
+            'intensity' => 0,
+        ])->create();
+
+        $muscle = $muscle->refresh();
+        $exercise = $exercise->refresh();
+
+        $response = $this->get(route('admin.muscle.index'));
+
+        $response->assertSee($muscle->name);
+        $response->assertSee($group->name);
+        $response->assertDontSee($exercise->name);
     }
 
     public function test_the_admin_muscle_create_page_returns_a_successful_response(): void
@@ -67,6 +95,9 @@ class MuscleControllerTest extends TestCase
         $muscle = Muscle::where('name', $muscle_name)->with('group')->get()->first();
 
         $this->assertTrue($muscle->group->id === $group->id);
+        foreach (Exercise::all() as $exercise) {
+            $this->assertTrue($muscle->exercises->contains($exercise->id));
+        }
 
         $response
             ->assertSessionDoesntHaveErrors()
@@ -122,6 +153,21 @@ class MuscleControllerTest extends TestCase
         $response = $this->get(route('admin.muscle.edit', $muscle));
 
         $response->assertStatus(200);
+    }
+
+    public function test_the_admin_muscle_edit_page_displayed_all_information(): void
+    {
+        $exercise = Exercise::factory()->create();
+
+        $group = Group::factory()->create();
+
+        $muscle = Muscle::factory()->hasAttached($exercise)->for($group)->create();
+
+        $response = $this->get(route('admin.muscle.edit', $muscle));
+
+        $response->assertSee($exercise->name);
+        $response->assertSee($group->name);
+        $response->assertSee($muscle->name);
     }
 
     public function test_the_admin_muscle_update_action_returns_a_successful_response(): void
@@ -235,6 +281,152 @@ class MuscleControllerTest extends TestCase
             ->assertStatus(422);
     }
 
+    public function test_the_admin_muscle_update_action_returns_a_successful_response_when_update_all_exercise(): void
+    {
+        Exercise::factory()->create(['id' => 1]);
+        Exercise::factory()->create(['id' => 2]);
+        Exercise::factory()->create(['id' => 3]);
+        Exercise::factory()->create(['id' => 4]);
+        Exercise::factory()->create(['id' => 5]);
+        $exercises = Exercise::whereIn('id', [1, 2, 3, 4, 5])->get()->all();
+
+        $group = Group::factory()->create();
+
+        $muscle = Muscle::factory()->hasAttached($exercises, [
+            'intensity' => 1.0,
+        ])->for($group)->create();
+
+        $params = [];
+        $params['name'] = $muscle->name;
+        $params['group_id'] = $group->id;
+
+        $muscle = $muscle->refresh();
+        $exercises = Exercise::whereIn('id', [1, 2, 3, 4, 5])->get()->all();
+
+        foreach ($exercises as $exercise) {
+            $this->assertTrue($exercise->muscles->find($muscle->id)->pivot->intensity === 1.0);
+            $params['option-' . $exercise->id] = 0.5;
+        }
+
+        $response = $this->putJson(route('admin.muscle.update', $muscle), $params);
+
+        $muscle = $muscle->refresh();
+        $exercises = Exercise::whereIn('id', [1, 2, 3, 4, 5])->get()->all();
+
+        foreach ($exercises as $exercise) {
+            $this->assertTrue($exercise->muscles->find($muscle->id)->pivot->intensity === 0.5);
+        }
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.muscle.index'))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_muscle_update_action_returns_a_successful_response_when_add_exercise(): void
+    {
+        $newExercise = Exercise::factory()->create(['id' => 6]);
+
+        Exercise::factory()->create(['id' => 1]);
+        Exercise::factory()->create(['id' => 2]);
+        Exercise::factory()->create(['id' => 3]);
+        Exercise::factory()->create(['id' => 4]);
+        Exercise::factory()->create(['id' => 5]);
+        $exercises = Exercise::whereIn('id', [1, 2, 3, 4, 5])->get()->all();
+
+        $group = Group::factory()->create();
+
+        $muscle = Muscle::factory()
+            ->hasAttached($exercises, ['intensity' => 1.0,])
+            ->hasAttached($newExercise, ['intensity' => 0.0])
+            ->for($group)->create();
+
+        $params = [];
+        $params['name'] = $muscle->name;
+        $params['group_id'] = $group->id;
+
+        $muscle = $muscle->refresh();
+        $newExercise = $newExercise->refresh();
+        $exercises = Exercise::whereIn('id', [1, 2, 3, 4, 5])->get()->all();
+
+        foreach ($exercises as $exercise) {
+            $this->assertTrue($exercise->muscles->find($muscle->id)->pivot->intensity === 1.0);
+            $params['option-' . $exercise->id] = 0.5;
+        }
+        $params['option-' . $newExercise->id] = 0.25;
+        $this->assertTrue($newExercise->muscles->find($muscle->id)->pivot->intensity === 0.0);
+
+        $response = $this->putJson(route('admin.muscle.update', $muscle), $params);
+
+        $muscle = $muscle->refresh();
+        $newExercise = $newExercise->refresh();
+        $exercises = Exercise::whereIn('id', [1, 2, 3, 4, 5])->get()->all();
+
+        foreach ($exercises as $exercise) {
+            $this->assertTrue($exercise->muscles->find($muscle->id)->pivot->intensity === 0.5);
+        }
+        $this->assertTrue($newExercise->muscles->find($muscle->id)->pivot->intensity === 0.25);
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.muscle.index'))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_muscle_update_action_returns_a_successful_response_when_remove_exercise(): void
+    {
+        $removeExercise = Exercise::factory()->create(['id' => 1]);
+        Exercise::factory()->create(['id' => 2]);
+        Exercise::factory()->create(['id' => 3]);
+        Exercise::factory()->create(['id' => 4]);
+        Exercise::factory()->create(['id' => 5]);
+        $exercises = Exercise::whereIn('id', [2, 3, 4, 5])->get()->all();
+
+        $group = Group::factory()->create();
+
+        $muscle = Muscle::factory()
+            ->hasAttached($exercises, ['intensity' => 1.0,])
+            ->hasAttached($removeExercise, ['intensity' => 1.0,])
+            ->for($group)->create();
+
+        $params = [];
+        $params['name'] = $muscle->name;
+        $params['group_id'] = $group->id;
+
+        $muscle = $muscle->refresh();
+        $removeExercise = $removeExercise->refresh();
+        $exercises = Exercise::whereIn('id', [2, 3, 4, 5])->get()->all();
+
+        foreach ($exercises as $exercise) {
+            $this->assertTrue($exercise->muscles->find($muscle->id)->pivot->intensity === 1.0);
+            $params['option-' . $exercise->id] = 0.5;
+        }
+        $this->assertTrue($removeExercise->muscles->find($muscle->id)->pivot->intensity === 1.0);
+        $params['option-' . $removeExercise->id] = 0.0;
+
+        $response = $this->putJson(route('admin.muscle.update', $muscle), $params);
+
+        $muscle = $muscle->refresh();
+        $removeExercise = $removeExercise->refresh();
+        $exercises = Exercise::whereIn('id', [2, 3, 4, 5])->get()->all();
+
+        foreach ($exercises as $exercise) {
+            $this->assertTrue($exercise->muscles->find($muscle->id)->pivot->intensity === 0.5);
+        }
+        $this->assertTrue($removeExercise->muscles->find($muscle->id)->pivot->intensity === 0.0);
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.muscle.index'))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
     public function test_the_admin_muscle_show_returns_a_successful_response(): void
     {
         Group::factory()->create();
@@ -246,16 +438,38 @@ class MuscleControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_the_admin_muscle_show_displayed_groups_and_muscles_name(): void
+    public function test_the_admin_muscle_show_displayed_all_information(): void
     {
+        $exercise = Exercise::factory()->create();
+
         $group = Group::factory()->create();
 
-        $muscle = Muscle::factory()->for($group)->create();
+        $muscle = Muscle::factory()->for($group)->hasAttached($exercise, [
+            'intensity' => 1.0,
+        ])->create();
 
         $response = $this->get(route('admin.muscle.show', $muscle));
 
         $response->assertSee($muscle->name);
         $response->assertSee($group->name);
+        $response->assertSee($exercise->name);
+    }
+
+    public function test_the_admin_muscle_show_not_displaying_zero_intensity_exercise_name(): void
+    {
+        $exercise = Exercise::factory()->create();
+
+        $group = Group::factory()->create();
+
+        $muscle = Muscle::factory()->for($group)->hasAttached($exercise, [
+            'intensity' => 0,
+        ])->create();
+
+        $response = $this->get(route('admin.muscle.show', $muscle));
+
+        $response->assertSee($muscle->name);
+        $response->assertSee($group->name);
+        $response->assertDontSee($exercise->name);
     }
 
     public function test_the_admin_muscle_delete_action_with_no_exercises_attached_returns_a_successful_response(): void

@@ -54,11 +54,20 @@ class ExerciseControllerTest extends TestCase
 
     public function test_the_admin_exercise_create_action_returns_a_successful_response(): void
     {
+        Muscle::factory()->create();
+
         $exercise_raw = Exercise::factory()->definition();
 
         $response = $this->postJson(route('admin.exercise.store'), $exercise_raw);
 
+        $exercise = Exercise::where('name', $exercise_raw['name'])->with('muscles')->get()->first();
+
         $this->assertDatabaseHas(app(Exercise::class)->getTable(), $exercise_raw);
+
+        $this->assertTrue(!Muscle::all()->isEmpty());
+        foreach (Muscle::all() as $muscle) {
+            $this->assertTrue($exercise->muscles->contains($muscle->id));
+        }
 
         $response
             ->assertSessionDoesntHaveErrors()

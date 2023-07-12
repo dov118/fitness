@@ -30,9 +30,9 @@
                     @enderror
                 </div>
 
-                <div class="form-group @error('name') errored @enderror">
+                <div class="form-group @error('group_id') errored @enderror">
                     <div class="form-group-header">
-                        <label for="name-input">Name</label>
+                        <label for="name-input">Muscle group</label>
                     </div>
                     <div class="form-group-body">
                         <select class="form-select" aria-label="Muscle group" name="group_id">
@@ -44,7 +44,7 @@
                             @endforeach
                         </select>
                     </div>
-                    @error('name')
+                    @error('group_id')
                     <p class="note error" id="name-input-validation">{{ $message }}</p>
                     @enderror
                 </div>

@@ -45,7 +45,8 @@ class ExerciseController extends Controller
     public function store(StoreExerciseRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-        Exercise::create($validated);
+        $exercise = Exercise::create($validated);
+        Muscle::all()->each(fn ($muscle) => $exercise->muscles()->attach($muscle->id));
 
         return to_route('admin.exercise.index')
             ->with('notification_type', 'success')

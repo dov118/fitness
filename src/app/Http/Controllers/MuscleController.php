@@ -20,8 +20,8 @@ class MuscleController extends Controller
     public function index(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.muscle.index', [
-            'muscles' => Muscle::with('group')->get()->all(),
-            'groups' => Group::all(),
+            'muscles' => Muscle::all(),
+            'groups' => Group::with(['muscles' => fn ($q) => $q->with(['exercises' => fn($q) => $q->withPivot('intensity')->orderBy('pivot_intensity', 'desc')->whereNot('intensity', 0.0)])->get()->all()])->get()->all(),
             'exercises' => Exercise::all(),
         ]);
     }
@@ -32,7 +32,7 @@ class MuscleController extends Controller
     public function create(): View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return view('admin.muscle.create', [
-            'groups' => Group::all('id', 'name'),
+            'groups' => Group::all(),
         ]);
     }
 
@@ -42,7 +42,8 @@ class MuscleController extends Controller
     public function store(StoreMuscleRequest $request): RedirectResponse
     {
         $validated = $request->validated();
-        Muscle::create($validated);
+        $muscle = Muscle::create($validated);
+        Exercise::all()->each(fn ($exercise) => $muscle->exercises()->attach($exercise->id));
 
         return to_route('admin.muscle.index')
             ->with('notification_type', 'success')
@@ -56,7 +57,8 @@ class MuscleController extends Controller
     {
         return view('admin.muscle.show', [
             'muscle' => $muscle,
-            'groups' => Group::all('id', 'name'),
+            'groups' => Group::all(),
+            'active_exercises' => $muscle->exercises()->orderBy('name', 'desc')->withPivot('intensity')->whereNot('intensity', 0.0)->get()->reverse(),
         ]);
     }
 
@@ -67,7 +69,9 @@ class MuscleController extends Controller
     {
         return view('admin.muscle.edit', [
             'muscle' => $muscle,
-            'groups' => Group::all('id', 'name'),
+            'groups' => Group::all(),
+            'active_exercises' => $muscle->exercises()->orderBy('name', 'desc')->withPivot('intensity')->whereNot('intensity', 0.0)->get()->reverse(),
+            'inactive_exercises' => $muscle->exercises()->orderBy('name', 'desc')->withPivot('intensity')->where('intensity', 0.0)->get()->reverse(),
         ]);
     }
 
@@ -77,6 +81,21 @@ class MuscleController extends Controller
     public function update(UpdateMuscleRequest $request, Muscle $muscle): RedirectResponse
     {
         $validated = $request->validated();
+
+        // Get params staring by 'option-'
+        $keys = array_filter(array_keys($request->all()), fn ($key) => str_starts_with($key, 'option-'));
+
+        // Get id and value for each param key
+        $exercises = [];
+        foreach ($keys as $key) {
+            $exercises[(int)str_replace('option-', '', $key)] = (float)$request->all()[$key];
+        }
+
+        // Update intensity value for each exercises
+        foreach ($exercises as $exercise_id=>$intensity) {
+            $muscle->exercises()->updateExistingPivot($exercise_id, ['intensity' => $intensity]);
+        }
+
         $muscle->update($validated);
 
         return to_route('admin.muscle.index')

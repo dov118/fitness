@@ -34,6 +34,8 @@ class LoginControllerTest extends TestCase
         $response->assertDontSee('Dashboard');
         $response->assertDontSee('General');
         $response->assertDontSee('Groups');
+        $response->assertDontSee('Muscles');
+        $response->assertDontSee('Exercises');
     }
 
     public function test_the_discord_login_returns_a_successful_response(): void

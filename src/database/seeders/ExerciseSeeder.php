@@ -16,7 +16,7 @@ class ExerciseSeeder extends Seeder
     public function run(): void
     {
         Schema::disableForeignKeyConstraints();
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/ecartes-incline-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/ecartes-incline-avec-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/ecartes-incline-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/ecartes-incline-avec-halteres.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Écartés incliné aux haltères',
             'guideline' => 'Prise sérrée / préférer haltère / incliné
 Coudes assez proches du torse
@@ -31,7 +31,7 @@ Ne pas bouger les coudes, remonté à fond, 90°',
         $exercise->muscles()->updateExistingPivot(13, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(14, ['intensity' => 0.25]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-decline-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-decline-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-decline-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-decline-halteres.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Développé décliné aux haltères',
             'guideline' => 'Limiter les mouement au niveau des coude
 Coude à 70° plus proche de 90°',
@@ -45,7 +45,7 @@ Coude à 70° plus proche de 90°',
         $exercise->muscles()->updateExistingPivot(14, ['intensity' => 1]);
 
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-militaire.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-militaire.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-militaire.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-militaire.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Développé militaire',
             'guideline' => '',
             'heavy_min' => 0,
@@ -57,7 +57,7 @@ Coude à 70° plus proche de 90°',
         $exercise->muscles()->updateExistingPivot(6, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(7, ['intensity' => 0.5]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/elevations-laterales.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/elevations-laterales.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7, 8])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/elevations-laterales.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/elevations-laterales.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Élévations latérales unilateral',
             'guideline' => 'tirer omoplate et clavicule en arriere',
             'heavy_min' => 0,
@@ -70,7 +70,7 @@ Coude à 70° plus proche de 90°',
         $exercise->muscles()->updateExistingPivot(7, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(8, ['intensity' => 0.5]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/dips-sur-une-chaise.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/dips-sur-une-chaise.gif'))]))->hasAttached(Muscle::whereIn('id', [20, 21, 22])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/dips-sur-une-chaise.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/dips-sur-une-chaise.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Dips',
             'guideline' => 'Coude décollé
 Genoux pas plié
@@ -85,7 +85,7 @@ Poignet neutre (au lieu de pronation pour la douleur)',
         $exercise->muscles()->updateExistingPivot(21, ['intensity' => 0.5]);
         $exercise->muscles()->updateExistingPivot(22, ['intensity' => 0.5]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/extension-triceps-verticale-elastique.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/extension-triceps-verticale-elastique.gif'))]))->hasAttached(Muscle::whereIn('id', [20, 21, 22])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/extension-triceps-verticale-elastique.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/extension-triceps-verticale-elastique.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Poulis',
             'guideline' => 'Coudes pointent vers les hanches
 Coudes sérré + bras vers l\'avant',
@@ -99,7 +99,7 @@ Coudes sérré + bras vers l\'avant',
         $exercise->muscles()->updateExistingPivot(21, ['intensity' => 0.25]);
         $exercise->muscles()->updateExistingPivot(22, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/tirage-vertical-prise-serree.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/tirage-vertical-prise-serree.gif'))]))->hasAttached(Muscle::whereIn('id', [15, 16])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/tirage-vertical-prise-serree.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/tirage-vertical-prise-serree.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Tirrage vertical à l\'elastique',
             'guideline' => 'omoplates fixes
 Coude le plus collé au torse
@@ -113,7 +113,7 @@ prise supination',
         $exercise->muscles()->updateExistingPivot(15, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(16, ['intensity' => 0.25]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/rowing-barre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/rowing-barre.gif'))]))->hasAttached(Muscle::whereIn('id', [15, 16])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/rowing-barre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/rowing-barre.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Rowing barre',
             'guideline' => 'main milieu + tendre bras vers bas droit niveau genoux + juste remonter le tout sur le même axe',
             'heavy_min' => 0,
@@ -125,7 +125,7 @@ prise supination',
         $exercise->muscles()->updateExistingPivot(15, ['intensity' => 0.5]);
         $exercise->muscles()->updateExistingPivot(16, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/face-pull.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/face-pull.gif'))]))->hasAttached(Muscle::whereIn('id', [7, 8])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/face-pull.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/face-pull.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Face-pulls à l\'élastique',
             'guideline' => 'Ecarter et reculler les poinget vers l\'arrier
  légère pause en contraction ',
@@ -138,7 +138,7 @@ prise supination',
         $exercise->muscles()->updateExistingPivot(7, ['intensity' => 0.5]);
         $exercise->muscles()->updateExistingPivot(8, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/test.jpg', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/test.jpg'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/test.jpg', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/test.jpg'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Curl marteau croisé',
             'guideline' => 'Prise neutre  + Coude fixe un peu devant diagonal vers mieux de pecs
 Monter poignet bien parallel au torce + monter jusqu\'en haut',
@@ -152,7 +152,7 @@ Monter poignet bien parallel au torce + monter jusqu\'en haut',
         $exercise->muscles()->updateExistingPivot(19, ['intensity' => 0.25]);
         $exercise->muscles()->updateExistingPivot(20, ['intensity' => 0.25]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/curl-barre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/curl-barre.gif'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/curl-barre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/curl-barre.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Curl à la barre avec une prise large',
             'guideline' => 'Supination ou neutre - Coude légèrement exterieur epaules + Coude proche torce',
             'heavy_min' => 0,
@@ -165,7 +165,7 @@ Monter poignet bien parallel au torce + monter jusqu\'en haut',
         $exercise->muscles()->updateExistingPivot(19, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(20, ['intensity' => 0.25]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/drag-curl-halteres-assis.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/drag-curl-halteres-assis.gif'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/drag-curl-halteres-assis.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/drag-curl-halteres-assis.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Drag curl',
             'guideline' => 'Coude avance sensiblement avant - reculer montant - Prise sérrée / tres large',
             'heavy_min' => 0,
@@ -178,7 +178,7 @@ Monter poignet bien parallel au torce + monter jusqu\'en haut',
         $exercise->muscles()->updateExistingPivot(19, ['intensity' => 0.25]);
         $exercise->muscles()->updateExistingPivot(20, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/squat-bulgare-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/squat-bulgare-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [1, 3])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/squat-bulgare-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/squat-bulgare-halteres.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Fentes bulgares',
             'guideline' => 'Bien plier les jambes
 Dos droit + abdo contracté
@@ -192,7 +192,7 @@ Genoux pas de gauche droite',
         $exercise->muscles()->updateExistingPivot(1, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(3, ['intensity' => 0.5]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/souleve-de-terre-jambes-tendues.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/souleve-de-terre-jambes-tendues.gif'))]))->hasAttached(Muscle::whereIn('id', [1, 2, 3])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/souleve-de-terre-jambes-tendues.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/souleve-de-terre-jambes-tendues.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Soulevé de terre jambe tendue',
             'guideline' => 'Ne pas bouger les jenoux - garder les jambes proches - Dessendre sans flexion du dos',
             'heavy_min' => 8,
@@ -205,7 +205,7 @@ Genoux pas de gauche droite',
         $exercise->muscles()->updateExistingPivot(2, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(3, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/extension-mollets-assis-machine.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/extension-mollets-assis-machine.gif'))]))->hasAttached(Muscle::whereIn('id', [4, 5])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/extension-mollets-assis-machine.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/extension-mollets-assis-machine.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Extension Mollets Barre Assis',
             'guideline' => 'Ne pas rebondir en bas du mouvement',
             'heavy_min' => 15,
@@ -217,7 +217,7 @@ Genoux pas de gauche droite',
         $exercise->muscles()->updateExistingPivot(4, ['intensity' => 0.25]);
         $exercise->muscles()->updateExistingPivot(5, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/extension-mollets-sur-marche.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/extension-mollets-sur-marche.gif'))]))->hasAttached(Muscle::whereIn('id', [4, 5])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/extension-mollets-sur-marche.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/extension-mollets-sur-marche.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Debout au bord d’un step unilaterale',
             'guideline' => 'Ne pas rebondir en bas du mouvement
 Ne plus changer le poid de coté',
@@ -230,7 +230,7 @@ Ne plus changer le poid de coté',
         $exercise->muscles()->updateExistingPivot(4, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(5, ['intensity' => 0.5]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/exercice-abdos-bicyclette.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/exercice-abdos-bicyclette.gif'))]))->hasAttached(Muscle::whereIn('id', [9, 10, 11, 12])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/exercice-abdos-bicyclette.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/exercice-abdos-bicyclette.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Crunch bicyclette',
             'guideline' => 'Inclinaison et tourner le torse
 Contracter volontairement les muscles',
@@ -245,7 +245,7 @@ Contracter volontairement les muscles',
         $exercise->muscles()->updateExistingPivot(11, ['intensity' => 0.25]);
         $exercise->muscles()->updateExistingPivot(12, ['intensity' => 0.25]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/planche-abdos.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/planche-abdos.gif'))]))->hasAttached(Muscle::whereIn('id', [9, 10, 11, 12])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/planche-abdos.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/planche-abdos.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Gainage',
             'guideline' => 'Renter le ventre ',
             'heavy_min' => 105,
@@ -259,7 +259,7 @@ Contracter volontairement les muscles',
         $exercise->muscles()->updateExistingPivot(11, ['intensity' => 0.5]);
         $exercise->muscles()->updateExistingPivot(12, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-incline-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-incline-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-incline-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-incline-halteres.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Développé incliné aux haltères',
             'guideline' => 'Prise sérrée
 Coudes assez proches du torse
@@ -275,7 +275,7 @@ Bien reculler les omoplate et bomber le torse',
         $exercise->muscles()->updateExistingPivot(13, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(14, ['intensity' => 0.25]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/ecartes-decline-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/ecartes-decline-avec-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [13, 14])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/ecartes-decline-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/ecartes-decline-avec-halteres.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Écartés décliné aux haltères',
             'guideline' => 'Limiter les mouement au niveau des coude
 Coude niveau nombrile / milieu du torse',
@@ -288,7 +288,7 @@ Coude niveau nombrile / milieu du torse',
         $exercise->muscles()->updateExistingPivot(13, ['intensity' => 0.5]);
         $exercise->muscles()->updateExistingPivot(14, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-epaule-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-epaule-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/developpe-epaule-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/developpe-epaule-halteres.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Développé épaules haltères',
             'guideline' => 'Garder le bras tendue  - Bien monter',
             'heavy_min' => 10,
@@ -300,7 +300,7 @@ Coude niveau nombrile / milieu du torse',
         $exercise->muscles()->updateExistingPivot(6, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(7, ['intensity' => 0.5]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/tirage-menton-machine-guidee.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/tirage-menton-machine-guidee.gif'))]))->hasAttached(Muscle::whereIn('id', [6, 7, 8])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/tirage-menton-machine-guidee.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/tirage-menton-machine-guidee.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Rowing menton prise large',
             'guideline' => 'Garder les omoplate fixes
 Ne pas hausser les épaules (main just ext epaule)',
@@ -314,7 +314,7 @@ Ne pas hausser les épaules (main just ext epaule)',
         $exercise->muscles()->updateExistingPivot(7, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(8, ['intensity' => 0.5]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/kickback.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/kickback.gif'))]))->hasAttached(Muscle::whereIn('id', [20, 21, 22])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/kickback.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/kickback.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Kickback',
             'guideline' => 'Coudes pointent vers les hanches
 Coudes sérré',
@@ -328,7 +328,7 @@ Coudes sérré',
         $exercise->muscles()->updateExistingPivot(21, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(22, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/rowing-halteres-banc-incline-prise-neutre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/rowing-halteres-banc-incline-prise-neutre.gif'))]))->hasAttached(Muscle::whereIn('id', [15, 16])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/rowing-halteres-banc-incline-prise-neutre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/rowing-halteres-banc-incline-prise-neutre.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Rowing haltères incliné',
             'guideline' => 'omoplates fixes
 pencher le plus possile le torse
@@ -344,7 +344,7 @@ prendre le plus loint possible',
         $exercise->muscles()->updateExistingPivot(15, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(16, ['intensity' => 0.5]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/shrugs-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/shrugs-avec-halteres.gif'))]))->hasAttached(Muscle::whereIn('id', [16])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/shrugs-avec-halteres.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/shrugs-avec-halteres.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Shrugs aux haltères',
             'guideline' => 'Bien remonter le bras - Aller de l\'arrière vers l\'avant lors de la monté - lever tete ',
             'heavy_min' => 8,
@@ -355,7 +355,7 @@ prendre le plus loint possible',
         ]);
         $exercise->muscles()->updateExistingPivot(16, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/oiseau-assis-sur-banc.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/oiseau-assis-sur-banc.gif'))]))->hasAttached(Muscle::whereIn('id', [7, 8])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/oiseau-assis-sur-banc.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/oiseau-assis-sur-banc.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Elevation arrière buste penché',
             'guideline' => 'Coudes vers l\'exterieur et bien reculer + tendre bras
 buste penché
@@ -370,7 +370,7 @@ Ne pas bouger les omoplates (pousser en avant)',
         $exercise->muscles()->updateExistingPivot(7, ['intensity' => 0.5]);
         $exercise->muscles()->updateExistingPivot(8, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/curl-inverse-barre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/curl-inverse-barre.gif'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/curl-inverse-barre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/curl-inverse-barre.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Curl barre Inversé',
             'guideline' => 'Prise pronation ou neutre
 Coude fixe
@@ -386,7 +386,7 @@ poinget niveau epaule',
         $exercise->muscles()->updateExistingPivot(19, ['intensity' => 0.25]);
         $exercise->muscles()->updateExistingPivot(20, ['intensity' => 0.25]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/curl-concentre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/curl-concentre.gif'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/curl-concentre.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/curl-concentre.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Curl Concentré',
             'guideline' => 'Prise supination ou neutre - Coude légèrement exterieur epaules et proche torce',
             'heavy_min' => 6,
@@ -399,7 +399,7 @@ poinget niveau epaule',
         $exercise->muscles()->updateExistingPivot(19, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(20, ['intensity' => 0.25]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/test.jpg', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/test.jpg'))]))->hasAttached(Muscle::whereIn('id', [18, 19, 20])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/test.jpg', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/test.jpg'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Curl barre',
             'guideline' => 'Coude avance sensiblement vers l\'avant',
             'heavy_min' => 6,
@@ -412,7 +412,7 @@ poinget niveau epaule',
         $exercise->muscles()->updateExistingPivot(19, ['intensity' => 0.25]);
         $exercise->muscles()->updateExistingPivot(20, ['intensity' => 1]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/fentes-avant.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/fentes-avant.gif'))]))->hasAttached(Muscle::whereIn('id', [1, 3])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/fentes-avant.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/fentes-avant.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Fentes',
             'guideline' => 'Tirer omoplate en arrière - Regarder devant - légèrement ingliner bassin avant  -dos droit',
             'heavy_min' => 6,
@@ -424,7 +424,7 @@ poinget niveau epaule',
         $exercise->muscles()->updateExistingPivot(1, ['intensity' => 1]);
         $exercise->muscles()->updateExistingPivot(3, ['intensity' => 0.5]);
 
-        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/crunch-poulie-haute.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/crunch-poulie-haute.gif'))]))->hasAttached(Muscle::whereIn('id', [9, 10, 11, 12])->get())->create([
+        $exercise = Exercise::factory()->hasAttached(File::factory()->create(['data' => 'data:image/' . pathinfo( dirname(__FILE__, 2) . '/files/crunch-poulie-haute.gif', PATHINFO_EXTENSION) . ';base64,' . base64_encode(file_get_contents(dirname(__FILE__, 2) . '/files/crunch-poulie-haute.gif'))]))->hasAttached(Muscle::all())->create([
             'name' => 'Crunch poulie',
             'guideline' => 'Commencer bien penché et ramener les
 coudes vers les genoux

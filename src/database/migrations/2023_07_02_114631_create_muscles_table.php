@@ -14,15 +14,32 @@ return new class extends Migration
         Schema::create('muscles', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('group_id')->nullable(true)->default(0)->constrained('groups');
+            $table->foreignId('group_id')
+                ->nullable(true)->default(0)
+                ->constrained('groups');
 
-            $table->string('name', 64)->unique('muscle_name')->nullable(false)->default('')->comment('Nom du muscle');
-            $table->integer('heavy_min')->nullable(false)->default(1)->comment('Nom de répétition mimimum en lourd');
-            $table->integer('heavy_max')->nullable(false)->default(1)->comment('Nom de répétition maximum en lourd');
-            $table->integer('light_min')->nullable(false)->default(1)->comment('Nom de répétition minimum en leger');
-            $table->integer('light_max')->nullable(false)->default(1)->comment('Nom de répétition maximum en leger');
-            $table->string('fiber_type', 255)->nullable(false)->default('')->comment('Type de fibre');
-            $table->integer('max')->nullable(false)->default(1)->comment('Nomre maximum de répétition pour ce muscle');
+            $table->string('name', 64)
+                ->unique('muscle_name')
+                ->nullable(false)->default('')
+                ->comment('Nom du muscle');
+            $table->integer('heavy_min')
+                ->nullable(false)->default(1)
+                ->comment('Nom de répétition mimimum en lourd');
+            $table->integer('heavy_max')
+                ->nullable(false)->default(1)
+                ->comment('Nom de répétition maximum en lourd');
+            $table->integer('light_min')
+                ->nullable(false)->default(1)
+                ->comment('Nom de répétition minimum en leger');
+            $table->integer('light_max')
+                ->nullable(false)->default(1)
+                ->comment('Nom de répétition maximum en leger');
+            $table->string('fiber_type', 255)
+                ->nullable(false)->default('')
+                ->comment('Type de fibre');
+            $table->integer('max')
+                ->nullable(false)->default(1)
+                ->comment('Nomre maximum de répétition pour ce muscle');
 
             $table->timestamps();
 

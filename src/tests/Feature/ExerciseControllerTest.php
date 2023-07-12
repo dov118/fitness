@@ -79,11 +79,11 @@ class ExerciseControllerTest extends TestCase
 
     public function test_the_admin_exercise_create_action_returns_an_error_if_new_name_already_used(): void
     {
-        $exercise_name = fake()->text(64);
+        $exerciseName = fake()->text(64);
 
         $exerciseRaw = Exercise::factory()->definition();
         Exercise::factory()->create($exerciseRaw);
-        $exerciseRaw['name'] = $exercise_name;
+        $exerciseRaw['name'] = $exerciseName;
 
         $response = $this->postJson(route('admin.exercise.store'), $exerciseRaw);
 
@@ -121,15 +121,15 @@ class ExerciseControllerTest extends TestCase
 
     public function test_the_admin_exercise_update_action_returns_an_error_if_new_name_already_used(): void
     {
-        $exercise_name = fake()->text(64);
+        $exerciseName = fake()->text(64);
 
         $oldExerciseRaw = Exercise::factory()->definition();
-        $oldExerciseRaw['name'] = $exercise_name;
+        $oldExerciseRaw['name'] = $exerciseName;
 
         $exercise = Exercise::factory()->create($oldExerciseRaw);
 
         $newExerciseRaw = Exercise::factory()->definition();
-        $newExerciseRaw['name'] = $exercise_name;
+        $newExerciseRaw['name'] = $exerciseName;
 
         $response = $this->putJson(route('admin.exercise.update', $exercise), $newExerciseRaw);
 

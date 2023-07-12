@@ -19,9 +19,9 @@ class LoginControllerTest extends TestCase
     /**
      * @throws ReflectionException
      */
-    private static function callPrivate($method_name, $args) {
+    private static function callPrivate($methodName, $args) {
         $class = new ReflectionClass(new LoginController());
-        $method = $class->getMethod($method_name);
+        $method = $class->getMethod($methodName);
         return $method->invokeArgs(new LoginController(), $args);
     }
 
@@ -90,7 +90,7 @@ class LoginControllerTest extends TestCase
             'email' => $email,
         ]);
 
-        $created_user = User::create([
+        $createdUser = User::create([
             'email' => $email,
             'id' => $id,
             'name' => $username,
@@ -109,7 +109,7 @@ class LoginControllerTest extends TestCase
             'avatar' => $avatar,
         ]]);
 
-        $this->assertTrue($user->id === $created_user->id);
+        $this->assertTrue($user->id === $createdUser->id);
     }
 
     /**
@@ -124,7 +124,7 @@ class LoginControllerTest extends TestCase
 
         $this->assertTrue(!Auth::hasUser());
 
-        $created_user = User::create([
+        $createdUser = User::create([
             'email' => $email,
             'id' => $id,
             'name' => $username,
@@ -132,7 +132,7 @@ class LoginControllerTest extends TestCase
             'avatar' => $avatar,
         ]);
 
-        $user = $this->callPrivate('login', [[
+        $this->callPrivate('login', [[
             'email' => $email,
             'id' => $id,
             'username' => $username,
@@ -140,7 +140,7 @@ class LoginControllerTest extends TestCase
         ]]);
 
         $this->assertTrue(Auth::hasUser());
-        $this->assertTrue(Auth::user()->id === $created_user->id);
+        $this->assertTrue(Auth::user()->id === $createdUser->id);
     }
 
     public function test_the_user_logout_works(): void
@@ -162,7 +162,11 @@ class LoginControllerTest extends TestCase
         $this->assertTrue(!Auth::hasUser());
 
         foreach (Route::getRoutes()->getRoutes() as $route) {
-            if (str_contains($route->getControllerClass(), 'App\Http\Controllers') && str_contains($route->getName(), 'admin.') && str_contains($route->getName(), '.index')) {
+            if (
+                str_contains($route->getControllerClass(), 'App\Http\Controllers') &&
+                str_contains($route->getName(), 'admin.') &&
+                str_contains($route->getName(), '.index')
+            ) {
                 $response = $this->get(route($route->getName()));
                 $response->assertRedirect(route('login'));
             }

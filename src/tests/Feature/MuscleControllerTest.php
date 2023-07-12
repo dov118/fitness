@@ -122,21 +122,21 @@ class MuscleControllerTest extends TestCase
 
     public function test_the_admin_group_create_action_returns_a_successful_response_when_group_doesnt_exist(): void
     {
-        $group_id = 4;
+        $groupId = 4;
         $name = fake()->text(64);
 
         $this->assertDatabaseMissing(app(Group::class)->getTable(), [
-            'id' => $group_id,
+            'id' => $groupId,
         ]);
 
         $response = $this->postJson(route('admin.muscle.store'), [
             'name' => $name,
-            'group_id' => $group_id,
+            'group_id' => $groupId,
         ]);
 
         $this->assertDatabaseMissing(app(Muscle::class)->getTable(), [
             'name' => $name,
-            'group_id' => $group_id,
+            'group_id' => $groupId,
         ]);
 
         $response
@@ -254,7 +254,7 @@ class MuscleControllerTest extends TestCase
 
     public function test_the_admin_muscle_update_action_returns_a_successful_response_when_group_doesnt_exist(): void
     {
-        $newGroup_id = 4;
+        $newGroupId = 4;
         $group = Group::factory()->create();
         $muscle = Muscle::factory()->for($group)->create();
 
@@ -263,12 +263,12 @@ class MuscleControllerTest extends TestCase
 
         $this->assertTrue($muscle->group->is($group));
         $this->assertDatabaseMissing(app(Group::class)->getTable(), [
-            'id' => $newGroup_id,
+            'id' => $newGroupId,
         ]);
 
         $response = $this->putJson(route('admin.muscle.update', $muscle), [
             'name' => $group->name,
-            'group_id' => $newGroup_id,
+            'group_id' => $newGroupId,
         ]);
 
         $group = $group->refresh();

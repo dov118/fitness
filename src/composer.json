@@ -14,12 +14,12 @@
     "require-dev": {
         "barryvdh/laravel-debugbar": "v3.8.1",
         "fakerphp/faker": "v1.23.0",
-        "laravel/dusk": "^7.8",
-        "laravel/pint": "v1.10.4",
+        "laravel/dusk": "7.8.0",
+        "laravel/pint": "v1.10.5",
         "laravel/sail": "v1.23.1",
         "mockery/mockery": "1.6.2",
         "nunomaduro/collision": "v7.7.0",
-        "phpunit/phpunit": "10.2.4",
+        "phpunit/phpunit": "10.2.5",
         "spatie/laravel-ignition": "2.2.0"
     },
     "autoload": {

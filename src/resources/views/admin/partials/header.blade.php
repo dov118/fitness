@@ -23,7 +23,10 @@
                             <h3 class="SelectMenu-title user-menu-email">{{ Auth::user()->email }}</h3>
                         </header>
                         <div class="SelectMenu-list">
-                            <a class="SelectMenu-item user-menu-dashboard" href="{{ route('admin.index') }}">Dashboard</a>
+                            <a
+                                class="SelectMenu-item user-menu-dashboard"
+                                href="{{ route('admin.index') }}"
+                            >Dashboard</a>
                             <hr class="SelectMenu-divider">
                             <form method="post" action="{{ route('logout') }}">
                                 @csrf

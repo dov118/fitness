@@ -22,13 +22,6 @@ class MuscleControllerTest extends TestCase
         Auth::login($user);
     }
 
-    public function test_the_admin_muscle_index_returns_a_successful_response(): void
-    {
-        $response = $this->get(route('admin.muscle.index'));
-
-        $response->assertStatus(200);
-    }
-
     public function test_the_admin_muscle_index_displayed_all_information(): void
     {
         $exercise = Exercise::factory()->create();

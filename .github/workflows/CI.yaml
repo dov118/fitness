@@ -32,8 +32,9 @@ jobs:
           sed -i '/DB_PASSWORD/d' .env
       - name: Create Database
         run: |
-          sudo systemctl start mysql
-          mysql --user="root" --password="root" -e "CREATE DATABASE \`laravel\` character set UTF8mb4 collate utf8mb4_bin;"
+          touch /home/runner/work/fitness/fitness/src/database/database.sqlite
+#          sudo systemctl start mysql
+#          mysql --user="root" --password="root" -e "CREATE DATABASE \`laravel\` character set UTF8mb4 collate utf8mb4_bin;"
       - name: Install Composer Dependencies
         run: cd src && composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Generate Application Key

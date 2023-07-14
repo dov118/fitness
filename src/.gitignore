@@ -8,6 +8,8 @@
 .env
 .env.backup
 .env.production
+.env.testing
+.env.dusk.local
 .phpunit.result.cache
 Homestead.json
 Homestead.yaml
@@ -19,4 +21,3 @@ yarn-error.log
 /.vscode
 /coverage
 /coverage.xml
-/.env.testing

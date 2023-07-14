@@ -5,7 +5,7 @@
         </div>
     @endguest
     @auth
-        <div class="d-flex flex-justify-end position-relative">
+        <div class="d-flex flex-justify-end position-relative user-menu-avatar">
             <details class="details-reset details-overlay">
                 <summary aria-haspopup="true">
                     <div class="Header-item mr-0">
@@ -20,15 +20,15 @@
                 <div class="SelectMenu right-0">
                     <div class="SelectMenu-modal">
                         <header class="SelectMenu-header">
-                            <h3 class="SelectMenu-title">{{ Auth::user()->email }}</h3>
+                            <h3 class="SelectMenu-title user-menu-email">{{ Auth::user()->email }}</h3>
                         </header>
                         <div class="SelectMenu-list">
-                            <a class="SelectMenu-item" href="{{ route('admin.index') }}">Dashboard</a>
+                            <a class="SelectMenu-item user-menu-dashboard" href="{{ route('admin.index') }}">Dashboard</a>
                             <hr class="SelectMenu-divider">
                             <form method="post" action="{{ route('logout') }}">
                                 @csrf
                                 @method('delete')
-                                <button class="SelectMenu-item">Logout</button>
+                                <button class="SelectMenu-item user-menu-logout">Logout</button>
                             </form>
                         </div>
                     </div>

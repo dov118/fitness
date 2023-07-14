@@ -15,6 +15,11 @@ jobs:
       - name: Récupération du code
         uses: actions/checkout@v3.1.0
 
+      - name: Install php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2.8'
+          coverage: xdebug
       - name: Prepare The Environment
         run: cd src && cp .env.example .env
       - name: Create Database

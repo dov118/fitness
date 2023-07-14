@@ -48,7 +48,7 @@ jobs:
       - name: Upgrade Chrome Driver
         run: |
           cd src
-          php artisan dusk:chrome-driver --detect
+          php artisan dusk:chrome-driver --all
       - name: Start Chrome Driver
         run: cd src && ./vendor/laravel/dusk/bin/chromedriver-linux &
       - name: Run Laravel Server

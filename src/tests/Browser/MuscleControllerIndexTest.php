@@ -24,7 +24,7 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visitRoute('admin.muscle.index')
                 ->assertDontSee($user->email)
                 ->click('.user-menu-avatar')
-                ->pause(10)
+                ->pause(100)
                 ->assertSeeIn('.user-menu-email', $user->email);
         });
     }
@@ -41,9 +41,10 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visitRoute('admin.muscle.index')
                 ->assertDontSee($user->email)
                 ->click('.user-menu-avatar')
-                ->pause(10)
+                ->pause(100)
                 ->assertSeeIn('.user-menu-email', $user->email)
                 ->clickAtPoint(0, 0)
+                ->pause(100)
                 ->assertDontSee($user->email);
         });
     }
@@ -60,9 +61,10 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visitRoute('admin.muscle.index')
                 ->assertDontSee($user->email)
                 ->click('.user-menu-avatar')
-                ->pause(10)
+                ->pause(100)
                 ->assertSeeIn('.user-menu-email', $user->email)
                 ->click('.user-menu-avatar')
+                ->pause(100)
                 ->assertDontSee($user->email);
         });
     }
@@ -79,7 +81,7 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visitRoute('admin.muscle.index')
                 ->assertDontSee($user->email)
                 ->click('.user-menu-avatar')
-                ->pause(10)
+                ->pause(100)
                 ->assertSeeIn('.user-menu-dashboard', 'Dashboard');
         });
     }
@@ -96,7 +98,7 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visitRoute('admin.muscle.index')
                 ->assertDontSee($user->email)
                 ->click('.user-menu-avatar')
-                ->pause(10)
+                ->pause(100)
                 ->assertSeeIn('.user-menu-logout', 'Logout');
         });
     }
@@ -113,8 +115,9 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visitRoute('admin.muscle.index')
                 ->assertDontSee($user->email)
                 ->click('.user-menu-avatar')
-                ->pause(10)
+                ->pause(100)
                 ->click('.user-menu-logout')
+                ->pause(100)
                 ->assertRouteIs('login');
         });
     }

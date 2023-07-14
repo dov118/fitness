@@ -55,7 +55,7 @@ jobs:
         run: |
           cd src
           php artisan key:generate
-          sed -i -e "s/DISCORD_APPLICATION_ID=/DISCORD_APPLICATION_ID=DISCORD_APPLICATION_ID/g" .env.testing
+          sed -i -e "s/DISCORD_APPLICATION_ID=/DISCORD_APPLICATION_ID=DISCORD_APPLICATION_ID/g" .env
           cp .env .env.dusk.local
           cp .env .env.testing
 

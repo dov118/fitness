@@ -41,19 +41,21 @@ jobs:
           sed -i '/DB_DATABASE/d' .env
           sed -i '/DB_USERNAME/d' .env
           sed -i '/DB_PASSWORD/d' .env
+
       - name: Create Database
         run: |
           touch /home/runner/work/fitness/fitness/src/database/database.sqlite
-#          sudo systemctl start mysql
-#          mysql --user="root" --password="root" -e "CREATE DATABASE \`laravel\` character set UTF8mb4 collate utf8mb4_bin;"
-      - name: Install Composer Dependencies
+
+      - name: Install php requirements
         run: |
           cd src
           composer install
+
       - name: Generate Application Key
         run: |
           cd src
           php artisan key:generate
+          sed -i -e "s/DISCORD_APPLICATION_ID=/DISCORD_APPLICATION_ID=DISCORD_APPLICATION_ID/g" .env.testing
           cp .env .env.dusk.local
           cp .env .env.testing
 
@@ -66,54 +68,23 @@ jobs:
         run: |
           cd src
           php artisan dusk:chrome-driver --all
+
       - name: Start Chrome Driver
         run: cd src && ./vendor/laravel/dusk/bin/chromedriver-linux &
+
       - name: Run Laravel Server
         run: cd src && php artisan serve --no-reload &
+
       - name: Run Dusk Tests
         run: cd src && php artisan dusk
 
-#      - name: Install php
-#        uses: shivammathur/setup-php@v2
-#        with:
-#          php-version: '8.2.8'
-#          coverage: xdebug
-#
-#      - name: Install npm
-#        uses: actions/setup-node@v3.5.1
-#        with:
-#          node-version: 18.16.1
-#
-#      - name: Install php requirements
-#        run: |
-#          cd src
-#          composer install
-#
-#      - name: Install npm dependencies
-#        run: |
-#          cd src
-#          npm ci
-#
-#      - name: Generate .env file
-#        run: |
-#          cd src
-#          cp .env.example .env
-#          php artisan key:generate
-#          cp .env .env.testing
-#          sed -i -e "s/DISCORD_APPLICATION_ID=/DISCORD_APPLICATION_ID=DISCORD_APPLICATION_ID/g" .env.testing
-#
-#      - name: Build assets
-#        run: |
-#          cd src
-#          npm run build
-#
-#      - name: Run test
-#        run: |
-#          cd src
-#          php artisan test --coverage --min=90
-#
-#      - name: SonarCloud Scan
-#        uses: SonarSource/sonarcloud-github-action@master
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Run test
+        run: |
+          cd src
+          php artisan test --coverage --min=90
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

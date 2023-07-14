@@ -20,6 +20,17 @@ jobs:
         with:
           php-version: '8.2.8'
           coverage: xdebug
+
+      - name: Install npm
+        uses: actions/setup-node@v3.5.1
+        with:
+          node-version: 18.16.1
+
+      - name: Install npm dependencies
+        run: |
+          cd src
+          npm ci
+
       - name: Prepare The Environment
         run: |
           cd src
@@ -45,6 +56,12 @@ jobs:
           php artisan key:generate
           cp .env .env.dusk.local
           cp .env .env.testing
+
+      - name: Build assets
+        run: |
+          cd src
+          npm run build
+
       - name: Upgrade Chrome Driver
         run: |
           cd src

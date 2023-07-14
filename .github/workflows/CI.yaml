@@ -29,7 +29,7 @@ jobs:
       - name: Install Composer Dependencies
         run: cd src && composer install --no-progress --prefer-dist --optimize-autoloader
       - name: Generate Application Key
-        run: cd src && php artisan key:generate
+        run: cd src && php artisan key:generate && cp .env.example .env && cp .env .env.dusk.local
       - name: Upgrade Chrome Driver
         run: cd src && php artisan dusk:chrome-driver --detect
       - name: Start Chrome Driver

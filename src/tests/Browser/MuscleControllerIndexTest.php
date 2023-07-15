@@ -5,15 +5,13 @@ namespace Tests\Browser;
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
+use Tests\Browser\Pages\MuscleControllerIndex;
 use Tests\DuskTestCase;
 use Throwable;
 
 class MuscleControllerIndexTest extends DuskTestCase
 {
     use DatabaseMigrations;
-
-    private string $userMenuAvatar = '.user-menu-avatar';
-    private string $userMenuEmail = '.user-menu-email';
 
     /**
      * @throws Throwable
@@ -24,11 +22,11 @@ class MuscleControllerIndexTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click($this->userMenuAvatar)
+                ->click('@user-menu-avatar')
                 ->pause(100)
-                ->assertSeeIn($this->userMenuEmail, $user->email);
+                ->assertSeeIn('@user-menu-email', $user->email);
         });
     }
 
@@ -41,11 +39,11 @@ class MuscleControllerIndexTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click($this->userMenuAvatar)
+                ->click('@user-menu-avatar')
                 ->pause(100)
-                ->assertSeeIn($this->userMenuEmail, $user->email)
+                ->assertSeeIn('@user-menu-email', $user->email)
                 ->clickAtPoint(0, 0)
                 ->pause(100)
                 ->assertDontSee($user->email);
@@ -61,12 +59,12 @@ class MuscleControllerIndexTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click($this->userMenuAvatar)
+                ->click('@user-menu-avatar')
                 ->pause(100)
-                ->assertSeeIn($this->userMenuEmail, $user->email)
-                ->click($this->userMenuAvatar)
+                ->assertSeeIn('@user-menu-email', $user->email)
+                ->click('@user-menu-avatar')
                 ->pause(100)
                 ->assertDontSee($user->email);
         });
@@ -81,11 +79,11 @@ class MuscleControllerIndexTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click($this->userMenuAvatar)
+                ->click('@user-menu-avatar')
                 ->pause(100)
-                ->assertSeeIn('.user-menu-dashboard', 'Dashboard');
+                ->assertSeeIn('@user-menu-dashboard', 'Dashboard');
         });
     }
 
@@ -98,11 +96,11 @@ class MuscleControllerIndexTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click($this->userMenuAvatar)
+                ->click('@user-menu-avatar')
                 ->pause(100)
-                ->assertSeeIn('.user-menu-logout', 'Logout');
+                ->assertSeeIn('@user-menu-logout', 'Logout');
         });
     }
 
@@ -115,11 +113,11 @@ class MuscleControllerIndexTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click($this->userMenuAvatar)
+                ->click('@user-menu-avatar')
                 ->pause(100)
-                ->click('.user-menu-logout')
+                ->click('@user-menu-logout')
                 ->pause(100)
                 ->assertRouteIs('login');
         });
@@ -132,7 +130,7 @@ class MuscleControllerIndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertPresent('.sidenav .menu-item--muscle[aria-current="page"]');
         });
     }
@@ -144,7 +142,7 @@ class MuscleControllerIndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertMissing('.sidenav .menu-item--group[aria-current="page"]');
         });
     }
@@ -156,8 +154,8 @@ class MuscleControllerIndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
-                ->visitRoute('admin.muscle.index')
-                ->assertSeeIn('.sidenav .menu-heading--general', 'General');
+                ->visit(new MuscleControllerIndex)
+                ->assertSeeIn('@side-nav-general-group-title', 'General');
         });
     }
 
@@ -168,7 +166,7 @@ class MuscleControllerIndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertSeeLink('Dashboard');
         });
     }
@@ -180,8 +178,8 @@ class MuscleControllerIndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
-                ->visitRoute('admin.muscle.index')
-                ->assertMissing('.sidenav .menu-heading--muscle');
+                ->visit(new MuscleControllerIndex)
+                ->assertMissing('@side-nav-muscle-group-title');
         });
     }
 
@@ -192,7 +190,7 @@ class MuscleControllerIndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertSeeLink('Muscles');
         });
     }
@@ -204,7 +202,7 @@ class MuscleControllerIndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertSeeLink('Groups');
         });
     }
@@ -216,8 +214,8 @@ class MuscleControllerIndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
-                ->visitRoute('admin.muscle.index')
-                ->assertMissing('.sidenav .menu-heading--exercise');
+                ->visit(new MuscleControllerIndex)
+                ->assertMissing('@side-nav-exercise-group-title');
         });
     }
 
@@ -228,7 +226,7 @@ class MuscleControllerIndexTest extends DuskTestCase
     {
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
-                ->visitRoute('admin.muscle.index')
+                ->visit(new MuscleControllerIndex)
                 ->assertSeeLink('Exercises');
         });
     }

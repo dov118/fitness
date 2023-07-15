@@ -13,6 +13,9 @@ class MuscleControllerIndexTest extends DuskTestCase
 {
     use DatabaseMigrations;
 
+    private string $userMenuAvatar = '@user-menu-avatar';
+    private string $userMenuEmail = '@user-menu-email';
+
     /**
      * @throws Throwable
      */
@@ -24,9 +27,9 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs($user)
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click('@user-menu-avatar')
+                ->click($this->userMenuAvatar)
                 ->pause(100)
-                ->assertSeeIn('@user-menu-email', $user->email);
+                ->assertSeeIn($this->userMenuEmail, $user->email);
         });
     }
 
@@ -41,9 +44,9 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs($user)
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click('@user-menu-avatar')
+                ->click($this->userMenuAvatar)
                 ->pause(100)
-                ->assertSeeIn('@user-menu-email', $user->email)
+                ->assertSeeIn($this->userMenuEmail, $user->email)
                 ->clickAtPoint(0, 0)
                 ->pause(100)
                 ->assertDontSee($user->email);
@@ -61,10 +64,10 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs($user)
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click('@user-menu-avatar')
+                ->click($this->userMenuAvatar)
                 ->pause(100)
-                ->assertSeeIn('@user-menu-email', $user->email)
-                ->click('@user-menu-avatar')
+                ->assertSeeIn($this->userMenuEmail, $user->email)
+                ->click($this->userMenuAvatar)
                 ->pause(100)
                 ->assertDontSee($user->email);
         });
@@ -81,7 +84,7 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs($user)
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click('@user-menu-avatar')
+                ->click($this->userMenuAvatar)
                 ->pause(100)
                 ->assertSeeIn('@user-menu-dashboard', 'Dashboard');
         });
@@ -98,7 +101,7 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs($user)
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click('@user-menu-avatar')
+                ->click($this->userMenuAvatar)
                 ->pause(100)
                 ->assertSeeIn('@user-menu-logout', 'Logout');
         });
@@ -115,7 +118,7 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs($user)
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
-                ->click('@user-menu-avatar')
+                ->click($this->userMenuAvatar)
                 ->pause(100)
                 ->click('@user-menu-logout')
                 ->pause(100)

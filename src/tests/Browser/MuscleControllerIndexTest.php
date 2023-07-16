@@ -22,9 +22,6 @@ class MuscleControllerIndexTest extends DuskTestCase
 
     protected string $page = MuscleControllerIndex::class;
 
-    private string $userMenuAvatar = '@user-menu-avatar';
-    private string $userMenuEmail = '@user-menu-email';
-
     /**
      * @throws Throwable
      */

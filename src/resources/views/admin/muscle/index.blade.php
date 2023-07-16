@@ -22,34 +22,51 @@
             </div>
         @endcan
     </div>
-    @foreach($groups as $index=>$group)
+    @foreach($groups as $groupIndex=>$group)
         <div class="Box Box--condensed mb-5">
             <div class="Box-header d-flex flex-items-center">
                 <h3 class="Box-title overflow-hidden flex-auto">
                     <a
                         href="{{ route('admin.group.show', $group) }}"
-                        class="Link Link--primary group-name--{{ $index }}"
+                        class="Link Link--primary group-{{ $groupIndex }}-name"
                     >{{ $group->name }}</a>
-                    <span class="Counter Counter--gray-dark group-counter--{{ $index }}">
+                    <span class="Counter Counter--gray-dark group-{{ $groupIndex }}-counter">
                         {{ $group->muscles->count() }}
                     </span>
                 </h3>
             </div>
-            @foreach($group->muscles as $muscle)
-                <div class="Box-row d-flex flex-items-center">
+            @foreach($group->muscles as $muscleIndex=>$muscle)
+                <div class="Box-row d-flex flex-items-center group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}">
                     <div class="flex-auto">
-                        <a href="{{ route('admin.muscle.show', $muscle) }}" class="Link Link--primary">
-                            <strong>{{ $muscle->name }}</strong>
+                        <a
+                            href="{{ route('admin.muscle.show', $muscle) }}"
+                            class="Link Link--primary group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-link"
+                        >
+                            <strong class="group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-name">
+                                {{ $muscle->name }}
+                            </strong>
                         </a>
                         <div class="text-small color-fg-subtle">
-                            @foreach($muscle->exercises as $exercise)
-                                <a href="{{ route('admin.exercise.show', $exercise) }}">
+                            @foreach($muscle->exercises as $exerciseIndex=>$exercise)
+                                <a
+                                class="group-{{$groupIndex}}-muscle-{{$muscleIndex}}-exercise-{{$exerciseIndex}}-link"
+                                href="{{ route('admin.exercise.show', $exercise) }}"
+                                >
                                     @if ($exercise->pivot->intensity == 1)
-                                        <span class="Label mr-1 mt-2 Label--success">{{ $exercise->name }}</span>
+                                        <span
+                                            class="Label mr-1 mt-2 Label--success
+                                      group-{{$groupIndex}}-muscle-{{$muscleIndex}}-exercise-{{$exerciseIndex}}-name--1"
+                                        >{{ $exercise->name }}</span>
                                     @elseif($exercise->pivot->intensity === 0.5)
-                                        <span class="Label mr-1 mt-2 Label--accent">{{ $exercise->name }}</span>
+                                        <span
+                                            class="Label mr-1 mt-2 Label--accent
+                                     group-{{$groupIndex}}-muscle-{{$muscleIndex}}-exercise-{{$exerciseIndex}}-name--05"
+                                        >{{ $exercise->name }}</span>
                                     @else
-                                        <span class="Label mr-1 mt-2 Label--danger">{{ $exercise->name }}</span>
+                                        <span
+                                            class="Label mr-1 mt-2 Label--danger
+                                    group-{{$groupIndex}}-muscle-{{$muscleIndex}}-exercise-{{$exerciseIndex}}-name--025"
+                                        >{{ $exercise->name }}</span>
                                     @endif
                                 </a>
                             @endforeach
@@ -57,36 +74,39 @@
                     </div>
                     <div class="d-flex flex-justify-end">
                         @can('view', $muscle)
-                        <a href="{{ route('admin.muscle.show', $muscle) }}">
+                        <a
+                            class="group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-show-link"
+                            href="{{ route('admin.muscle.show', $muscle) }}"
+                        >
                             <button type="button" class="btn btn-primary" name="button">
                                 <img class="octicon" src="{{ Vite::asset('resources/imgs/view.svg') }}" alt="">
                             </button>
                         </a>
                         @endcan
                         @can('update', $muscle)
-                        <a class="ml-2" href="{{ route('admin.muscle.edit', $muscle) }}">
+                        <a
+                            class="ml-2 group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-edit-link"
+                            href="{{ route('admin.muscle.edit', $muscle) }}"
+                        >
                             <button type="button" class="btn btn-secondary" name="button">
                                 <img class="octicon" src="{{ Vite::asset('resources/imgs/edit.svg') }}" alt="">
                             </button>
                         </a>
                             @endcan
-                        @can('delete', $muscle)
-                        <form method="post" action="{{ route('admin.muscle.destroy', $muscle) }}">
-                            @csrf
-                            @method('delete')
-                            <button
-                                href="{{ route('admin.muscle.destroy', $muscle) }}"
-                                type="button"
-                                class="btn btn-danger ml-2"
-                                name="button"
-                            >
-                                <img
-                                    class="octicon octicon-pencil"
-                                    src="{{ Vite::asset('resources/imgs/delete.svg') }}"
-                                    alt=""
-                                >
-                            </button>
-                        </form>
+                            @can('delete', $muscle)
+                                <form method="post" action="{{ route('admin.muscle.destroy', $muscle) }}">
+                                    @csrf
+                                    @method('delete')
+                                    <button class="btn btn-danger ml-2
+                                    group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-delete-link"
+                                            href="{{ route('admin.muscle.destroy', $muscle) }}">
+                                        <img
+                                            class="octicon octicon-pencil"
+                                            src="{{ Vite::asset('resources/imgs/delete.svg') }}"
+                                            alt=""
+                                        >
+                                    </button>
+                                </form>
                             @endcan
                     </div>
                 </div>

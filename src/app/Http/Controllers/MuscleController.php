@@ -26,7 +26,7 @@ class MuscleController extends Controller
                     'exercises' => fn($q) => $q->withPivot('intensity')
                         ->orderBy('pivot_intensity', 'desc')
                         ->whereNot('intensity', 0.0)
-                ])->get()->all()
+                ])->orderBy('name', 'ASC')->get()->all()
             ])->orderBy('name')->get()->all(),
             'exercises' => Exercise::all(),
         ]);
@@ -129,10 +129,12 @@ class MuscleController extends Controller
      */
     public function destroy(Muscle $muscle): RedirectResponse
     {
-        if ($muscle->exercises()->exists()) {
+        if ($muscle->exercises()->wherePivotIn('intensity', [1.0, 0.5, 0.25])->count()) {
             return to_route('admin.muscle.index')
                 ->with('notification_type', 'error')
                 ->with('notification_message', 'Muscle have attached exercise. It can\'t be deleted');
+        } else {
+            $muscle->exercises()->detach();
         }
 
         $muscle->delete();

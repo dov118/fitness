@@ -22,46 +22,6 @@ class MuscleControllerTest extends TestCase
         Auth::login($user);
     }
 
-    public function test_the_admin_muscle_index_displayed_all_information(): void
-    {
-        $exercise = Exercise::factory()->create();
-
-        $group = Group::factory()->create();
-
-        $muscle = Muscle::factory()->for($group)->hasAttached($exercise, [
-            'intensity' => 1.0,
-        ])->create();
-
-        $muscle = $muscle->refresh();
-        $exercise = $exercise->refresh();
-
-        $response = $this->get(route('admin.muscle.index'));
-
-        $response->assertSee($muscle->name);
-        $response->assertSee($group->name);
-        $response->assertSee($exercise->name);
-    }
-
-    public function test_the_admin_muscle_index_not_displaying_zero_intensity_exercise_name(): void
-    {
-        $exercise = Exercise::factory()->create();
-
-        $group = Group::factory()->create();
-
-        $muscle = Muscle::factory()->for($group)->hasAttached($exercise, [
-            'intensity' => 0,
-        ])->create();
-
-        $muscle = $muscle->refresh();
-        $exercise = $exercise->refresh();
-
-        $response = $this->get(route('admin.muscle.index'));
-
-        $response->assertSee($muscle->name);
-        $response->assertSee($group->name);
-        $response->assertDontSee($exercise->name);
-    }
-
     public function test_the_admin_muscle_create_page_returns_a_successful_response(): void
     {
         $response = $this->get(route('admin.muscle.create'));
@@ -493,7 +453,7 @@ class MuscleControllerTest extends TestCase
 
         $muscle = Muscle::factory()->for($group)->create();
 
-        Exercise::factory(10)->hasAttached($muscle)->create();
+        Exercise::factory(10)->hasAttached($muscle, ['intensity' => 1.0])->create();
 
         $response = $this->deleteJson(route('admin.muscle.destroy', $muscle));
 

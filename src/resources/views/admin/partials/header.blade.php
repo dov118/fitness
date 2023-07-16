@@ -1,7 +1,7 @@
 <div class="Header flex-sm-row-reverse">
     @guest
         <div class="Header-item">
-            <a class="Header-link" href="{{ route('login') }}">Login</a>
+            <a class="Header-link Header-link--login" href="{{ route('login') }}">Login</a>
         </div>
     @endguest
     @auth

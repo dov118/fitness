@@ -19,7 +19,7 @@
     <div class="d-flex p-4">
         @auth
             <div class="pr-4" style="max-width: 360px; flex-basis: 20%">
-                @include('admin.partials.sidenave')
+                @include('admin.partials.sidenav')
             </div>
         @endauth
 

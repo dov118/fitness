@@ -14,7 +14,7 @@
             @if('admin.muscle.index' === Route::current()->getName()) aria-current="page" @endif
             href="{{ route('admin.muscle.index') }}"
         >
-            <span class="Counter">{{ count($muscles ?? []) ?: '??' }}</span>
+            <span class="Counter menu-item--muscle-count">{{ count($muscles ?? []) ?: '??' }}</span>
             Muscles
         </a>
     @endcan
@@ -24,7 +24,7 @@
             @if('admin.group.index' === Route::current()->getName()) aria-current="page" @endif
             href="{{ route('admin.group.index') }}"
         >
-            <span class="Counter">{{ count($groups ?? []) ?: '??' }}</span>
+            <span class="Counter menu-item--group-count">{{ count($groups ?? []) ?: '??' }}</span>
             Groups</a>
     @endcan
     <hr class="SelectMenu-divider">
@@ -34,7 +34,7 @@
             @if('admin.exercise.index' === Route::current()->getName()) aria-current="page" @endif
             href="{{ route('admin.exercise.index') }}"
         >
-            <span class="Counter">{{ count($exercises ?? []) ?: '??' }}</span>
+            <span class="Counter menu-item--exercise-count">{{ count($exercises ?? []) ?: '??' }}</span>
             Exercises
         </a>
     @endcan

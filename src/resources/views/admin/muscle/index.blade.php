@@ -6,7 +6,7 @@
     <div class="Subhead">
         <h3 class="Subhead-heading">
             Muscles
-            <span class="Counter Counter--gray-dark v-align-middle">{{ $muscles->count() }}</span>
+            <span class="Counter Counter--gray-dark v-align-middle title-counter">{{ $muscles->count() }}</span>
         </h3>
         <div class="Subhead-description">
             Intensities:
@@ -16,7 +16,7 @@
         </div>
         @can('create', Muscle::class)
             <div class="Subhead-actions">
-                <a class="btn btn-primary btn-sm" href="{{ route('admin.muscle.create') }}">
+                <a class="btn btn-primary btn-sm title-add" href="{{ route('admin.muscle.create') }}">
                     <img class="octicon" src="{{ Vite::asset('resources/imgs/add.svg') }}" alt="">
                 </a>
             </div>

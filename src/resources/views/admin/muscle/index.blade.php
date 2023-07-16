@@ -22,12 +22,17 @@
             </div>
         @endcan
     </div>
-    @foreach($groups as $group)
+    @foreach($groups as $index=>$group)
         <div class="Box Box--condensed mb-5">
             <div class="Box-header d-flex flex-items-center">
                 <h3 class="Box-title overflow-hidden flex-auto">
-                    <a href="{{ route('admin.group.show', $group) }}" class="Link Link--primary">{{ $group->name }}</a>
-                    <span class="Counter Counter--gray-dark">{{ $group->muscles->count() }}</span>
+                    <a
+                        href="{{ route('admin.group.show', $group) }}"
+                        class="Link Link--primary group-name--{{ $index }}"
+                    >{{ $group->name }}</a>
+                    <span class="Counter Counter--gray-dark group-counter--{{ $index }}">
+                        {{ $group->muscles->count() }}
+                    </span>
                 </h3>
             </div>
             @foreach($group->muscles as $muscle)

@@ -27,7 +27,7 @@ class MuscleController extends Controller
                         ->orderBy('pivot_intensity', 'desc')
                         ->whereNot('intensity', 0.0)
                 ])->get()->all()
-            ])->get()->all(),
+            ])->orderBy('name')->get()->all(),
             'exercises' => Exercise::all(),
         ]);
     }

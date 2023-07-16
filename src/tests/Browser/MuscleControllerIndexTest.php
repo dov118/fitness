@@ -57,7 +57,11 @@ class MuscleControllerIndexTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
                 ->visit(new MuscleControllerIndex)
-                ->assertAttribute('@user-menu-avatar-img', 'src', 'https://cdn.discordapp.com/avatars/' . $user->id . '/' . $user->avatar . '.webp');
+                ->assertAttribute(
+                    '@user-menu-avatar-img',
+                    'src',
+                    'https://cdn.discordapp.com/avatars/' . $user->id . '/' . $user->avatar . '.webp'
+                );
         });
     }
 
@@ -385,6 +389,70 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->click('@title-add')
                 ->pause(100)
                 ->assertRouteIs('admin.muscle.create');
+        });
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function test_the_admin_muscle_index_content_group_sort_by_name(): void
+    {
+        $group1 = Group::factory()->create(['id' => 1, 'name' => 'A' . fake()->text(63)]);
+        $group2 = Group::factory()->create(['id' => 2, 'name' => 'C' . fake()->text(63)]);
+        $group3 = Group::factory()->create(['id' => 3, 'name' => 'B' . fake()->text(63)]);
+
+        Muscle::factory(2)->for($group1)->create();
+        Muscle::factory(2)->for($group2)->create();
+        Muscle::factory(2)->for($group3)->create();
+
+        $this->browse(function (Browser $browser) use ($group1, $group2, $group3) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new MuscleControllerIndex)
+                ->assertSeeIn('.group-name--0', $group1->name)
+                ->assertSeeIn('.group-name--1', $group3->name)
+                ->assertSeeIn('.group-name--2', $group2->name);
+        });
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function test_the_admin_muscle_index_content_group_name_link_works(): void
+    {
+        $group = Group::factory()->create();
+
+        $this->browse(function (Browser $browser) use ($group) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new MuscleControllerIndex)
+                ->click('.group-name--0')
+                ->pause(100)
+                ->assertRouteIs('admin.group.show', [$group]);
+        });
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function test_the_admin_muscle_index_content_group_contain_counter(): void
+    {
+        $group1 = Group::factory()->create(['id' => 1, 'name' => 'A' . fake()->text(63)]);
+        $group2 = Group::factory()->create(['id' => 2, 'name' => 'C' . fake()->text(63)]);
+        $group3 = Group::factory()->create(['id' => 3, 'name' => 'B' . fake()->text(63)]);
+
+        Muscle::factory(fake()->numberBetween(1, 4))->for($group1)->create();
+        Muscle::factory(fake()->numberBetween(1, 4))->for($group2)->create();
+        Muscle::factory(fake()->numberBetween(1, 4))->for($group3)->create();
+
+        $group1 = $group1->refresh();
+        $group2 = $group2->refresh();
+        $group3 = $group3->refresh();
+
+        $this->browse(function (Browser $browser) use ($group1, $group2, $group3) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new MuscleControllerIndex)
+                ->assertSeeIn('.group-counter--0', $group1->muscles->count())
+                ->assertSeeIn('.group-counter--1', $group3->muscles->count())
+                ->assertSeeIn('.group-counter--2', $group2->muscles->count());
         });
     }
 }

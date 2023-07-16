@@ -1,5 +1,5 @@
 @if(session('notification_type') && session('notification_message'))
-    <div class="position-fixed bottom-0 left-0 mb-3 ml-3">
+    <div class="position-fixed top-0 right-0 mb-3 ml-3">
         <div class="Toast Toast--{{ session('notification_type') }}">
             <span class="Toast-icon">
                 @if (session('notification_type') === "success")

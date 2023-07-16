@@ -66,7 +66,7 @@
                             @foreach($muscle->exercises as $exerciseIndex=>$exercise)
                                 @can('view', $exercise)
                                     <a
-                                class="group-{{$groupIndex}}-muscle-{{$muscleIndex}}-exercise-{{$exerciseIndex}}-link"
+                                class="group-{{$groupIndex}}-muscle-{{$muscleIndex}}-exercise-{{$exerciseIndex}}-link text-decoration-none"
                                     href="{{ route('admin.exercise.show', $exercise) }}"
                                     >
                                 @endcan

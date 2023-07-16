@@ -22,7 +22,7 @@
         <div class="d-flex">
             <span class="mr-1 mt-2">Group:</span>
             @can('view', $muscle->group)
-                <a href="{{ route('admin.group.show', $muscle->group) }}">
+                <a href="{{ route('admin.group.show', $muscle->group) }}" class="text-decoration-none">
             @endcan
                 <span class="Label mr-1 mt-2 Label--secondary">{{ $muscle->group->name }}</span>
             @can('view', $muscle->group)
@@ -34,7 +34,7 @@
             <div class="text-small color-fg-subtle">
                 @foreach($active_exercises as $exercise)
                     @can('view', $exercise)
-                        <a href="{{ route('admin.exercise.show', $exercise) }}">
+                        <a href="{{ route('admin.exercise.show', $exercise) }}" class="text-decoration-none">
                     @endcan
                         @if ($exercise->pivot->intensity == 1)
                             <span class="Label mr-1 mt-2 Label--success">{{ $exercise->name }}</span>

@@ -13,7 +13,7 @@ trait Sidenav {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_highlight_current_page(): void
+    public function testTheAdminPageSidenavHighlightCurrentPage(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();

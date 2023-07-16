@@ -64,6 +64,8 @@ class MuscleController extends Controller
         return view('admin.muscle.show', [
             'muscle' => $muscle,
             'groups' => Group::all(),
+            'exercises' => Exercise::all(),
+            'muscles' => Muscle::all(),
             'active_exercises' => $muscle->exercises()
                 ->orderBy('name', 'desc')
                 ->withPivot('intensity')

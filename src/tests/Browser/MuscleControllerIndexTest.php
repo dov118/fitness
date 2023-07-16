@@ -77,7 +77,7 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
                 ->click($this->userMenuAvatar)
-                ->pause(100)
+                ->waitForText($user->email)
                 ->assertSeeIn($this->userMenuEmail, $user->email);
         });
     }
@@ -94,7 +94,7 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
                 ->click($this->userMenuAvatar)
-                ->pause(100)
+                ->waitForText($user->email)
                 ->assertSeeIn($this->userMenuEmail, $user->email)
                 ->clickAtPoint(0, 0)
                 ->pause(100)
@@ -114,7 +114,7 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
                 ->click($this->userMenuAvatar)
-                ->pause(100)
+                ->waitForText($user->email)
                 ->assertSeeIn($this->userMenuEmail, $user->email)
                 ->click($this->userMenuAvatar)
                 ->pause(100)
@@ -134,7 +134,7 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
                 ->click($this->userMenuAvatar)
-                ->pause(100)
+                ->waitForText($user->email)
                 ->assertSeeIn('@user-menu-dashboard', 'Dashboard');
         });
     }
@@ -151,7 +151,7 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
                 ->click($this->userMenuAvatar)
-                ->pause(100)
+                ->waitForText($user->email)
                 ->assertSeeIn('@user-menu-logout', 'Logout');
         });
     }
@@ -168,9 +168,8 @@ class MuscleControllerIndexTest extends DuskTestCase
                 ->visit(new MuscleControllerIndex)
                 ->assertDontSee($user->email)
                 ->click($this->userMenuAvatar)
-                ->pause(100)
+                ->waitForText($user->email)
                 ->click('@user-menu-logout')
-                ->pause(100)
                 ->assertRouteIs('login');
         });
     }
@@ -209,7 +208,7 @@ class MuscleControllerIndexTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
-                ->assertSeeLink('Dashboard');
+                ->assertSeeIn('@side-nav-dashboard-link', 'Dashboard');
         });
     }
 
@@ -222,7 +221,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('@side-nav-dashboard-link')
-                ->pause(100)
                 ->assertRouteIs('admin.index');
         });
     }
@@ -235,7 +233,7 @@ class MuscleControllerIndexTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
-                ->assertSeeLink('Muscles');
+                ->assertSeeIn('@side-nav-muscle-link', 'Muscles');
         });
     }
 
@@ -263,7 +261,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('@side-nav-muscle-link')
-                ->pause(100)
                 ->assertRouteIs('admin.muscle.index');
         });
     }
@@ -276,7 +273,7 @@ class MuscleControllerIndexTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
-                ->assertSeeLink('Groups');
+                ->assertSeeIn('@side-nav-group-link', 'Groups');
         });
     }
 
@@ -289,7 +286,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('@side-nav-group-link')
-                ->pause(100)
                 ->assertRouteIs('admin.group.index');
         });
     }
@@ -317,7 +313,7 @@ class MuscleControllerIndexTest extends DuskTestCase
         $this->browse(function (Browser $browser) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
-                ->assertSeeLink('Exercises');
+                ->assertSeeIn('@side-nav-exercise-link', 'Exercises');
         });
     }
 
@@ -330,7 +326,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('@side-nav-exercise-link')
-                ->pause(100)
                 ->assertRouteIs('admin.exercise.index');
         });
     }
@@ -387,7 +382,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('@title-add')
-                ->pause(100)
                 ->assertRouteIs('admin.muscle.create');
         });
     }
@@ -425,7 +419,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('.group-0-name')
-                ->pause(100)
                 ->assertRouteIs('admin.group.show', [$group]);
         });
     }
@@ -494,7 +487,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('.group-0-muscle-0-link')
-                ->pause(100)
                 ->assertRouteIs('admin.muscle.show', [$muscle]);
         });
     }
@@ -536,7 +528,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('.group-0-muscle-0-exercise-0-link')
-                ->pause(100)
                 ->assertRouteIs('admin.exercise.show', [$exercise]);
         });
     }
@@ -579,7 +570,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('.group-0-muscle-0-show-link')
-                ->pause(100)
                 ->assertRouteIs('admin.muscle.show', [$muscle]);
         });
     }
@@ -598,7 +588,6 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('.group-0-muscle-0-edit-link')
-                ->pause(100)
                 ->assertRouteIs('admin.muscle.edit', [$muscle]);
         });
     }
@@ -614,9 +603,8 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('.group-0-muscle-0-delete-link')
-                ->pause(100)
                 ->assertRouteIs('admin.muscle.index')
-                ->assertSeeIn('.Toast.Toast--success', 'Muscle successfully deleted');
+                ->assertSeeIn('@toast-success', 'Muscle successfully deleted');
         });
     }
 
@@ -632,12 +620,8 @@ class MuscleControllerIndexTest extends DuskTestCase
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
                 ->click('.group-0-muscle-0-delete-link')
-                ->pause(100)
                 ->assertRouteIs('admin.muscle.index')
-                ->assertSeeIn(
-                    '.Toast.Toast--error',
-                    'Muscle have attached exercise. It can\'t be deleted'
-                );
+                ->assertSeeIn('@toast-error', 'Muscle have attached exercise. It can\'t be deleted');
         });
     }
 }

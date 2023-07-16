@@ -11,7 +11,9 @@
     @can('viewAny', Muscle::class)
         <a
             class="menu-item menu-item--muscle"
-            @if('admin.muscle.index' === Route::current()->getName()) aria-current="page" @endif
+            @if(str_contains(Route::getCurrentRoute()->getControllerClass(), 'MuscleController'))
+                aria-current="page"
+            @endif
             href="{{ route('admin.muscle.index') }}"
         >
             <span class="Counter menu-item--muscle-count">{{ count($muscles ?? []) ?: '??' }}</span>
@@ -21,7 +23,9 @@
     @can('viewAny', Group::class)
         <a
             class="menu-item menu-item--group"
-            @if('admin.group.index' === Route::current()->getName()) aria-current="page" @endif
+            @if(str_contains(Route::getCurrentRoute()->getControllerClass(), 'GroupController'))
+                aria-current="page"
+            @endif
             href="{{ route('admin.group.index') }}"
         >
             <span class="Counter menu-item--group-count">{{ count($groups ?? []) ?: '??' }}</span>
@@ -31,7 +35,9 @@
     @can('viewAny', Exercise::class)
         <a
             class="menu-item menu-item--exercise"
-            @if('admin.exercise.index' === Route::current()->getName()) aria-current="page" @endif
+            @if(str_contains(Route::getCurrentRoute()->getControllerClass(), 'ExerciseController'))
+                aria-current="page"
+            @endif
             href="{{ route('admin.exercise.index') }}"
         >
             <span class="Counter menu-item--exercise-count">{{ count($exercises ?? []) ?: '??' }}</span>

@@ -2,16 +2,24 @@
 
 namespace Tests\Browser\Pages;
 
+use App\Models\Muscle;
 use Laravel\Dusk\Browser;
 
-class MuscleControllerIndex extends Page
+class MuscleControllerShow extends Page
 {
+    protected Muscle $muscle;
+
+    public function __construct(Muscle $muscle)
+    {
+        $this->muscle = $muscle;
+    }
+
     /**
      * Get the URL for the page.
      */
     public function url(): string
     {
-        return route('admin.muscle.index', [], false);
+        return route('admin.muscle.show', [$this->muscle], false);
     }
 
     /**
@@ -30,7 +38,7 @@ class MuscleControllerIndex extends Page
     public function elements(): array
     {
         return [
-            //
+            '@element' => '#selector',
         ];
     }
 }

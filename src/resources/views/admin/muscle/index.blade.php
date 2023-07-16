@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="Subhead">
-        <h3 class="Subhead-heading">
+        <h3 class="Subhead-heading content-title">
             Muscles
             <span class="Counter Counter--gray-dark v-align-middle title-counter">{{ $muscles->count() }}</span>
         </h3>
@@ -26,10 +26,17 @@
         <div class="Box Box--condensed mb-5">
             <div class="Box-header d-flex flex-items-center">
                 <h3 class="Box-title overflow-hidden flex-auto">
-                    <a
-                        href="{{ route('admin.group.show', $group) }}"
-                        class="Link Link--primary group-{{ $groupIndex }}-name"
-                    >{{ $group->name }}</a>
+                    @can('view', $group)
+                        <a
+                            href="{{ route('admin.group.show', $group) }}"
+                            class="Link Link--primary group-{{ $groupIndex }}-name"
+                        >
+                            {{ $group->name }}
+                        </a>
+                    @endcan
+                    @cannot('view', $group)
+                        <span class="group-{{ $groupIndex }}-name">{{ $group->name }}</span>
+                    @endcannot
                     <span class="Counter Counter--gray-dark group-{{ $groupIndex }}-counter">
                         {{ $group->muscles->count() }}
                     </span>
@@ -38,20 +45,36 @@
             @foreach($group->muscles as $muscleIndex=>$muscle)
                 <div class="Box-row d-flex flex-items-center group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}">
                     <div class="flex-auto">
-                        <a
-                            href="{{ route('admin.muscle.show', $muscle) }}"
-                            class="Link Link--primary group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-link"
-                        >
-                            <strong class="group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-name">
-                                {{ $muscle->name }}
-                            </strong>
-                        </a>
+                        @can('view', $muscle)
+                            <a
+                                href="{{ route('admin.muscle.show', $muscle) }}"
+                                class="Link Link--primary group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-link"
+                            >
+                                <strong class="group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-name">
+                                    {{ $muscle->name }}
+                                </strong>
+                            </a>
+                        @endcan
+                        @cannot('view', $muscle)
+                            <span class="group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-link">
+                                <strong class="group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-name">
+                                    {{ $muscle->name }}
+                                </strong>
+                            </span>
+                        @endcannot
                         <div class="text-small color-fg-subtle">
                             @foreach($muscle->exercises as $exerciseIndex=>$exercise)
-                                <a
+                                @can('view', $exercise)
+                                    <a
                                 class="group-{{$groupIndex}}-muscle-{{$muscleIndex}}-exercise-{{$exerciseIndex}}-link"
-                                href="{{ route('admin.exercise.show', $exercise) }}"
-                                >
+                                    href="{{ route('admin.exercise.show', $exercise) }}"
+                                    >
+                                @endcan
+                                @cannot('view', $group)
+                                    <span
+                                class="group-{{$groupIndex}}-muscle-{{$muscleIndex}}-exercise-{{$exerciseIndex}}-link"
+                                    >
+                                @endcannot
                                     @if ($exercise->pivot->intensity == 1)
                                         <span
                                             class="Label mr-1 mt-2 Label--success
@@ -68,7 +91,12 @@
                                     group-{{$groupIndex}}-muscle-{{$muscleIndex}}-exercise-{{$exerciseIndex}}-name--025"
                                         >{{ $exercise->name }}</span>
                                     @endif
-                                </a>
+                                @can('view', $exercise)
+                                    </span>
+                                @endcan
+                                @cannot('view', $exercise)
+                                    </a>
+                                @endcannot
                             @endforeach
                         </div>
                     </div>

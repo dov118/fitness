@@ -28,6 +28,12 @@ abstract class Page extends BasePage
             '@side-nav-group-link-counter' => '.sidenav .menu-item--group-count',
             '@side-nav-exercise-link' => '.sidenav .menu-item--exercise',
             '@side-nav-exercise-link-counter' => '.sidenav .menu-item--exercise-count',
+            '@content-title' => '.content-title',
+            '@title-counter' => '.title-counter',
+            '@title-add' => '.title-add',
+            '@title-edit' => '.title-edit',
+            '@toast-success' => '.Toast.Toast--success',
+            '@toast-error' => '.Toast.Toast--error',
         ];
     }
 }

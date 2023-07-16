@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\Group;
+use App\Models\Muscle;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +25,9 @@ class MuscleControllerIndexTest extends TestCase
     {
         $user = User::factory()->create();
         Auth::login($user);
+
+        Group::factory()->create();
+        Muscle::factory()->create();
 
         $response = $this->get(route('admin.muscle.index'));
 

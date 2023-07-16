@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Browser\Traits;
+namespace Tests\BrowserTraits;
 
 use App\Models\Group;
 use App\Models\Muscle;

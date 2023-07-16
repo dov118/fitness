@@ -8,8 +8,8 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\MuscleControllerShow;
-use Tests\Browser\Traits\HeaderTest;
-use Tests\Browser\Traits\SidenavTest;
+use Tests\BrowserTraits\SidenavTest;
+use Tests\BrowserTraits\HeaderTest;
 use Tests\DuskTestCase;
 use Throwable;
 

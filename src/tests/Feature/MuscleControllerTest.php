@@ -382,17 +382,6 @@ class MuscleControllerTest extends TestCase
             ->assertSessionHas('notification_message');
     }
 
-    public function test_the_admin_muscle_show_returns_a_successful_response(): void
-    {
-        Group::factory()->create();
-
-        $muscle = Muscle::factory()->create();
-
-        $response = $this->get(route('admin.muscle.show', $muscle));
-
-        $response->assertStatus(200);
-    }
-
     public function test_the_admin_muscle_show_displayed_all_information(): void
     {
         $exercise = Exercise::factory()->create();

@@ -244,13 +244,13 @@ class MuscleControllerIndexTest extends DuskTestCase
      */
     public function test_the_admin_muscle_index_sidenav_muscle_link_contain_counter(): void
     {
-        $muscles_count = fake()->numberBetween(1, 12);
-        Muscle::factory($muscles_count)->for(Group::factory()->create())->create();
+        $musclesCount = fake()->numberBetween(1, 12);
+        Muscle::factory($musclesCount)->for(Group::factory()->create())->create();
 
-        $this->browse(function (Browser $browser) use ($muscles_count) {
+        $this->browse(function (Browser $browser) use ($musclesCount) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
-                ->assertSeeIn('@side-nav-muscle-link-counter', $muscles_count);
+                ->assertSeeIn('@side-nav-muscle-link-counter', $musclesCount);
         });
     }
 
@@ -299,13 +299,13 @@ class MuscleControllerIndexTest extends DuskTestCase
      */
     public function test_the_admin_muscle_index_sidenav_group_link_contain_counter(): void
     {
-        $groups_count = fake()->numberBetween(1, 12);
-        Group::factory($groups_count)->create();
+        $groupsCount = fake()->numberBetween(1, 12);
+        Group::factory($groupsCount)->create();
 
-        $this->browse(function (Browser $browser) use ($groups_count) {
+        $this->browse(function (Browser $browser) use ($groupsCount) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
-                ->assertSeeIn('@side-nav-group-link-counter', $groups_count);
+                ->assertSeeIn('@side-nav-group-link-counter', $groupsCount);
         });
     }
 
@@ -340,13 +340,13 @@ class MuscleControllerIndexTest extends DuskTestCase
      */
     public function test_the_admin_muscle_index_sidenav_exercise_link_contain_counter(): void
     {
-        $exercises_count = fake()->numberBetween(1, 12);
-        Exercise::factory($exercises_count)->create();
+        $exercisesCount = fake()->numberBetween(1, 12);
+        Exercise::factory($exercisesCount)->create();
 
-        $this->browse(function (Browser $browser) use ($exercises_count) {
+        $this->browse(function (Browser $browser) use ($exercisesCount) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
-                ->assertSeeIn('@side-nav-exercise-link-counter', $exercises_count);
+                ->assertSeeIn('@side-nav-exercise-link-counter', $exercisesCount);
         });
     }
 
@@ -355,14 +355,14 @@ class MuscleControllerIndexTest extends DuskTestCase
      */
     public function test_the_admin_muscle_index_title_contain_counter(): void
     {
-        $muscles_count = fake()->numberBetween(1, 12);
-        Muscle::factory($muscles_count)->for(Group::factory()->create())->create();
+        $musclesCount = fake()->numberBetween(1, 12);
+        Muscle::factory($musclesCount)->for(Group::factory()->create())->create();
 
-        $this->browse(function (Browser $browser) use ($muscles_count) {
+        $this->browse(function (Browser $browser) use ($musclesCount) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new MuscleControllerIndex)
-                ->assertSeeIn('@side-nav-muscle-link-counter', $muscles_count)
-                ->assertSeeIn('@title-counter', $muscles_count);
+                ->assertSeeIn('@side-nav-muscle-link-counter', $musclesCount)
+                ->assertSeeIn('@title-counter', $musclesCount);
         });
     }
 

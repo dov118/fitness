@@ -10,4 +10,6 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=dov118_fitness&metric=coverage)](https://sonarcloud.io/summary/new_code?id=dov118_fitness)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=dov118_fitness&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=dov118_fitness)
 
+<hr>
+
 In progress ....

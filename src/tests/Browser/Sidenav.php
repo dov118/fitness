@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\BrowserTraits;
+namespace Tests\Browser;
 
 use App\Models\Exercise;
 use App\Models\Group;
@@ -9,11 +9,11 @@ use App\Models\User;
 use Laravel\Dusk\Browser;
 use Throwable;
 
-trait SidenavTest {
+trait Sidenav {
     /**
      * @throws Throwable
      */
-    public function testTheAdminPageSidenavHighlightCurrentPage(): void
+    public function test_the_admin_page_sidenav_highlight_current_page(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();

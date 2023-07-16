@@ -8,16 +8,14 @@ use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\MuscleControllerShow;
-use Tests\BrowserTraits\SidenavTest;
-use Tests\BrowserTraits\HeaderTest;
 use Tests\DuskTestCase;
 use Throwable;
 
 class MuscleControllerShowTest extends DuskTestCase
 {
     use DatabaseMigrations;
-    use HeaderTest;
-    use SidenavTest;
+    use Header;
+    use Sidenav;
 
     protected string $page = MuscleControllerShow::class;
 

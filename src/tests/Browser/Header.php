@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\BrowserTraits;
+namespace Tests\Browser;
 
 use App\Models\Group;
 use App\Models\Muscle;
@@ -8,7 +8,7 @@ use App\Models\User;
 use Laravel\Dusk\Browser;
 use Throwable;
 
-trait HeaderTest {
+trait Header {
     private string $userMenuAvatar = '@user-menu-avatar';
     private string $userMenuEmail = '@user-menu-email';
 

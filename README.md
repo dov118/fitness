@@ -1,4 +1,4 @@
-### FITNESS TIME
+# FITNESS TIME
 
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=dov118_fitness)](https://sonarcloud.io/summary/new_code?id=dov118_fitness)
 

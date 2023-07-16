@@ -120,22 +120,22 @@
                                 <img class="octicon" src="{{ Vite::asset('resources/imgs/edit.svg') }}" alt="">
                             </button>
                         </a>
-                            @endcan
-                            @can('delete', $muscle)
-                                <form method="post" action="{{ route('admin.muscle.destroy', $muscle) }}">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-danger ml-2
-                                    group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-delete-link"
-                                            href="{{ route('admin.muscle.destroy', $muscle) }}">
-                                        <img
-                                            class="octicon octicon-pencil"
-                                            src="{{ Vite::asset('resources/imgs/delete.svg') }}"
-                                            alt=""
-                                        >
-                                    </button>
-                                </form>
-                            @endcan
+                        @endcan
+                        @can('delete', $muscle)
+                            <form method="post" action="{{ route('admin.muscle.destroy', $muscle) }}">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-danger ml-2
+                                group-{{ $groupIndex }}-muscle-{{ $muscleIndex }}-delete-link"
+                                        href="{{ route('admin.muscle.destroy', $muscle) }}">
+                                    <img
+                                        class="octicon octicon-pencil"
+                                        src="{{ Vite::asset('resources/imgs/delete.svg') }}"
+                                        alt=""
+                                    >
+                                </button>
+                            </form>
+                        @endcan
                     </div>
                 </div>
             @endforeach

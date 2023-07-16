@@ -41,18 +41,6 @@ class MuscleControllerIndexTest extends DuskTestCase
     /**
      * @throws Throwable
      */
-    public function test_the_admin_muscle_index_title_contain_add_button(): void
-    {
-        $this->browse(function (Browser $browser) {
-            $browser->loginAs(User::factory()->create())
-                ->visit(new $this->page())
-                ->assertPresent('@title-add');
-        });
-    }
-
-    /**
-     * @throws Throwable
-     */
     public function test_the_admin_muscle_index_title_add_button_works(): void
     {
         $this->browse(function (Browser $browser) {

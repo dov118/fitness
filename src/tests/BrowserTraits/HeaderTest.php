@@ -15,7 +15,7 @@ trait HeaderTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_login_link_not_displayed_on_connected(): void
+    public function testTheAdminPageLoginLinkNotDisplayedOnConnected(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -31,7 +31,7 @@ trait HeaderTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_user_menu_displayed_on_connected(): void
+    public function testTheAdminPageUserMenuDisplayedOnConnected(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -47,7 +47,7 @@ trait HeaderTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_user_avatar_is_correct(): void
+    public function testTheAdminPageUserAvatarIsCorrect(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -67,7 +67,7 @@ trait HeaderTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_user_menu_open_on_click_on_user_avatar(): void
+    public function testTheAdminPageUserMenuOpenOnClickOnUserAvatar(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -86,7 +86,7 @@ trait HeaderTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_user_menu_close_on_click_outside_user_menu(): void
+    public function testTheAdminPageUserMenuCloseOnClickOutsideUserMenu(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -108,7 +108,7 @@ trait HeaderTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_user_menu_close_on_click_on_opened_user_menu(): void
+    public function testTheAdminPageUserMenuCloseOnClickOnOpenedUserMenu(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -130,7 +130,7 @@ trait HeaderTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_user_menu_contain_dashboard_link(): void
+    public function testTheAdminPageUserMenuContainDashboardLink(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -149,7 +149,7 @@ trait HeaderTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_user_menu_contain_logout_button(): void
+    public function testTheAdminPageUserMenuContainLogoutButton(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -168,7 +168,7 @@ trait HeaderTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_user_menu_logged_out_on_logout_button_click(): void
+    public function testTheAdminPageUserMenuLoggedOutOnLogoutButtonClick(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();

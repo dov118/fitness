@@ -39,7 +39,7 @@ class MuscleControllerShowTest extends DuskTestCase
     /**
      * @throws Throwable
      */
-    public function test_the_admin_muscle_index_title_add_button_works(): void
+    public function test_the_admin_muscle_index_title_edit_button_works(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();

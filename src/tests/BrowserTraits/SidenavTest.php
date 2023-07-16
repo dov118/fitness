@@ -13,7 +13,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_highlight_current_page(): void
+    public function testTheAdminPageSidenavHighlightCurrentPage(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -28,7 +28,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_no_highlight_other_pages(): void
+    public function testTheAdminPageSidenavNoHighlightOtherPages(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -45,7 +45,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_contain_dashboard_link(): void
+    public function testTheAdminPageSidenavContainDashboardLink(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -60,7 +60,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_dashboard_link_works(): void
+    public function testTheAdminPageSidenavDashboardLinkWorks(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -76,7 +76,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_contain_muscle_link(): void
+    public function testTheAdminPageSidenavContainMuscleLink(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -91,7 +91,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_muscle_link_contain_counter(): void
+    public function testTheAdminPageSidenavMuscleLinkContainCounter(): void
     {
         $musclesCount = fake()->numberBetween(1, 12);
         Muscle::factory($musclesCount)->for(Group::factory()->create())->create();
@@ -110,7 +110,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_muscle_link_works(): void
+    public function testTheAdminPageSidenavMuscleLinkWorks(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -126,7 +126,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_contain_group_link(): void
+    public function testTheAdminPageSidenavContainGroupLink(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -141,7 +141,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_group_link_works(): void
+    public function testTheAdminPageSidenavGroupLinkWorks(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -157,7 +157,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_group_link_contain_counter(): void
+    public function testTheAdminPageSidenavGroupLinkContainCounter(): void
     {
         $groupsCount = fake()->numberBetween(1, 12);
         Group::factory($groupsCount)->create();
@@ -176,7 +176,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_contain_exercise_link(): void
+    public function testTheAdminPageSidenavContainExerciseLink(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -191,7 +191,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_exercise_link_works(): void
+    public function testTheAdminPageSidenavExerciseLinkWorks(): void
     {
         Group::factory()->create();
         $muscle = Muscle::factory()->create();
@@ -207,7 +207,7 @@ trait SidenavTest {
     /**
      * @throws Throwable
      */
-    public function test_the_admin_page_sidenav_exercise_link_contain_counter(): void
+    public function testTheAdminPageSidenavExerciseLinkContainCounter(): void
     {
         $exercisesCount = fake()->numberBetween(1, 12);
         Exercise::factory($exercisesCount)->create();

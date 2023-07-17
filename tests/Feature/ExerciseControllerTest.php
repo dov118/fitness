@@ -153,6 +153,4 @@ class ExerciseControllerTest extends TestCase
 
         $response->assertSee($exercise->name);
     }
-
-    // TODO test attached
 }

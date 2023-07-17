@@ -105,9 +105,9 @@ class MuscleControllerShowTest extends DuskTestCase
     {
         $muscle = Muscle::factory()->for(Group::factory()->create())->create();
 
-        $exercise1 = Exercise::factory()->hasAttached($muscle, ['intensity' => 1.0])->create();
-        $exercise2 = Exercise::factory()->hasAttached($muscle, ['intensity' => 0.5])->create();
-        $exercise3 = Exercise::factory()->hasAttached($muscle, ['intensity' => 0.25])->create();
+        $exercise1 = Exercise::factory()->hasAttached($muscle, ['intensity' => 0.5])->create();
+        $exercise2 = Exercise::factory()->hasAttached($muscle, ['intensity' => 0.25])->create();
+        $exercise3 = Exercise::factory()->hasAttached($muscle, ['intensity' => 1.0])->create();
 
         $muscle = $muscle->refresh();
         $exercise1 = $exercise1->refresh();
@@ -117,9 +117,9 @@ class MuscleControllerShowTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($muscle, $exercise1, $exercise2, $exercise3) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new $this->page($muscle))
-                ->assertSeeIn('.exercise-0-name-10', $exercise1->name)
-                ->assertSeeIn('.exercise-1-name-05', $exercise2->name)
-                ->assertSeeIn('.exercise-2-name-025', $exercise3->name);
+                ->assertSeeIn('.exercise-2-name-10', $exercise3->name)
+                ->assertSeeIn('.exercise-1-name-05', $exercise1->name)
+                ->assertSeeIn('.exercise-0-name-025', $exercise2->name);
         });
     }
 
@@ -130,9 +130,9 @@ class MuscleControllerShowTest extends DuskTestCase
     {
         $muscle = Muscle::factory()->for(Group::factory()->create())->create();
 
-        $exercise1 = Exercise::factory()->hasAttached($muscle, ['intensity' => 0.0])->create();
-        $exercise2 = Exercise::factory()->hasAttached($muscle, ['intensity' => 0.5])->create();
-        $exercise3 = Exercise::factory()->hasAttached($muscle, ['intensity' => 0.25])->create();
+        $exercise1 = Exercise::factory()->hasAttached($muscle, ['intensity' => 0.5])->create();
+        $exercise2 = Exercise::factory()->hasAttached($muscle, ['intensity' => 0.0])->create();
+        $exercise3 = Exercise::factory()->hasAttached($muscle, ['intensity' => 1.0])->create();
 
         $muscle = $muscle->refresh();
         $exercise1 = $exercise1->refresh();
@@ -142,9 +142,9 @@ class MuscleControllerShowTest extends DuskTestCase
         $this->browse(function (Browser $browser) use ($muscle, $exercise1, $exercise2, $exercise3) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new $this->page($muscle))
-                ->assertDontSee($exercise1->name)
-                ->assertSeeIn('.exercise-0-name-05', $exercise2->name)
-                ->assertSeeIn('.exercise-1-name-025', $exercise3->name);
+                ->assertDontSee($exercise2->name)
+                ->assertSeeIn('.exercise-0-name-05', $exercise1->name)
+                ->assertSeeIn('.exercise-1-name-10', $exercise3->name);
         });
     }
 

@@ -4,6 +4,9 @@ import checker from 'vite-plugin-checker';
 import inject from "@rollup/plugin-inject";
 
 export default defineConfig({
+  css: {
+    devSourcemap: true,
+  },
   plugins: [
     inject({
       $: 'jquery',
@@ -18,7 +21,7 @@ export default defineConfig({
       },
     }),
     laravel({
-      input: ['resources/scss/admin.scss', 'resources/ts/admin.ts', 'resources/js/app.js'],
+      input: ['resources/scss/admin.scss', 'resources/ts/admin.ts'],
       refresh: true,
     }),
   ],

@@ -10,8 +10,6 @@ class Equipment extends Model
 {
     use HasFactory;
 
-    public $table = 'equipments'; // TODO Why ?
-
     public const EMPTY_COUNT = 1;
     public const EMPTY_WEIGHT = 1.5;
 

@@ -76,7 +76,7 @@ return new class extends Migration
                 ->nullable(false)->default(true)
                 ->comment('Si c\'est une pause');
 
-            $table->foreignId('equipment_id')->constrained('equipments');
+            $table->foreignId('equipment_id')->constrained('equipment');
             $table->foreignId('exercise_id')->constrained('exercises');
             $table->foreignId('session_id')->constrained('sessions');
 

@@ -382,40 +382,6 @@ class MuscleControllerTest extends TestCase
             ->assertSessionHas('notification_message');
     }
 
-    public function test_the_admin_muscle_show_displayed_all_information(): void
-    {
-        $exercise = Exercise::factory()->create();
-
-        $group = Group::factory()->create();
-
-        $muscle = Muscle::factory()->for($group)->hasAttached($exercise, [
-            'intensity' => 1.0,
-        ])->create();
-
-        $response = $this->get(route('admin.muscle.show', $muscle));
-
-        $response->assertSee($muscle->name);
-        $response->assertSee($group->name);
-        $response->assertSee($exercise->name);
-    }
-
-    public function test_the_admin_muscle_show_not_displaying_zero_intensity_exercise_name(): void
-    {
-        $exercise = Exercise::factory()->create();
-
-        $group = Group::factory()->create();
-
-        $muscle = Muscle::factory()->for($group)->hasAttached($exercise, [
-            'intensity' => 0,
-        ])->create();
-
-        $response = $this->get(route('admin.muscle.show', $muscle));
-
-        $response->assertSee($muscle->name);
-        $response->assertSee($group->name);
-        $response->assertDontSee($exercise->name);
-    }
-
     public function test_the_admin_muscle_delete_action_with_no_exercises_attached_returns_a_successful_response(): void
     {
         $group = Group::factory()->create();

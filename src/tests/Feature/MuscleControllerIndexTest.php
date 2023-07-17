@@ -33,4 +33,16 @@ class MuscleControllerIndexTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    public function test_the_admin_muscle_index_returns_a_successful_response_with_no_group_and_exercise(): void
+    {
+        $user = User::factory()->create();
+        Auth::login($user);
+
+        Muscle::factory()->create();
+
+        $response = $this->get(route('admin.muscle.index'));
+
+        $response->assertStatus(200);
+    }
 }

@@ -38,7 +38,14 @@ class MuscleControllerShow extends Page
     public function elements(): array
     {
         return [
-            '@element' => '#selector',
+            '@group-link' => '.group-link',
+            '@group-name' => '.group-name',
+            '@heavy-min' => '.heavy-min',
+            '@heavy-max' => '.heavy-max',
+            '@light-min' => '.light-min',
+            '@light-max' => '.light-max',
+            '@max' => '.max',
+            '@fiber-type' => '.fiber-type',
         ];
     }
 }

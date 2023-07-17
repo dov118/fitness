@@ -67,8 +67,8 @@ class MuscleController extends Controller
             'exercises' => Exercise::all(),
             'muscles' => Muscle::all(),
             'active_exercises' => $muscle->exercises()
-                ->orderBy('name', 'desc')
                 ->withPivot('intensity')
+                ->orderBy('pivot_intensity', 'desc')
                 ->whereNot('intensity', 0.0)
                 ->get()
                 ->reverse(),

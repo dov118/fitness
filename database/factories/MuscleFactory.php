@@ -24,7 +24,7 @@ class MuscleFactory extends Factory
         $heavyMin = fake()->numberBetween($min, $max);
         $heavyMax = fake()->numberBetween($heavyMin, $max);
 
-        if($groupId = fake()->randomElement(Group::all('id'))) {
+        if ($groupId = fake()->randomElement(Group::all('id'))) {
             $groupId = $groupId['id'];
         } else {
             $groupId = null;

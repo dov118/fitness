@@ -31,7 +31,9 @@
                 <label for="fiber_type-input">Fiber type</label>
             </div>
             <div class="form-group-body">
-                <textarea class="form-control fiber_type-input" id="fiber_type-input" name="fiber_type">{{ old('fiber_type', '') }}</textarea>
+                <textarea class="form-control fiber_type-input" id="fiber_type-input" name="fiber_type">
+                    {{ old('fiber_type', '') }}
+                </textarea>
             </div>
             @error('fiber_type')
             <p class="note error fiber_type-error" id="fiber_type-input-validation">{{ $message }}</p>

@@ -18,6 +18,8 @@ class MuscleControllerCreateTest extends DuskTestCase
     use Header;
     use Sidenav;
 
+    private string $saveButton = '@save-button';
+
     protected string $page = MuscleControllerCreate::class;
 
     /**
@@ -43,8 +45,8 @@ class MuscleControllerCreateTest extends DuskTestCase
                         $muscleRaw['max'],
                     );
                 })
-                ->scrollIntoView('@save-button')
-                ->click('@save-button')
+                ->scrollIntoView($this->saveButton)
+                ->click($this->saveButton)
                 ->assertRouteIs('admin.muscle.show', [
                     Muscle::find(Muscle::where('name', $muscleRaw['name'])->get()->all()[0]->id)
                 ])
@@ -75,8 +77,8 @@ class MuscleControllerCreateTest extends DuskTestCase
                         '',
                     );
                 })
-                ->scrollIntoView('@save-button')
-                ->click('@save-button')
+                ->scrollIntoView($this->saveButton)
+                ->click($this->saveButton)
                 ->assertRouteIs('admin.muscle.show', [
                     Muscle::find(Muscle::where('name', $muscleRaw['name'])->get()->all()[0]->id)
                 ])

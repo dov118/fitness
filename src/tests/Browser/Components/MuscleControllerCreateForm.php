@@ -42,17 +42,18 @@ class MuscleControllerCreateForm extends BaseComponent
         ];
     }
 
-    public function populate(Browser $browser, $name, $fiber_type, $group_id, $heavy_min, $heavy_max, $light_min, $light_max, $max): void
+    public function populate(
+        Browser $browser, $name, $fiberType, $groupId, $heavyMin, $heavyMax, $lightMin, $lightMax, $max
+    ): void
     {
         $browser
             ->type('@name-input', $name)
-            ->type('@name-input', $name)
-            ->type('@fiber_type-input', $fiber_type)
-            ->type('@heavy_min-input', $heavy_min)
-            ->type('@heavy_max-input', $heavy_max)
-            ->type('@light_min-input', $light_min)
-            ->type('@light_max-input', $light_max)
+            ->type('@fiber_type-input', $fiberType)
+            ->type('@heavy_min-input', $heavyMin)
+            ->type('@heavy_max-input', $heavyMax)
+            ->type('@light_min-input', $lightMin)
+            ->type('@light_max-input', $lightMax)
             ->type('@max-input', $max)
-            ->select('@group_id-input', $group_id);
+            ->select('@group_id-input', $groupId);
     }
 }

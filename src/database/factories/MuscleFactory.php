@@ -20,19 +20,25 @@ class MuscleFactory extends Factory
         $min = 4;
         $max = 25;
         $lightMin = fake()->numberBetween($min, $max);
-        $lightMax = fake()->numberBetween($lightMin + 1, $max);
+        $lightMax = fake()->numberBetween($lightMin, $max);
         $heavyMin = fake()->numberBetween($min, $max);
-        $heavyMax = fake()->numberBetween($heavyMin + 1, $max);
+        $heavyMax = fake()->numberBetween($heavyMin, $max);
+
+        if($groupId = fake()->randomElement(Group::all('id'))) {
+            $groupId = $groupId['id'];
+        } else {
+            $groupId = null;
+        }
 
         return [
-            'group_id' => fake()->randomElement(Group::all('id')),
+            'group_id' => $groupId,
             'name' => fake()->text('64'),
             'heavy_min' => $heavyMin,
             'heavy_max' => $heavyMax,
             'light_min' => $lightMin,
             'light_max' => $lightMax,
             'fiber_type' => fake()->randomElement(['Rapide', 'Lente']),
-            'max' => $max,
+            'max' => max($lightMax, $heavyMax),
         ];
     }
 }

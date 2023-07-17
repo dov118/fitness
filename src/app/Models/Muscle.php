@@ -19,6 +19,12 @@ class Muscle extends Model
     protected $fillable = [
         'name',
         'group_id',
+        'heavy_min',
+        'heavy_max',
+        'light_min',
+        'light_max',
+        'max',
+        'fiber_type',
     ];
 
     public function group(): BelongsTo

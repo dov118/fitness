@@ -22,13 +22,6 @@ class MuscleControllerTest extends TestCase
         Auth::login($user);
     }
 
-    public function test_the_admin_muscle_create_page_returns_a_successful_response(): void
-    {
-        $response = $this->get(route('admin.muscle.create'));
-
-        $response->assertStatus(200);
-    }
-
     public function test_the_admin_group_create_action_returns_a_successful_response(): void
     {
         Exercise::factory()->create();
@@ -56,7 +49,121 @@ class MuscleControllerTest extends TestCase
 
         $response
             ->assertSessionDoesntHaveErrors()
-            ->assertRedirect(route('admin.muscle.index'))
+            ->assertRedirect(route('admin.muscle.show', $muscle))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_group_create_action_returns_a_successful_response_with_correct_data(): void
+    {
+        Exercise::factory()->create();
+        Group::factory()->create();
+
+        $muscleRaw = Muscle::factory()->definition();
+
+        $response = $this->postJson(route('admin.muscle.store'), $muscleRaw);
+
+        $this->assertDatabaseHas(app(Muscle::class)->getTable(), $muscleRaw);
+
+        $muscle = Muscle::where('name', $muscleRaw['name'])->with('group')->get()->first();
+
+        foreach (Exercise::all() as $exercise) {
+            $this->assertTrue($muscle->exercises->contains($exercise->id));
+        }
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.muscle.show', $muscle))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_group_create_action_returns_a_successful_response_with_only_required_data(): void
+    {
+        Exercise::factory()->create();
+        Group::factory()->create();
+
+        $muscleRaw = Muscle::factory()->definition();
+
+        $response = $this->postJson(route('admin.muscle.store'), [
+            'name' => $muscleRaw['name']
+        ]);
+
+        $this->assertDatabaseHas(app(Muscle::class)->getTable(), [
+            'name' => $muscleRaw['name']
+        ]);
+
+        $muscle = Muscle::where('name', $muscleRaw['name'])->with('group')->get()->first();
+
+        foreach (Exercise::all() as $exercise) {
+            $this->assertTrue($muscle->exercises->contains($exercise->id));
+        }
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.muscle.show', $muscle))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_group_create_action_returns_a_successful_response_without_max(): void
+    {
+        Exercise::factory()->create();
+        Group::factory()->create();
+
+        $muscleRaw = Muscle::factory()->definition();
+        $muscleRaw['max'] = null;
+
+        $response = $this->postJson(route('admin.muscle.store'), $muscleRaw);
+
+        $muscleRaw['max'] = 1;
+        $this->assertDatabaseHas(app(Muscle::class)->getTable(), $muscleRaw);
+
+        $muscle = Muscle::where('name', $muscleRaw['name'])->with('group')->get()->first();
+
+        foreach (Exercise::all() as $exercise) {
+            $this->assertTrue($muscle->exercises->contains($exercise->id));
+        }
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.muscle.show', $muscle))
+            ->assertStatus(302)
+            ->assertSessionHas('notification_type', 'success')
+            ->assertSessionHas('notification_message');
+    }
+
+    public function test_the_admin_group_create_action_returns_a_successful_response_without_light_and_heavy(): void
+    {
+        Exercise::factory()->create();
+        Group::factory()->create();
+
+        $muscleRaw = Muscle::factory()->definition();
+        $muscleRaw['light_min'] = null;
+        $muscleRaw['light_max'] = null;
+        $muscleRaw['heavy_min'] = null;
+        $muscleRaw['heavy_max'] = null;
+
+        $response = $this->postJson(route('admin.muscle.store'), $muscleRaw);
+
+        $muscleRaw['light_min'] = 1;
+        $muscleRaw['light_max'] = 1;
+        $muscleRaw['heavy_min'] = 1;
+        $muscleRaw['heavy_max'] = 1;
+        $this->assertDatabaseHas(app(Muscle::class)->getTable(), $muscleRaw);
+
+        $muscle = Muscle::where('name', $muscleRaw['name'])->with('group')->get()->first();
+
+        foreach (Exercise::all() as $exercise) {
+            $this->assertTrue($muscle->exercises->contains($exercise->id));
+        }
+
+        $response
+            ->assertSessionDoesntHaveErrors()
+            ->assertRedirect(route('admin.muscle.show', $muscle))
             ->assertStatus(302)
             ->assertSessionHas('notification_type', 'success')
             ->assertSessionHas('notification_message');

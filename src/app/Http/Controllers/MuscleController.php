@@ -39,6 +39,8 @@ class MuscleController extends Controller
     {
         return view('admin.muscle.create', [
             'groups' => Group::all(),
+            'muscles' => Muscle::all(),
+            'exercises' => Exercise::orderBy('name')->get()->all(),
         ]);
     }
 
@@ -48,10 +50,13 @@ class MuscleController extends Controller
     public function store(StoreMuscleRequest $request): RedirectResponse
     {
         $validated = $request->validated();
+        if (!key_exists('group_id', $validated)) {
+            $validated['group_id'] = null;
+        }
         $muscle = Muscle::create($validated);
         Exercise::all()->each(fn ($exercise) => $muscle->exercises()->attach($exercise->id));
 
-        return to_route('admin.muscle.index')
+        return to_route('admin.muscle.show', [$muscle])
             ->with('notification_type', 'success')
             ->with('notification_message', 'Muscle successfully created');
     }

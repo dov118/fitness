@@ -2,6 +2,7 @@
 
 namespace Tests\Browser\Components;
 
+use App\Models\Exercise;
 use Laravel\Dusk\Browser;
 use Laravel\Dusk\Component as BaseComponent;
 
@@ -42,6 +43,16 @@ class MuscleControllerCreateForm extends BaseComponent
         ];
     }
 
+    private function getExerciseLabel(Exercise $exercise, string $intensity): string
+    {
+        return '.exercise-' . $exercise->id . '-form label[data-value="' . $intensity . '"]';
+    }
+
+    private function getExerciseForm(Exercise $exercise): string
+    {
+        return '.exercise-' . $exercise->id . '-form';
+    }
+
     public function populate(
         Browser $browser, $name, $fiberType, $groupId, $heavyMin, $heavyMax, $lightMin, $lightMax, $max, $exercise1,
         $exercise1Intensity, $exercise2, $exercise2Intensity, $exercise3, $exercise3Intensity, $exercise4,
@@ -57,13 +68,13 @@ class MuscleControllerCreateForm extends BaseComponent
             ->type('@light_max-input', $lightMax)
             ->type('@max-input', $max)
             ->select('@group_id-input', $groupId)
-            ->scrollIntoView('.exercise-' . $exercise1->id . '-form')
-            ->check('.exercise-' . $exercise1->id . '-form label[data-value="' . $exercise1Intensity . '"]')
-            ->scrollIntoView('.exercise-' . $exercise2->id . '-form')
-            ->check('.exercise-' . $exercise2->id . '-form label[data-value="' . $exercise2Intensity . '"]')
-            ->scrollIntoView('.exercise-' . $exercise3->id . '-form')
-            ->check('.exercise-' . $exercise3->id . '-form label[data-value="' . $exercise3Intensity . '"]')
-            ->scrollIntoView('.exercise-' . $exercise3->id . '-form')
-            ->check('.exercise-' . $exercise4->id . '-form label[data-value="' . $exercise4Intensity . '"]');
+            ->scrollIntoView($this->getExerciseForm($exercise1))
+            ->check($this->getExerciseLabel($exercise1, $exercise1Intensity))
+            ->scrollIntoView($this->getExerciseForm($exercise2))
+            ->check($this->getExerciseLabel($exercise2, $exercise2Intensity))
+            ->scrollIntoView($this->getExerciseForm($exercise3))
+            ->check($this->getExerciseLabel($exercise3, $exercise3Intensity))
+            ->scrollIntoView($this->getExerciseForm($exercise4))
+            ->check($this->getExerciseLabel($exercise4, $exercise4Intensity));
     }
 }

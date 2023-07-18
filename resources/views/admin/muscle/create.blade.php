@@ -171,51 +171,54 @@
         </div>
 
         @foreach ($exercises as $exercise)
-            <div class="form-group">
+            <div class="form-group exercise-{{ $exercise->id }}-form">
                 <div class="form-group-header">
                     <label for="option-{{ $exercise->id }}">{{ $exercise->name }}</label>
                 </div>
                 <div class="form-group-body">
                     <div class="radio-group">
                         <input
-                            checked
+                            @checked(!in_array(old('option-' . $exercise->id), ["0.25", "0.5", "1.0"]))
                             class="radio-input"
                             id="option-a-{{ $exercise->id }}"
                             type="radio"
                             name="option-{{ $exercise->id }}"
                             value="0.0"
                         >
-                        <label class="radio-label Label--muted" for="option-a-{{ $exercise->id }}">
+                        <label class="radio-label Label--muted" for="option-a-{{ $exercise->id }}" data-value="0.0">
                             0%
                         </label>
                         <input
+                            @checked(old('option-' . $exercise->id) === "0.25")
                             class="radio-input"
                             id="option-b-{{ $exercise->id }}"
                             type="radio"
                             name="option-{{ $exercise->id }}"
                             value="0.25"
                         >
-                        <label class="radio-label Label--danger" for="option-b-{{ $exercise->id }}">
+                        <label class="radio-label Label--danger" for="option-b-{{ $exercise->id }}" data-value="0.25">
                             25%
                         </label>
                         <input
+                            @checked(old('option-' . $exercise->id) === "0.5")
                             class="radio-input"
                             id="option-c-{{ $exercise->id }}"
                             type="radio"
                             name="option-{{ $exercise->id }}"
                             value="0.5"
                         >
-                        <label class="radio-label Label--accent" for="option-c-{{ $exercise->id }}">
+                        <label class="radio-label Label--accent" for="option-c-{{ $exercise->id }}" data-value="0.5">
                             50%
                         </label>
                         <input
+                            @checked(old('option-' . $exercise->id) === "1.0")
                             class="radio-input"
                             id="option-d-{{ $exercise->id }}"
                             type="radio"
                             name="option-{{ $exercise->id }}"
                             value="1.0"
                         >
-                        <label class="radio-label Label--success" for="option-d-{{ $exercise->id }}">
+                        <label class="radio-label Label--success" for="option-d-{{ $exercise->id }}" data-value="1.0">
                             100%
                         </label>
                     </div>

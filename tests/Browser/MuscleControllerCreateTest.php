@@ -2,6 +2,7 @@
 
 namespace Tests\Browser;
 
+use App\Models\Exercise;
 use App\Models\Group;
 use App\Models\Muscle;
 use App\Models\User;
@@ -50,18 +51,34 @@ class MuscleControllerCreateTest extends DuskTestCase
         return '.group_id-input option[value="' . $value . '"]:checked';
     }
 
+    private function getMuscleRadioSelector(Exercise $exercise, string $intensity): string
+    {
+        return '.exercise-' . $exercise->id . '-form input[value="' . $intensity . '"]:checked';
+    }
+
     /**
      * @throws Throwable
      */
     public function test_the_admin_muscle_create_page_show_required_name_error(): void
     {
         Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
         $muscleRaw = Muscle::factory()->definition();
 
-        $this->browse(function (Browser $browser) use ($muscleRaw) {
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new $this->page())
-                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw) {
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
                     $browser->populate(
                         '',
                         $muscleRaw['fiber_type'],
@@ -71,6 +88,14 @@ class MuscleControllerCreateTest extends DuskTestCase
                         $muscleRaw['light_min'],
                         $muscleRaw['light_max'],
                         $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
                     );
                 })
                 ->scrollIntoView($this->saveButton)
@@ -99,7 +124,11 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
                 ->assertMissing($this->maxFormWithError)
                 ->assertMissing($this->maxError)
-                ->assertInputValue($this->maxInput, $muscleRaw['max']);
+                ->assertInputValue($this->maxInput, $muscleRaw['max'])
+                ->assertPresent($this->getMuscleRadioSelector($exercise1, $exercise1Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise2, $exercise2Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise3, $exercise3Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise4, $exercise4Intensity));
         });
     }
 
@@ -109,13 +138,24 @@ class MuscleControllerCreateTest extends DuskTestCase
     public function test_the_admin_muscle_create_page_show_unique_name_error(): void
     {
         Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
         $muscleRaw = Muscle::factory()->definition();
         Muscle::factory()->create($muscleRaw);
 
-        $this->browse(function (Browser $browser) use ($muscleRaw) {
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new $this->page())
-                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw) {
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
                     $browser->populate(
                         $muscleRaw['name'],
                         $muscleRaw['fiber_type'],
@@ -125,6 +165,14 @@ class MuscleControllerCreateTest extends DuskTestCase
                         $muscleRaw['light_min'],
                         $muscleRaw['light_max'],
                         $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
                     );
                 })
                 ->scrollIntoView($this->saveButton)
@@ -153,7 +201,11 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
                 ->assertMissing($this->maxFormWithError)
                 ->assertMissing($this->maxError)
-                ->assertInputValue($this->maxInput, $muscleRaw['max']);
+                ->assertInputValue($this->maxInput, $muscleRaw['max'])
+                ->assertPresent($this->getMuscleRadioSelector($exercise1, $exercise1Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise2, $exercise2Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise3, $exercise3Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise4, $exercise4Intensity));
         });
     }
 
@@ -163,13 +215,24 @@ class MuscleControllerCreateTest extends DuskTestCase
     public function test_the_admin_muscle_create_page_show_length_name_error(): void
     {
         Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
         $muscleRaw = Muscle::factory()->definition();
         $muscleRaw['name'] = \Str::random(65);
 
-        $this->browse(function (Browser $browser) use ($muscleRaw) {
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new $this->page())
-                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw) {
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
                     $browser->populate(
                         $muscleRaw['name'],
                         $muscleRaw['fiber_type'],
@@ -179,6 +242,14 @@ class MuscleControllerCreateTest extends DuskTestCase
                         $muscleRaw['light_min'],
                         $muscleRaw['light_max'],
                         $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
                     );
                 })
                 ->scrollIntoView($this->saveButton)
@@ -207,7 +278,11 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
                 ->assertMissing($this->maxFormWithError)
                 ->assertMissing($this->maxError)
-                ->assertInputValue($this->maxInput, $muscleRaw['max']);
+                ->assertInputValue($this->maxInput, $muscleRaw['max'])
+                ->assertPresent($this->getMuscleRadioSelector($exercise1, $exercise1Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise2, $exercise2Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise3, $exercise3Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise4, $exercise4Intensity));
         });
     }
 
@@ -217,13 +292,24 @@ class MuscleControllerCreateTest extends DuskTestCase
     public function test_the_admin_muscle_create_page_works_with_only_empty_fiber_type(): void
     {
         Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
         $muscleRaw = Muscle::factory()->definition();
         $muscleRaw['fiber_type'] = '';
 
-        $this->browse(function (Browser $browser) use ($muscleRaw) {
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new $this->page())
-                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw) {
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
                     $browser->populate(
                         $muscleRaw['name'],
                         $muscleRaw['fiber_type'],
@@ -233,6 +319,14 @@ class MuscleControllerCreateTest extends DuskTestCase
                         $muscleRaw['light_min'],
                         $muscleRaw['light_max'],
                         $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
                     );
                 })
                 ->scrollIntoView($this->saveButton)
@@ -250,13 +344,24 @@ class MuscleControllerCreateTest extends DuskTestCase
     public function test_the_admin_muscle_create_page_show_length_fiber_type_error(): void
     {
         Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
         $muscleRaw = Muscle::factory()->definition();
         $muscleRaw['fiber_type'] = \Str::random(256);
 
-        $this->browse(function (Browser $browser) use ($muscleRaw) {
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new $this->page())
-                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw) {
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
                     $browser->populate(
                         $muscleRaw['name'],
                         $muscleRaw['fiber_type'],
@@ -266,6 +371,14 @@ class MuscleControllerCreateTest extends DuskTestCase
                         $muscleRaw['light_min'],
                         $muscleRaw['light_max'],
                         $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
                     );
                 })
                 ->scrollIntoView($this->saveButton)
@@ -297,7 +410,11 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
                 ->assertMissing($this->maxFormWithError)
                 ->assertMissing($this->maxError)
-                ->assertInputValue($this->maxInput, $muscleRaw['max']);
+                ->assertInputValue($this->maxInput, $muscleRaw['max'])
+                ->assertPresent($this->getMuscleRadioSelector($exercise1, $exercise1Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise2, $exercise2Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise3, $exercise3Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise4, $exercise4Intensity));
         });
     }
 
@@ -307,13 +424,24 @@ class MuscleControllerCreateTest extends DuskTestCase
     public function test_the_admin_muscle_create_page_show_not_exist_group_id_error(): void
     {
         $group = Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
         $muscleRaw = Muscle::factory()->definition();
         $muscleRaw['group_id'] = $group->last()->id + 1;
 
-        $this->browse(function (Browser $browser) use ($muscleRaw) {
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new $this->page())
-                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw) {
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
                     $browser->populate(
                         $muscleRaw['name'],
                         $muscleRaw['fiber_type'],
@@ -323,6 +451,14 @@ class MuscleControllerCreateTest extends DuskTestCase
                         $muscleRaw['light_min'],
                         $muscleRaw['light_max'],
                         $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
                     );
                 })
                 ->value('.group_id-input option[value="null"]', $muscleRaw['group_id'])
@@ -352,7 +488,11 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
                 ->assertMissing($this->maxFormWithError)
                 ->assertMissing($this->maxError)
-                ->assertInputValue($this->maxInput, $muscleRaw['max']);
+                ->assertInputValue($this->maxInput, $muscleRaw['max'])
+                ->assertPresent($this->getMuscleRadioSelector($exercise1, $exercise1Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise2, $exercise2Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise3, $exercise3Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise4, $exercise4Intensity));
         });
     }
 
@@ -362,13 +502,24 @@ class MuscleControllerCreateTest extends DuskTestCase
     public function test_the_admin_muscle_create_page_works_with_only_empty_group_id(): void
     {
         Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
         $muscleRaw = Muscle::factory()->definition();
         $muscleRaw['group_id'] = 'null';
 
-        $this->browse(function (Browser $browser) use ($muscleRaw) {
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
             $browser->loginAs(User::factory()->create())
                 ->visit(new $this->page())
-                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw) {
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
                     $browser->populate(
                         $muscleRaw['name'],
                         $muscleRaw['fiber_type'],
@@ -378,6 +529,14 @@ class MuscleControllerCreateTest extends DuskTestCase
                         $muscleRaw['light_min'],
                         $muscleRaw['light_max'],
                         $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
                     );
                 })
                 ->scrollIntoView($this->saveButton)

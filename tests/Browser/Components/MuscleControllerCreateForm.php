@@ -43,7 +43,9 @@ class MuscleControllerCreateForm extends BaseComponent
     }
 
     public function populate(
-        Browser $browser, $name, $fiberType, $groupId, $heavyMin, $heavyMax, $lightMin, $lightMax, $max
+        Browser $browser, $name, $fiberType, $groupId, $heavyMin, $heavyMax, $lightMin, $lightMax, $max, $exercise1,
+        $exercise1Intensity, $exercise2, $exercise2Intensity, $exercise3, $exercise3Intensity, $exercise4,
+        $exercise4Intensity,
     ): void
     {
         $browser
@@ -54,6 +56,14 @@ class MuscleControllerCreateForm extends BaseComponent
             ->type('@light_min-input', $lightMin)
             ->type('@light_max-input', $lightMax)
             ->type('@max-input', $max)
-            ->select('@group_id-input', $groupId);
+            ->select('@group_id-input', $groupId)
+            ->scrollIntoView('.exercise-' . $exercise1->id . '-form')
+            ->check('.exercise-' . $exercise1->id . '-form label[data-value="' . $exercise1Intensity . '"]')
+            ->scrollIntoView('.exercise-' . $exercise2->id . '-form')
+            ->check('.exercise-' . $exercise2->id . '-form label[data-value="' . $exercise2Intensity . '"]')
+            ->scrollIntoView('.exercise-' . $exercise3->id . '-form')
+            ->check('.exercise-' . $exercise3->id . '-form label[data-value="' . $exercise3Intensity . '"]')
+            ->scrollIntoView('.exercise-' . $exercise3->id . '-form')
+            ->check('.exercise-' . $exercise4->id . '-form label[data-value="' . $exercise4Intensity . '"]');
     }
 }

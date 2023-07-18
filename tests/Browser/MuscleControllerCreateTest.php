@@ -19,8 +19,36 @@ class MuscleControllerCreateTest extends DuskTestCase
     use Sidenav;
 
     private string $saveButton = '@save-button';
+    private string $nameFormWithError = '@name-form-with-error';
+    private string $nameError = '@name-error';
+    private string $nameInput = '@name-input';
+    private string $fiberTypeFormWithError = '@fiber_type-form-with-error';
+    private string $fiberTypeError = '@fiber_type-error';
+    private string $fiberTypeInput = '@fiber_type-input';
+    private string $groupIdFormWithError = '@group_id-form-with-error';
+    private string $groupIdError = '@group_id-error';
+    private string $heavyMinFormWithError = '@heavy_min-form-with-error';
+    private string $heavyMinError = '@heavy_min-error';
+    private string $heavyMinInput = '@heavy_min-input';
+    private string $heavyMaxFormWithError = '@heavy_max-form-with-error';
+    private string $heavyMaxError = '@heavy_max-error';
+    private string $heavyMaxInput = '@heavy_max-input';
+    private string $lightMinFormWithError = '@light_min-form-with-error';
+    private string $lightMinError = '@light_min-error';
+    private string $lightMinInput = '@light_min-input';
+    private string $lightMaxFormWithError = '@light_max-form-with-error';
+    private string $lightMaxError = '@light_max-error';
+    private string $lightMaxInput = '@light_max-input';
+    private string $maxFormWithError = '@max-form-with-error';
+    private string $maxError = '@max-error';
+    private string $maxInput = '@max-input';
 
     protected string $page = MuscleControllerCreate::class;
+
+    private function getOptionSelectorByValue(string $value): string
+    {
+        return '.group_id-input option[value="' . $value . '"]:checked';
+    }
 
     /**
      * @throws Throwable
@@ -48,30 +76,30 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->scrollIntoView($this->saveButton)
                 ->click($this->saveButton)
                 ->assertRouteIs('admin.muscle.create')
-                ->assertPresent('@name-form-with-error')
-                ->assertSeeIn('@name-error', 'The name field is required.')
-                ->assertInputValue('@name-input', '')
-                ->assertMissing('@fiber_type-form-with-error')
-                ->assertMissing('@fiber_type-error')
-                ->assertSeeIn('@fiber_type-input', $muscleRaw['fiber_type'])
-                ->assertMissing('@group_id-form-with-error')
-                ->assertMissing('@group_id-error')
-                ->assertPresent('.group_id-input option[value="' . $muscleRaw['group_id'] . '"]:checked')
-                ->assertMissing('@heavy_min-form-with-error')
-                ->assertMissing('@heavy_min-error')
-                ->assertInputValue('@heavy_min-input', $muscleRaw['heavy_min'])
-                ->assertMissing('@heavy_max-form-with-error')
-                ->assertMissing('@heavy_max-error')
-                ->assertInputValue('@heavy_max-input', $muscleRaw['heavy_max'])
-                ->assertMissing('@light_min-form-with-error')
-                ->assertMissing('@light_min-error')
-                ->assertInputValue('@light_min-input', $muscleRaw['light_min'])
-                ->assertMissing('@light_max-form-with-error')
-                ->assertMissing('@light_max-error')
-                ->assertInputValue('@light_max-input', $muscleRaw['light_max'])
-                ->assertMissing('@max-form-with-error')
-                ->assertMissing('@max-error')
-                ->assertInputValue('@max-input', $muscleRaw['max']);
+                ->assertPresent($this->nameFormWithError)
+                ->assertSeeIn($this->nameError, 'The name field is required.')
+                ->assertInputValue($this->nameInput, '')
+                ->assertMissing($this->fiberTypeFormWithError)
+                ->assertMissing($this->fiberTypeError)
+                ->assertSeeIn($this->fiberTypeInput, $muscleRaw['fiber_type'])
+                ->assertMissing($this->groupIdFormWithError)
+                ->assertMissing($this->groupIdError)
+                ->assertPresent($this->getOptionSelectorByValue($muscleRaw['group_id']))
+                ->assertMissing($this->heavyMinFormWithError)
+                ->assertMissing($this->heavyMinError)
+                ->assertInputValue($this->heavyMinInput, $muscleRaw['heavy_min'])
+                ->assertMissing($this->heavyMaxFormWithError)
+                ->assertMissing($this->heavyMaxError)
+                ->assertInputValue($this->heavyMaxInput, $muscleRaw['heavy_max'])
+                ->assertMissing($this->lightMinFormWithError)
+                ->assertMissing($this->lightMinError)
+                ->assertInputValue($this->lightMinInput, $muscleRaw['light_min'])
+                ->assertMissing($this->lightMaxFormWithError)
+                ->assertMissing($this->lightMaxError)
+                ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
+                ->assertMissing($this->maxFormWithError)
+                ->assertMissing($this->maxError)
+                ->assertInputValue($this->maxInput, $muscleRaw['max']);
         });
     }
 
@@ -102,30 +130,30 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->scrollIntoView($this->saveButton)
                 ->click($this->saveButton)
                 ->assertRouteIs('admin.muscle.create')
-                ->assertPresent('@name-form-with-error')
-                ->assertSeeIn('@name-error', 'The name has already been taken.')
-                ->assertInputValue('@name-input', $muscleRaw['name'])
-                ->assertMissing('@fiber_type-form-with-error')
-                ->assertMissing('@fiber_type-error')
-                ->assertSeeIn('@fiber_type-input', $muscleRaw['fiber_type'])
-                ->assertMissing('@group_id-form-with-error')
-                ->assertMissing('@group_id-error')
-                ->assertPresent('.group_id-input option[value="' . $muscleRaw['group_id'] . '"]:checked')
-                ->assertMissing('@heavy_min-form-with-error')
-                ->assertMissing('@heavy_min-error')
-                ->assertInputValue('@heavy_min-input', $muscleRaw['heavy_min'])
-                ->assertMissing('@heavy_max-form-with-error')
-                ->assertMissing('@heavy_max-error')
-                ->assertInputValue('@heavy_max-input', $muscleRaw['heavy_max'])
-                ->assertMissing('@light_min-form-with-error')
-                ->assertMissing('@light_min-error')
-                ->assertInputValue('@light_min-input', $muscleRaw['light_min'])
-                ->assertMissing('@light_max-form-with-error')
-                ->assertMissing('@light_max-error')
-                ->assertInputValue('@light_max-input', $muscleRaw['light_max'])
-                ->assertMissing('@max-form-with-error')
-                ->assertMissing('@max-error')
-                ->assertInputValue('@max-input', $muscleRaw['max']);
+                ->assertPresent($this->nameFormWithError)
+                ->assertSeeIn($this->nameError, 'The name has already been taken.')
+                ->assertInputValue($this->nameInput, $muscleRaw['name'])
+                ->assertMissing($this->fiberTypeFormWithError)
+                ->assertMissing($this->fiberTypeError)
+                ->assertSeeIn($this->fiberTypeInput, $muscleRaw['fiber_type'])
+                ->assertMissing($this->groupIdFormWithError)
+                ->assertMissing($this->groupIdError)
+                ->assertPresent($this->getOptionSelectorByValue($muscleRaw['group_id']))
+                ->assertMissing($this->heavyMinFormWithError)
+                ->assertMissing($this->heavyMinError)
+                ->assertInputValue($this->heavyMinInput, $muscleRaw['heavy_min'])
+                ->assertMissing($this->heavyMaxFormWithError)
+                ->assertMissing($this->heavyMaxError)
+                ->assertInputValue($this->heavyMaxInput, $muscleRaw['heavy_max'])
+                ->assertMissing($this->lightMinFormWithError)
+                ->assertMissing($this->lightMinError)
+                ->assertInputValue($this->lightMinInput, $muscleRaw['light_min'])
+                ->assertMissing($this->lightMaxFormWithError)
+                ->assertMissing($this->lightMaxError)
+                ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
+                ->assertMissing($this->maxFormWithError)
+                ->assertMissing($this->maxError)
+                ->assertInputValue($this->maxInput, $muscleRaw['max']);
         });
     }
 
@@ -156,30 +184,30 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->scrollIntoView($this->saveButton)
                 ->click($this->saveButton)
                 ->assertRouteIs('admin.muscle.create')
-                ->assertPresent('@name-form-with-error')
-                ->assertSeeIn('@name-error', 'The name field must not be greater than 64 characters.')
-                ->assertInputValue('@name-input', $muscleRaw['name'])
-                ->assertMissing('@fiber_type-form-with-error')
-                ->assertMissing('@fiber_type-error')
-                ->assertSeeIn('@fiber_type-input', $muscleRaw['fiber_type'])
-                ->assertMissing('@group_id-form-with-error')
-                ->assertMissing('@group_id-error')
-                ->assertPresent('.group_id-input option[value="' . $muscleRaw['group_id'] . '"]:checked')
-                ->assertMissing('@heavy_min-form-with-error')
-                ->assertMissing('@heavy_min-error')
-                ->assertInputValue('@heavy_min-input', $muscleRaw['heavy_min'])
-                ->assertMissing('@heavy_max-form-with-error')
-                ->assertMissing('@heavy_max-error')
-                ->assertInputValue('@heavy_max-input', $muscleRaw['heavy_max'])
-                ->assertMissing('@light_min-form-with-error')
-                ->assertMissing('@light_min-error')
-                ->assertInputValue('@light_min-input', $muscleRaw['light_min'])
-                ->assertMissing('@light_max-form-with-error')
-                ->assertMissing('@light_max-error')
-                ->assertInputValue('@light_max-input', $muscleRaw['light_max'])
-                ->assertMissing('@max-form-with-error')
-                ->assertMissing('@max-error')
-                ->assertInputValue('@max-input', $muscleRaw['max']);
+                ->assertPresent($this->nameFormWithError)
+                ->assertSeeIn($this->nameError, 'The name field must not be greater than 64 characters.')
+                ->assertInputValue($this->nameInput, $muscleRaw['name'])
+                ->assertMissing($this->fiberTypeFormWithError)
+                ->assertMissing($this->fiberTypeError)
+                ->assertSeeIn($this->fiberTypeInput, $muscleRaw['fiber_type'])
+                ->assertMissing($this->groupIdFormWithError)
+                ->assertMissing($this->groupIdError)
+                ->assertPresent($this->getOptionSelectorByValue($muscleRaw['group_id']))
+                ->assertMissing($this->heavyMinFormWithError)
+                ->assertMissing($this->heavyMinError)
+                ->assertInputValue($this->heavyMinInput, $muscleRaw['heavy_min'])
+                ->assertMissing($this->heavyMaxFormWithError)
+                ->assertMissing($this->heavyMaxError)
+                ->assertInputValue($this->heavyMaxInput, $muscleRaw['heavy_max'])
+                ->assertMissing($this->lightMinFormWithError)
+                ->assertMissing($this->lightMinError)
+                ->assertInputValue($this->lightMinInput, $muscleRaw['light_min'])
+                ->assertMissing($this->lightMaxFormWithError)
+                ->assertMissing($this->lightMaxError)
+                ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
+                ->assertMissing($this->maxFormWithError)
+                ->assertMissing($this->maxError)
+                ->assertInputValue($this->maxInput, $muscleRaw['max']);
         });
     }
 
@@ -243,33 +271,33 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->scrollIntoView($this->saveButton)
                 ->click($this->saveButton)
                 ->assertRouteIs('admin.muscle.create')
-                ->assertMissing('@name-form-with-error')
-                ->assertMissing('@name-error')
-                ->assertInputValue('@name-input', $muscleRaw['name'])
-                ->assertPresent('@fiber_type-form-with-error')
+                ->assertMissing($this->nameFormWithError)
+                ->assertMissing($this->nameError)
+                ->assertInputValue($this->nameInput, $muscleRaw['name'])
+                ->assertPresent($this->fiberTypeFormWithError)
                 ->assertSeeIn(
-                    '@fiber_type-error',
+                    $this->fiberTypeError,
                     'The fiber type field must not be greater than 255 characters.'
                 )
-                ->assertSeeIn('@fiber_type-input', $muscleRaw['fiber_type'])
-                ->assertMissing('@group_id-form-with-error')
-                ->assertMissing('@group_id-error')
-                ->assertPresent('.group_id-input option[value="' . $muscleRaw['group_id'] . '"]:checked')
-                ->assertMissing('@heavy_min-form-with-error')
-                ->assertMissing('@heavy_min-error')
-                ->assertInputValue('@heavy_min-input', $muscleRaw['heavy_min'])
-                ->assertMissing('@heavy_max-form-with-error')
-                ->assertMissing('@heavy_max-error')
-                ->assertInputValue('@heavy_max-input', $muscleRaw['heavy_max'])
-                ->assertMissing('@light_min-form-with-error')
-                ->assertMissing('@light_min-error')
-                ->assertInputValue('@light_min-input', $muscleRaw['light_min'])
-                ->assertMissing('@light_max-form-with-error')
-                ->assertMissing('@light_max-error')
-                ->assertInputValue('@light_max-input', $muscleRaw['light_max'])
-                ->assertMissing('@max-form-with-error')
-                ->assertMissing('@max-error')
-                ->assertInputValue('@max-input', $muscleRaw['max']);
+                ->assertSeeIn($this->fiberTypeInput, $muscleRaw['fiber_type'])
+                ->assertMissing($this->groupIdFormWithError)
+                ->assertMissing($this->groupIdError)
+                ->assertPresent($this->getOptionSelectorByValue($muscleRaw['group_id']))
+                ->assertMissing($this->heavyMinFormWithError)
+                ->assertMissing($this->heavyMinError)
+                ->assertInputValue($this->heavyMinInput, $muscleRaw['heavy_min'])
+                ->assertMissing($this->heavyMaxFormWithError)
+                ->assertMissing($this->heavyMaxError)
+                ->assertInputValue($this->heavyMaxInput, $muscleRaw['heavy_max'])
+                ->assertMissing($this->lightMinFormWithError)
+                ->assertMissing($this->lightMinError)
+                ->assertInputValue($this->lightMinInput, $muscleRaw['light_min'])
+                ->assertMissing($this->lightMaxFormWithError)
+                ->assertMissing($this->lightMaxError)
+                ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
+                ->assertMissing($this->maxFormWithError)
+                ->assertMissing($this->maxError)
+                ->assertInputValue($this->maxInput, $muscleRaw['max']);
         });
     }
 
@@ -301,30 +329,30 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->scrollIntoView($this->saveButton)
                 ->click($this->saveButton)
                 ->assertRouteIs('admin.muscle.create')
-                ->assertMissing('@name-form-with-error')
-                ->assertMissing('@name-error')
-                ->assertInputValue('@name-input', $muscleRaw['name'])
-                ->assertMissing('@fiber_type-form-with-error')
-                ->assertMissing('@fiber_type-error')
-                ->assertSeeIn('@fiber_type-input', $muscleRaw['fiber_type'])
-                ->assertPresent('@group_id-form-with-error')
-                ->assertSeeIn('@group_id-error', 'The selected group id is invalid.')
+                ->assertMissing($this->nameFormWithError)
+                ->assertMissing($this->nameError)
+                ->assertInputValue($this->nameInput, $muscleRaw['name'])
+                ->assertMissing($this->fiberTypeFormWithError)
+                ->assertMissing($this->fiberTypeError)
+                ->assertSeeIn($this->fiberTypeInput, $muscleRaw['fiber_type'])
+                ->assertPresent($this->groupIdFormWithError)
+                ->assertSeeIn($this->groupIdError, 'The selected group id is invalid.')
                 ->assertPresent('.group_id-input option[value="null"]:checked')
-                ->assertMissing('@heavy_min-form-with-error')
-                ->assertMissing('@heavy_min-error')
-                ->assertInputValue('@heavy_min-input', $muscleRaw['heavy_min'])
-                ->assertMissing('@heavy_max-form-with-error')
-                ->assertMissing('@heavy_max-error')
-                ->assertInputValue('@heavy_max-input', $muscleRaw['heavy_max'])
-                ->assertMissing('@light_min-form-with-error')
-                ->assertMissing('@light_min-error')
-                ->assertInputValue('@light_min-input', $muscleRaw['light_min'])
-                ->assertMissing('@light_max-form-with-error')
-                ->assertMissing('@light_max-error')
-                ->assertInputValue('@light_max-input', $muscleRaw['light_max'])
-                ->assertMissing('@max-form-with-error')
-                ->assertMissing('@max-error')
-                ->assertInputValue('@max-input', $muscleRaw['max']);
+                ->assertMissing($this->heavyMinFormWithError)
+                ->assertMissing($this->heavyMinError)
+                ->assertInputValue($this->heavyMinInput, $muscleRaw['heavy_min'])
+                ->assertMissing($this->heavyMaxFormWithError)
+                ->assertMissing($this->heavyMaxError)
+                ->assertInputValue($this->heavyMaxInput, $muscleRaw['heavy_max'])
+                ->assertMissing($this->lightMinFormWithError)
+                ->assertMissing($this->lightMinError)
+                ->assertInputValue($this->lightMinInput, $muscleRaw['light_min'])
+                ->assertMissing($this->lightMaxFormWithError)
+                ->assertMissing($this->lightMaxError)
+                ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
+                ->assertMissing($this->maxFormWithError)
+                ->assertMissing($this->maxError)
+                ->assertInputValue($this->maxInput, $muscleRaw['max']);
         });
     }
 

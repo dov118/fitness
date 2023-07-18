@@ -1,5 +1,4 @@
 /.phpunit.cache
-/phpunit.dusk.xml
 /node_modules
 /public/build
 /public/hot
@@ -21,5 +20,6 @@ yarn-error.log
 /.idea
 /.vscode
 /coverage
+/coverageBrowser/
 /coverage.xml
-
+/coverageBrowser.xml

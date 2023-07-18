@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit backupGlobals="false"
+         beStrictAboutTestsThatDoNotTestAnything="false"
+         colors="true"
+         processIsolation="false"
+         stopOnError="false"
+         stopOnFailure="false"
+         cacheDirectory=".phpunit.cache"
+         backupStaticProperties="false">
+  <testsuites>
+    <testsuite name="Browser Test Suite">
+      <directory suffix="Test.php">./tests/Browser</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory suffix=".php">./tests/Browser</directory>
+      <directory suffix=".php">./tests/BrowserTraits</directory>
+      <file>./tests/DuskTestCase.php</file>
+    </include>
+  </source>
+  <coverage>
+    <report>
+      <html outputDirectory="coverageBrowser"/>
+      <clover outputFile="coverageBrowser.xml" />
+    </report>
+  </coverage>
+</phpunit>

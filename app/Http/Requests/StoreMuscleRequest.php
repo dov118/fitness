@@ -61,14 +61,16 @@ class StoreMuscleRequest extends FormRequest
 
     protected function heavyMinRules(): array
     {
-        if (!$this->get('heavy_min')) {
+        if ((!(int)$this->get('heavy_min') && $this->get('heavy_min') !== "0") ||
+            (!$this->get('heavy_min') && $this->get('heavy_min') !== "0")
+        ) {
             return [];
         }
 
         $rules = ['required_with:heavy_max', 'integer', 'min:1'];
 
-        if ($this->get('heavy_max') || $this->get('max')) {
-            $rules[] = 'max:' . max($this->get('heavy_max'), $this->get('max'));
+        if ((int)$this->get('heavy_max')) {
+            $rules[] = 'max:' . $this->get('heavy_max');
         }
 
         return $rules;
@@ -95,14 +97,16 @@ class StoreMuscleRequest extends FormRequest
 
     protected function lightMinRules(): array
     {
-        if (!$this->get('light_min')) {
+        if ((!(int)$this->get('light_min') && $this->get('light_min') !== "0") ||
+            (!$this->get('light_min') && $this->get('light_min') !== "0")
+        ) {
             return [];
         }
 
         $rules = ['required_with:light_max', 'integer', 'min:1'];
 
-        if ($this->get('light_max') || $this->get('max')) {
-            $rules[] = 'max:' . max($this->get('light_max'), $this->get('max'));
+        if ((int)$this->get('light_max')) {
+            $rules[] = 'max:' . $this->get('light_max');
         }
 
         return $rules;
@@ -136,8 +140,6 @@ class StoreMuscleRequest extends FormRequest
         return [
             'integer',
             'min:' . max([
-                $this->get('light_min', 0) ?? 0,
-                $this->get('heavy_min', 0) ?? 0,
                 $this->get('light_max', 0) ?? 0,
                 $this->get('heavy_max', 0) ?? 0,
             ]),

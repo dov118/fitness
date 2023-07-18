@@ -20,6 +20,9 @@ class MuscleControllerCreateTest extends DuskTestCase
     use Sidenav;
 
     private string $saveButton = '@save-button';
+    private string $toastSuccess = '@toast-success';
+    private string $successMessage = 'Muscle successfully created';
+
     private string $nameFormWithError = '@name-form-with-error';
     private string $nameError = '@name-error';
     private string $nameInput = '@name-input';
@@ -334,7 +337,7 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->assertRouteIs('admin.muscle.show', [
                     Muscle::find(Muscle::where('name', $muscleRaw['name'])->get()->first()?->id)
                 ])
-                ->assertSeeIn('@toast-success', 'Muscle successfully created');
+                ->assertSeeIn($this->toastSuccess, $this->successMessage);
         });
     }
 
@@ -544,7 +547,7 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->assertRouteIs('admin.muscle.show', [
                     Muscle::find(Muscle::where('name', $muscleRaw['name'])->get()->first()?->id)
                 ])
-                ->assertSeeIn('@toast-success', 'Muscle successfully created');
+                ->assertSeeIn($this->toastSuccess, $this->successMessage);
         });
     }
 
@@ -837,7 +840,300 @@ class MuscleControllerCreateTest extends DuskTestCase
                 ->assertRouteIs('admin.muscle.show', [
                     Muscle::find(Muscle::where('name', $muscleRaw['name'])->get()->first()?->id)
                 ])
-                ->assertSeeIn('@toast-success', 'Muscle successfully created');
+                ->assertSeeIn($this->toastSuccess, $this->successMessage);
+        });
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function test_the_admin_muscle_create_page_show_error_for_min_light_greater_than_max_light_if_exit(): void
+    {
+        Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
+        $muscleRaw = Muscle::factory()->definition();
+        $muscleRaw['light_max'] = fake()->numberBetween(1, $muscleRaw['max']);
+        $muscleRaw['light_min'] = fake()->numberBetween($muscleRaw['light_max'] + 1, $muscleRaw['max']);
+
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new $this->page())
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
+                    $browser->populate(
+                        $muscleRaw['name'],
+                        $muscleRaw['fiber_type'],
+                        $muscleRaw['group_id'],
+                        $muscleRaw['heavy_min'],
+                        $muscleRaw['heavy_max'],
+                        $muscleRaw['light_min'],
+                        $muscleRaw['light_max'],
+                        $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
+                    );
+                })
+                ->scrollIntoView($this->saveButton)
+                ->click($this->saveButton)
+                ->assertRouteIs('admin.muscle.create')
+                ->assertMissing($this->nameFormWithError)
+                ->assertMissing($this->nameError)
+                ->assertInputValue($this->nameInput, $muscleRaw['name'])
+                ->assertMissing($this->fiberTypeFormWithError)
+                ->assertMissing($this->fiberTypeError)
+                ->assertSeeIn($this->fiberTypeInput, $muscleRaw['fiber_type'])
+                ->assertMissing($this->groupIdFormWithError)
+                ->assertMissing($this->groupIdError)
+                ->assertPresent($this->getOptionSelectorByValue($muscleRaw['group_id']))
+                ->assertMissing($this->heavyMinFormWithError)
+                ->assertMissing($this->heavyMinError)
+                ->assertInputValue($this->heavyMinInput, $muscleRaw['heavy_min'])
+                ->assertMissing($this->heavyMaxFormWithError)
+                ->assertMissing($this->heavyMaxError)
+                ->assertInputValue($this->heavyMaxInput, $muscleRaw['heavy_max'])
+                ->assertPresent($this->lightMinFormWithError)
+                ->assertSeeIn(
+                    $this->lightMinError,
+                    'The light min field must not be greater than ' . $muscleRaw['light_max'] . '.'
+                )
+                ->assertInputValue($this->lightMinInput, $muscleRaw['light_min'])
+                ->assertMissing($this->lightMaxFormWithError)
+                ->assertMissing($this->lightMaxError)
+                ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
+                ->assertMissing($this->maxFormWithError)
+                ->assertMissing($this->maxError)
+                ->assertInputValue($this->maxInput, $muscleRaw['max'])
+                ->assertPresent($this->getMuscleRadioSelector($exercise1, $exercise1Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise2, $exercise2Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise3, $exercise3Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise4, $exercise4Intensity));
+        });
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function test_the_admin_muscle_create_page_show_error_for_min_light_greater_than_max_if_exit(): void
+    {
+        Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
+        $muscleRaw = Muscle::factory()->definition();
+        $muscleRaw['max'] = fake()->numberBetween(26, 30);
+        $muscleRaw['light_max'] = $muscleRaw['max'];
+        $muscleRaw['light_min'] = $muscleRaw['max'] + fake()->numberBetween(1, 5);
+
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new $this->page())
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
+                    $browser->populate(
+                        $muscleRaw['name'],
+                        $muscleRaw['fiber_type'],
+                        $muscleRaw['group_id'],
+                        $muscleRaw['heavy_min'],
+                        $muscleRaw['heavy_max'],
+                        $muscleRaw['light_min'],
+                        $muscleRaw['light_max'],
+                        $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
+                    );
+                })
+                ->scrollIntoView($this->saveButton)
+                ->click($this->saveButton)
+                ->assertRouteIs('admin.muscle.create')
+                ->assertMissing($this->nameFormWithError)
+                ->assertMissing($this->nameError)
+                ->assertInputValue($this->nameInput, $muscleRaw['name'])
+                ->assertMissing($this->fiberTypeFormWithError)
+                ->assertMissing($this->fiberTypeError)
+                ->assertSeeIn($this->fiberTypeInput, $muscleRaw['fiber_type'])
+                ->assertMissing($this->groupIdFormWithError)
+                ->assertMissing($this->groupIdError)
+                ->assertPresent($this->getOptionSelectorByValue($muscleRaw['group_id']))
+                ->assertMissing($this->heavyMinFormWithError)
+                ->assertMissing($this->heavyMinError)
+                ->assertInputValue($this->heavyMinInput, $muscleRaw['heavy_min'])
+                ->assertMissing($this->heavyMaxFormWithError)
+                ->assertMissing($this->heavyMaxError)
+                ->assertInputValue($this->heavyMaxInput, $muscleRaw['heavy_max'])
+                ->assertPresent($this->lightMinFormWithError)
+                ->assertSeeIn(
+                    $this->lightMinError,
+                    'The light min field must not be greater than ' . $muscleRaw['max'] . '.'
+                )
+                ->assertInputValue($this->lightMinInput, $muscleRaw['light_min'])
+                ->assertMissing($this->lightMaxFormWithError)
+                ->assertMissing($this->lightMaxError)
+                ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
+                ->assertMissing($this->maxFormWithError)
+                ->assertMissing($this->maxError)
+                ->assertInputValue($this->maxInput, $muscleRaw['max'])
+                ->assertPresent($this->getMuscleRadioSelector($exercise1, $exercise1Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise2, $exercise2Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise3, $exercise3Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise4, $exercise4Intensity));
+        });
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function test_the_admin_muscle_create_page_show_error_for_min_light_if_lower_than_one(): void
+    {
+        Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
+        $muscleRaw = Muscle::factory()->definition();
+        $muscleRaw['light_min'] = 0;
+
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new $this->page())
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
+                    $browser->populate(
+                        $muscleRaw['name'],
+                        $muscleRaw['fiber_type'],
+                        $muscleRaw['group_id'],
+                        $muscleRaw['heavy_min'],
+                        $muscleRaw['heavy_max'],
+                        $muscleRaw['light_min'],
+                        $muscleRaw['light_max'],
+                        $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
+                    );
+                })
+                ->scrollIntoView($this->saveButton)
+                ->click($this->saveButton)
+                ->assertRouteIs('admin.muscle.create')
+                ->assertMissing($this->nameFormWithError)
+                ->assertMissing($this->nameError)
+                ->assertInputValue($this->nameInput, $muscleRaw['name'])
+                ->assertMissing($this->fiberTypeFormWithError)
+                ->assertMissing($this->fiberTypeError)
+                ->assertSeeIn($this->fiberTypeInput, $muscleRaw['fiber_type'])
+                ->assertMissing($this->groupIdFormWithError)
+                ->assertMissing($this->groupIdError)
+                ->assertPresent($this->getOptionSelectorByValue($muscleRaw['group_id']))
+                ->assertMissing($this->heavyMinFormWithError)
+                ->assertMissing($this->heavyMinError)
+                ->assertInputValue($this->heavyMinInput, $muscleRaw['heavy_min'])
+                ->assertMissing($this->heavyMaxFormWithError)
+                ->assertMissing($this->heavyMaxError)
+                ->assertInputValue($this->heavyMaxInput, $muscleRaw['heavy_max'])
+                ->assertPresent($this->lightMinFormWithError)
+                ->assertSeeIn($this->lightMinError, 'The light min field must be at least 1.')
+                ->assertInputValue($this->lightMinInput, $muscleRaw['light_min'])
+                ->assertMissing($this->lightMaxFormWithError)
+                ->assertMissing($this->lightMaxError)
+                ->assertInputValue($this->lightMaxInput, $muscleRaw['light_max'])
+                ->assertMissing($this->maxFormWithError)
+                ->assertMissing($this->maxError)
+                ->assertInputValue($this->maxInput, $muscleRaw['max'])
+                ->assertPresent($this->getMuscleRadioSelector($exercise1, $exercise1Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise2, $exercise2Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise3, $exercise3Intensity))
+                ->assertPresent($this->getMuscleRadioSelector($exercise4, $exercise4Intensity));
+        });
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function test_the_admin_muscle_create_page_works_with_min_max_light_empty(): void
+    {
+        Group::factory(10)->create();
+        $exercise1 = Exercise::factory()->create();
+        $exercise2 = Exercise::factory()->create();
+        $exercise3 = Exercise::factory()->create();
+        $exercise4 = Exercise::factory()->create();
+        $exercise1Intensity = "0.5";
+        $exercise2Intensity = "0.0";
+        $exercise3Intensity = "1.0";
+        $exercise4Intensity = "0.25";
+        $muscleRaw = Muscle::factory()->definition();
+        $muscleRaw['light_min'] = '';
+        $muscleRaw['light_max'] = '';
+
+        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
+            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
+            $browser->loginAs(User::factory()->create())
+                ->visit(new $this->page())
+                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
+                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
+                    $exercise4Intensity) {
+                    $browser->populate(
+                        $muscleRaw['name'],
+                        $muscleRaw['fiber_type'],
+                        $muscleRaw['group_id'],
+                        $muscleRaw['heavy_min'],
+                        $muscleRaw['heavy_max'],
+                        $muscleRaw['light_min'],
+                        $muscleRaw['light_max'],
+                        $muscleRaw['max'],
+                        $exercise1,
+                        $exercise1Intensity,
+                        $exercise2,
+                        $exercise2Intensity,
+                        $exercise3,
+                        $exercise3Intensity,
+                        $exercise4,
+                        $exercise4Intensity,
+                    );
+                })
+                ->scrollIntoView($this->saveButton)
+                ->click($this->saveButton)
+                ->assertRouteIs('admin.muscle.show', [
+                    Muscle::find(Muscle::where('name', $muscleRaw['name'])->get()->first()?->id)
+                ])
+                ->assertSeeIn($this->toastSuccess, $this->successMessage);
         });
     }
 }

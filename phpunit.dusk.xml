@@ -15,7 +15,6 @@
   <source>
     <include>
       <directory suffix=".php">./tests/Browser</directory>
-      <directory suffix=".php">./tests/BrowserTraits</directory>
       <file>./tests/DuskTestCase.php</file>
     </include>
   </source>

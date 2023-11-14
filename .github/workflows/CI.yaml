@@ -58,8 +58,8 @@ jobs:
 
       - name: Upgrade Chrome Driver
         run: |
-          apt-get update
-          apt-get upgrade google-chrome-stable -y
+          sudo apt-get update
+          sudo apt-get upgrade google-chrome-stable -y
           php artisan dusk:chrome-driver
 
       - name: Start Chrome Driver

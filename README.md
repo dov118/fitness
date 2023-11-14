@@ -13,3 +13,21 @@
 ------
 
 In progress .....
+
+
+### Install projet 
+```bash
+composer install
+php artisan dusk:chrome-driver
+```
+
+### Start local server
+```bash
+php artisan serve
+```
+
+### Init database
+```bash
+php artisan migrate:refresh --seed
+```
+

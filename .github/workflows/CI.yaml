@@ -57,7 +57,10 @@ jobs:
         run: npm run build
 
       - name: Upgrade Chrome Driver
-        run: php artisan dusk:chrome-driver
+        run: |
+          apt-get update
+          apt-get upgrade google-chrome-stable -y
+          php artisan dusk:chrome-driver
 
       - name: Start Chrome Driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux &

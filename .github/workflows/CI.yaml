@@ -56,8 +56,14 @@ jobs:
       - name: Build assets
         run: npm run build
 
+      - name: Get runner chrome version
+        id: chrome_version
+        run: |
+          version=`google-chrome --version | grep -iE "[0-9.]{10,20}"`
+          echo "version=$version" >> $GITHUB_OUTPUT
+
       - name: Upgrade Chrome Driver
-        run: php artisan dusk:chrome-driver
+        run: php artisan dusk:chrome-driver ${{ steps.chrome_version.outputs.version }}
 
       - name: Start Chrome Driver
         run: ./vendor/laravel/dusk/bin/chromedriver-linux &

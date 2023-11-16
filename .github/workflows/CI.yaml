@@ -59,7 +59,7 @@ jobs:
       - name: Get runner chrome version
         id: chrome_version
         run: |
-          version=`google-chrome --version | grep -iE "[0-9.]{10,20}"`
+          version=`google-chrome --version | sed 's/Google Chrome //g"`
           echo "version=$version" >> $GITHUB_OUTPUT
 
       - run: echo ${{ steps.chrome_version.outputs.version }}

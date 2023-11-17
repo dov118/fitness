@@ -78,11 +78,11 @@ class StoreMuscleRequest extends FormRequest
 
     protected function heavyMaxRules(): array
     {
-        if (!$this->get('heavy_max')) {
+        if (!$this->get('heavy_max') && !$this->get('heavy_min')) {
             return [];
         }
 
-        $rules = ['required', 'integer'];
+        $rules = ['required_with:heavy_min', 'integer'];
 
         if (is_integer($this->get('heavy_min'))) {
             $rules[] = 'min:' . $this->get('heavy_min');

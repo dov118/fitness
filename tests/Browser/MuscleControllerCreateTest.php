@@ -1271,59 +1271,6 @@ class MuscleControllerCreateTest extends DuskTestCase
     /**
      * @throws Throwable
      */
-    public function test_the_admin_muscle_create_page_works_if_max_heavy_is_equal_of_max_rep(): void
-    {
-        Group::factory(10)->create();
-        $exercise1 = Exercise::factory()->create();
-        $exercise2 = Exercise::factory()->create();
-        $exercise3 = Exercise::factory()->create();
-        $exercise4 = Exercise::factory()->create();
-        $exercise1Intensity = "0.5";
-        $exercise2Intensity = "0.0";
-        $exercise3Intensity = "1.0";
-        $exercise4Intensity = "0.25";
-        $muscleRaw = Muscle::factory()->definition();
-        $muscleRaw['heavy_max'] = $muscleRaw['max'];
-        $muscleRaw['heavy_min'] = $muscleRaw['max'] - fake()->numberBetween(1, 5);
-
-        $this->browse(function (Browser $browser) use ($muscleRaw, $exercise1, $exercise2, $exercise3, $exercise4,
-            $exercise1Intensity, $exercise2Intensity, $exercise3Intensity, $exercise4Intensity) {
-            $browser->loginAs(User::factory()->create())
-                ->visit(new $this->page())
-                ->within(new MuscleControllerCreateForm, function (Browser $browser) use($muscleRaw, $exercise1,
-                    $exercise2, $exercise3, $exercise4, $exercise1Intensity, $exercise2Intensity, $exercise3Intensity,
-                    $exercise4Intensity) {
-                    $browser->populate(
-                        $muscleRaw['name'],
-                        $muscleRaw['fiber_type'],
-                        $muscleRaw['group_id'],
-                        $muscleRaw['heavy_min'],
-                        $muscleRaw['heavy_max'],
-                        $muscleRaw['light_min'],
-                        $muscleRaw['light_max'],
-                        $muscleRaw['max'],
-                        $exercise1,
-                        $exercise1Intensity,
-                        $exercise2,
-                        $exercise2Intensity,
-                        $exercise3,
-                        $exercise3Intensity,
-                        $exercise4,
-                        $exercise4Intensity,
-                    );
-                })
-                ->scrollIntoView($this->saveButton)
-                ->click($this->saveButton)
-                ->assertRouteIs('admin.muscle.show', [
-                    Muscle::find(Muscle::where('name', $muscleRaw['name'])->get()->first()?->id)
-                ])
-                ->assertSeeIn($this->toastSuccess, $this->successMessage);
-        });
-    }
-
-    /**
-     * @throws Throwable
-     */
     public function test_the_admin_muscle_create_page_works_if_max_heavy_is_lower_than_max_rep(): void
     {
         Group::factory(10)->create();

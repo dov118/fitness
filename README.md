@@ -19,6 +19,7 @@ In progress .....
 ```bash
 composer install
 php artisan dusk:chrome-driver
+npm install
 ```
 
 ### Start local server
@@ -31,3 +32,8 @@ php artisan serve
 php artisan migrate:refresh --seed
 ```
 
+### Run tests
+```bash
+php artisan test
+php artisan dusk
+```

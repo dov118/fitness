@@ -14,23 +14,11 @@
 
 In progress .....
 
-
 ### Install projet 
 ```bash
 composer install
 php artisan dusk:chrome-driver
 npm install
-```
-
-### Init database
-```bash
-php artisan migrate:refresh --seed
-```
-
-### Run tests
-```bash
-php artisan test
-php artisan dusk
 ```
 
 ### Create sqlite databases files
@@ -67,4 +55,15 @@ cat .env > .env.testing
 ```bash
 php artisan serve
 npm run dev
+```
+
+### Init database
+```bash
+php artisan migrate:refresh --seed
+```
+
+### Run tests
+```bash
+php artisan test
+php artisan dusk
 ```

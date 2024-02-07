@@ -22,11 +22,6 @@ php artisan dusk:chrome-driver
 npm install
 ```
 
-### Start local server
-```bash
-php artisan serve
-```
-
 ### Init database
 ```bash
 php artisan migrate:refresh --seed
@@ -36,4 +31,40 @@ php artisan migrate:refresh --seed
 ```bash
 php artisan test
 php artisan dusk
+```
+
+### Create sqlite databases files
+```bash
+touch database/database.sqlite
+touch database/testing.sqlite
+```
+
+### Setup .env
+```bash
+cat .env.example > .env
+php artisan key:generate
+```
+in __DB_DATABASE__, put absolute path of __database.sqlite__ file (in __database__ folder)<br>
+in __DISCORD_APPLICATION_ID__, put discord app id<br>
+in __DISCORD_APPLICATION_KEY__, put discord app key<br>
+
+### Setup .env.dusk.local
+```bash
+cat .env > .env.dusk.local
+```
+in __APP_ENV__, put __testing__<br>
+in __DB_CONNECTION__, put __testing_sqlite__<br>
+in __DB_DATABASE__, put absolute path of __testing.sqlite__ file (in __database__ folder)<br>
+in __DISCORD_APPLICATION_ID__, put __DISCORD_APPLICATION_ID__<br>
+in __DISCORD_APPLICATION_KEY__, empty value
+
+### Setup .env.testing
+```bash
+cat .env > .env.testing
+```
+
+### Start local server
+```bash
+php artisan serve
+npm run dev
 ```

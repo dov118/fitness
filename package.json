@@ -3,7 +3,9 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "vite build"
+        "build": "vite build",
+        "lint:scss": "stylelint ./resources/scss/**/*.scss",
+        "lint:ts": "eslint ./resources/ts/**/*.ts --ext .ts"
     },
     "devDependencies": {
         "@primer/css": "21.1.1",

@@ -68,3 +68,5 @@ cat .env > .env.testing
 php artisan serve
 npm run dev
 ```
+
+

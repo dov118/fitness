@@ -7,22 +7,26 @@
         "lint:scss": "stylelint ./resources/scss/**/*.scss",
         "lint:ts": "eslint ./resources/ts/**/*.ts --ext .ts"
     },
+    "engineStrict": true,
+    "engines": {
+        "node": "20.11.1"
+    },
     "devDependencies": {
-        "@primer/css": "21.1.1",
+        "@primer/css": "21.2.0",
         "@rollup/plugin-inject": "5.0.5",
         "@types/jquery": "3.5.29",
-        "@typescript-eslint/eslint-plugin": "6.21.0",
-        "@typescript-eslint/parser": "6.21.0",
+        "@typescript-eslint/eslint-plugin": "7.0.2",
+        "@typescript-eslint/parser": "7.0.2",
         "axios": "1.6.7",
         "eslint-config-airbnb-base": "15.0.0",
         "eslint-plugin-import": "2.29.1",
         "laravel-vite-plugin": "1.0.1",
-        "sass": "1.70.0",
+        "sass": "1.71.1",
         "stylelint-config-sass-guidelines": "11.0.0",
         "stylelint-config-standard": "36.0.0",
         "stylelint-selector-bem-pattern": "3.0.1",
         "typescript": "5.3.3",
-        "vite": "5.0.12",
+        "vite": "5.1.4",
         "vite-plugin-checker": "0.6.4"
     },
     "dependencies": {

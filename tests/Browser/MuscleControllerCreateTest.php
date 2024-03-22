@@ -846,7 +846,6 @@ class MuscleControllerCreateTest extends DuskTestCase
 
     /**
      * @throws Throwable
-     * @todo error sometimes
      */
     public function test_the_admin_muscle_create_page_show_error_for_min_light_greater_than_max_light_if_exit(): void
     {

@@ -190,7 +190,6 @@ trait Sidenav {
 
     /**
      * @throws Throwable
-     * @todo error sometimes
      */
     public function testTheAdminPageSidenavExerciseLinkWorks(): void
     {

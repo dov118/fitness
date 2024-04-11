@@ -9,24 +9,24 @@
     },
     "engineStrict": true,
     "engines": {
-        "node": "v20.11.1"
+        "node": "v20.12.2"
     },
     "devDependencies": {
         "@primer/css": "21.2.2",
         "@rollup/plugin-inject": "5.0.5",
         "@types/jquery": "3.5.29",
-        "@typescript-eslint/eslint-plugin": "7.3.1",
-        "@typescript-eslint/parser": "7.3.1",
+        "@typescript-eslint/eslint-plugin": "7.6.0",
+        "@typescript-eslint/parser": "7.6.0",
         "axios": "1.6.8",
         "eslint-config-airbnb-base": "15.0.0",
         "eslint-plugin-import": "2.29.1",
         "laravel-vite-plugin": "1.0.2",
-        "sass": "1.72.0",
+        "sass": "1.74.1",
         "stylelint-config-sass-guidelines": "11.1.0",
         "stylelint-config-standard": "36.0.0",
         "stylelint-selector-bem-pattern": "4.0.0",
-        "typescript": "5.4.3",
-        "vite": "5.2.3",
+        "typescript": "5.4.5",
+        "vite": "5.2.8",
         "vite-plugin-checker": "0.6.4"
     },
     "dependencies": {

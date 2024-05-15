@@ -18,13 +18,13 @@ jobs:
       - name: Install php
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2.17'
+          php-version: '8.2.19'
           coverage: xdebug
 
       - name: Install npm
         uses: actions/setup-node@v3.5.1
         with:
-          node-version: 20.12.2
+          node-version: 20.13.1
 
       - name: Install npm dependencies
         run: npm ci
